@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.SVGPath?>
+
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="login-window" stylesheets="@styles/default_theme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.alphasoft.pos.views.controllers.LoginFormController">
+   <children>
+      <VBox prefHeight="200.0" prefWidth="100.0" styleClass="login-window-icon-display">
+         <children>
+            <SVGPath content="M27 4.996l-22 0.004c-0.553 0-1 0.443-1 0.996v14c0 0.553 0.447 1 1 1h22c0.553 0 1-0.447 1-1v-14c0-0.553-0.447-1-1-1zM27 20h-22v-14.004h22v14.004zM29 1h-26c-1.657 0-3 1.342-3 3v20c0 1.654 1.338 2.994 2.99 2.998h10.010v1.217l-6.242 0.811c-0.446 0.111-0.758 0.511-0.758 0.97 0 0.553 0.447 1 1 1h18c0.553 0 1-0.447 1-1 0-0.459-0.312-0.859-0.758-0.971l-6.242-0.81v-1.217h10.010c1.652-0.004 2.99-1.344 2.99-2.998v-20c0-1.658-1.344-3-3-3zM30 24c0 0.551-0.449 1-1 1h-26c-0.552 0-1-0.449-1-1v-20c0-0.552 0.448-1 1-1h26c0.551 0 1 0.448 1 1v20z" />
+            <Label text="Mini POS" />
+         </children>
+      </VBox>
+      <VBox prefHeight="200.0" prefWidth="100.0" styleClass="login-form" HBox.hgrow="ALWAYS">
+         <children>
+            <Label styleClass="login-form-title" text="LOGIN" />
+            <HBox>
+               <children>
+                  <Label text="message" />
+               </children>
+            </HBox>
+            <VBox styleClass="form-input-group">
+               <children>
+                  <Label text="Login ID" />
+                  <TextField focusTraversable="false" />
+               </children>
+            </VBox>
+            <VBox styleClass="form-input-group">
+               <children>
+                  <Label text="Password" />
+                  <PasswordField focusTraversable="false" />
+               </children>
+            </VBox>
+            <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+               <children>
+                  <VBox styleClass="login-button">
+                     <children>
+                        <SVGPath content="M10 8.586l-7.071-7.071-1.414 1.414 7.071 7.071-7.071 7.071 1.414 1.414 7.071-7.071 7.071 7.071 1.414-1.414-7.071-7.071 7.071-7.071-1.414-1.414-7.071 7.071z" />
+                     </children>
+                  </VBox>
+                  <VBox styleClass="login-button">
+                     <children>
+                        <SVGPath content="M0 11l2-2 5 5 11-11 2 2-13 13z" />
+                     </children>
+                  </VBox>
+               </children>
+               <styleClass>
+                  <String fx:value="center-align" />
+                  <String fx:value="login-button-wrapper" />
+               </styleClass>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</HBox>
