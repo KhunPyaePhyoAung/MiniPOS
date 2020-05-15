@@ -11,13 +11,25 @@
 	accent-text-color:#195469;
 	accent-hover-color:#3EDADE;
 	accent-hover-text-color:#195469;
+	error-color:#88001b;
+	warning-color:#fff200;
 	
 }
+
 
 
 .label{
 	-fx-font-size:12px;
 }
+
+
+
+
+
+
+
+
+
 
 
 
@@ -49,7 +61,9 @@
 	-fx-spacing:20px;
 }
 
-
+.error-message{
+    -fx-text-fill:error-color;
+}
 
 
 
@@ -69,14 +83,14 @@
 }
 
 .login-window-icon-display SVGPath{
-	-fx-fill:secondary-color;
+	-fx-fill:primary-text-color;
 	-fx-scale-x:3;
 	-fx-scale-y:3;
 }
 
 .login-window-icon-display .label{
 	-fx-font-size:18px;
-	-fx-text-fill:secondary-color;
+	-fx-text-fill:primary-text-color;
 }
 
 .login-form{
@@ -84,19 +98,19 @@
 	-fx-padding:30px 30px;
 	-fx-spacing:20px;
 }
-
-.login-form .label{
-	-fx-text-fill:secondary-color;
+.login-form-message{
+    -fx-text-fill:error-color;
 }
 
 .login-form-title{
 	-fx-font-size:20px;
+	-fx-text-fill:primary-text-color;
 }
 
 .login-form .text-field{
 	-fx-background-color:transparent;
-	-fx-border-color:secondary-color;
-	-fx-text-fill:accent-color;
+	-fx-border-color:primary-text-color;
+	-fx-text-fill:primary-text-color;
 }
 
 .login-form .text-field:focused{
@@ -105,6 +119,10 @@
 
 .form-input-group{
 	-fx-spacing:5px;
+}
+
+.form-input-group .label{
+    -fx-text-fill:primary-text-color;
 }
 
 .login-button-wrapper{

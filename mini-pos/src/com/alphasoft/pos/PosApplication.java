@@ -11,7 +11,7 @@ import java.io.IOException;
 public class PosApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/com/alphasoft/pos/views/login_form.fxml"))));;
+        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/com/alphasoft/pos/views/login_form.fxml"))));
         stage.setResizable(false);
         stage.centerOnScreen();
         stage.initStyle(StageStyle.UNDECORATED);
