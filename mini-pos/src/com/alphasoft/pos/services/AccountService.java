@@ -5,12 +5,21 @@ import com.alphasoft.pos.models.Account;
 public class AccountService {
 
     private static AccountService accountService;
+
     private AccountService(){
 
     }
 
-    public void login(Account account){
+    public Account login(String loginId,String password){
+        Account account = new Account();
 
+
+        return account;
+    }
+
+    private Account findAccountByLoginId(){
+
+        return null;
     }
 
     public AccountService getService(){
