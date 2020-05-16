@@ -29,7 +29,8 @@ public class LoginFormController{
         try{
             Account account = AccountService.getService().login(loginIdInput.getText(),passwordInput.getText());
             Logger.getLogger().setLoggedAccount(account);
-
+            MainWindowController.show();
+            close();
         }catch (PosException exception){
             message.setText(exception.getMessage());
         }

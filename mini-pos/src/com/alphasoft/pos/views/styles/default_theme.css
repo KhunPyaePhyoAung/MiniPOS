@@ -189,7 +189,17 @@
 .navigation-icon-box:hover SVGPath,
 .navigation-icon-box:hover .label{
     -fx-fill:accent-text-color;
-    -fx-text-fill:black;
+    -fx-text-fill:accent-text-color;
+}
+
+.navigation-icon-box:focused{
+    -fx-background-color:secondary-color;
+}
+
+.navigation-icon-box:focused SVGPath,
+.navigation-icon-box:focused .label{
+    -fx-fill:secondary-text-color;
+    -fx-text-fill:secondary-text-color;
 }
 
 
