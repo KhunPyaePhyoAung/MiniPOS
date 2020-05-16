@@ -7,11 +7,10 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 public class PosApplication extends Application {
     @Override
-    public void start(Stage stage) throws IOException, SQLException {
+    public void start(Stage stage) throws IOException{
         stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/com/alphasoft/pos/views/login_form.fxml"))));
         stage.setResizable(false);
         stage.centerOnScreen();

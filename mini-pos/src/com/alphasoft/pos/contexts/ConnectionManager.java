@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class ConnectionManager {
-    private static Properties connectionProperties;
     private static String DRIVER;
     private static String URL;
     private static String USER;
@@ -16,7 +15,7 @@ public class ConnectionManager {
     static {
 
         try {
-            connectionProperties = new Properties();
+            Properties connectionProperties = new Properties();
             connectionProperties.load(ConnectionManager.class.getResourceAsStream("connection.properties"));
             DRIVER = connectionProperties.getProperty("DRIVER");
             URL = connectionProperties.getProperty("URL");
