@@ -1,5 +1,6 @@
 package com.alphasoft.pos.views.controllers;
 
+import com.alphasoft.pos.contexts.Logger;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -7,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -25,6 +27,9 @@ public class MainWindowController implements Initializable {
     @FXML
     private StackPane contentPane;
 
+    @FXML
+    private Label username;
+
 
     @FXML
     public void requestView(MouseEvent event){
@@ -37,6 +42,7 @@ public class MainWindowController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        username.setText(Logger.getLogger().getLoggedAccount().getName());
         Platform.runLater(()-> loadView("pos_home"));
     }
 
