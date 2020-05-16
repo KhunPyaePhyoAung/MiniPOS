@@ -38,8 +38,8 @@
 	-fx-alignment:center;
 }
 
-.left-center-align{
-	-fx-alignment:left-center;
+.center-left-align{
+	-fx-alignment:center-left;
 }
 
 .right-center-align{
@@ -65,6 +65,10 @@
     -fx-text-fill:error-color;
 }
 
+.node-on-primary{
+    -fx-text-fill:primary-text-color;
+    -fx-fill:primary-text-color;
+}
 
 
 
@@ -160,9 +164,39 @@
 }
 
 
+.navigation{
+    -fx-background-color:primary-color;
+}
+
+.navigation-icon-box{
+    -fx-pref-width:80px;
+    -fx-pref-height:50px;
+    -fx-alignment:center;
+    -fx-padding:5px 0px;
+    -fx-background-color:primary-color;
+}
+
+.navigation-icon-box SVGPath,
+.navigation-icon-box .label{
+    -fx-fill:primary-text-color;
+    -fx-text-fill:primary-text-color;
+}
+
+.navigation-icon-box:hover{
+    -fx-background-color:accent-color;
+}
+
+.navigation-icon-box:hover SVGPath,
+.navigation-icon-box:hover .label{
+    -fx-fill:accent-text-color;
+    -fx-text-fill:black;
+}
 
 
 
+.contact_view{
+    -fx-background-color:secondary-color;
+}
 
 
 
