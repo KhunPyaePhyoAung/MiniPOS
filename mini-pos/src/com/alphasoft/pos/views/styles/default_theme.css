@@ -1,14 +1,14 @@
 *{
-	primary-color:#195469;
+	primary-color:#333333;
 	primary-text-color:#ffffff;
-	primary-hover-color:#064F63;
+	primary-hover-color:#262626;
 	primary-hover-text-color:#ffffff;
 	secondary-color:#ffffff;
 	secondary-text-color:#000000;
 	secondary-hover-color:#c3c3c3;
 	secondary-hover-text-color:#000000;
-	accent-color:#3EF8F8;
-	accent-text-color:#195469;
+	accent-color:#E95420;
+	accent-text-color:#ffffff;
 	accent-hover-color:#3EDADE;
 	accent-hover-text-color:#195469;
 	error-color:#be0010;
@@ -145,22 +145,24 @@
 	-fx-pref-height:50px;
 	-fx-background-color:transparent;
 	-fx-background-radius:25px;
-	-fx-border-color:accent-color;
+	-fx-border-color:primary-text-color;
 	-fx-border-radius:25px;
 	-fx-alignment:center;
 }
 
 
 .login-button SVGPath{
-	-fx-fill:accent-color;
+	-fx-fill:primary-text-color;
 	-fx-scale-x:1;
 	-fx-scale-y:1;
 }
 
-.login-button:hover,
+.login-button:hover{
+    -fx-background-color:accent-color;
+}
+
 .login-button:hover SVGPath{
-	-fx-background-color:accent-color;
-	-fx-fill:accent-hover-text-color
+	-fx-fill:primary-text-color;
 }
 
 
