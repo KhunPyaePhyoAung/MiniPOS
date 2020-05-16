@@ -11,7 +11,7 @@
 	accent-text-color:#195469;
 	accent-hover-color:#3EDADE;
 	accent-hover-text-color:#195469;
-	error-color:#88001b;
+	error-color:#be0010;
 	warning-color:#fff200;
 	
 }
@@ -64,6 +64,12 @@
 .error-message{
     -fx-text-fill:error-color;
 }
+
+
+
+
+
+
 
 
 
