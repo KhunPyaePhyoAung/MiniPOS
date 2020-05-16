@@ -1,5 +1,6 @@
 package com.alphasoft.pos.services;
 
+import com.alphasoft.pos.commons.Validations;
 import com.alphasoft.pos.contexts.ConnectionManager;
 import com.alphasoft.pos.contexts.PosException;
 import com.alphasoft.pos.models.Account;
@@ -20,6 +21,9 @@ public class AccountService {
     }
 
     public Account login(String loginId,String password){
+
+        Validations.notEmptyInput(loginId,"login id");
+        Validations.notEmptyInput(password,"password");
 
         Account account = findAccountByLoginId(loginId);
         if(null == account) throw new PosException("Please enter valid login id");
