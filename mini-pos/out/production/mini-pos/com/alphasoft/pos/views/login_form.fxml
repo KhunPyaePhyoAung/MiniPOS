@@ -21,7 +21,7 @@
             <Label styleClass="login-form-title" text="LOGIN" />
             <HBox>
                <children>
-                  <Label fx:id="message" styleClass="login-form-message" text="Please enter valid Login ID" />
+                  <Label fx:id="message" styleClass="login-form-message" />
                </children>
             </HBox>
             <VBox styleClass="form-input-group">

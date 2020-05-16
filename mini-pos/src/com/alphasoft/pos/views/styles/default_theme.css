@@ -105,7 +105,7 @@
 	-fx-spacing:20px;
 }
 .login-form-message{
-    -fx-text-fill:error-color;
+    -fx-text-fill:accent-color;
 }
 
 .login-form-title{
