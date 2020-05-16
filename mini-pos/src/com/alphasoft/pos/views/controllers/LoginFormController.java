@@ -1,5 +1,7 @@
 package com.alphasoft.pos.views.controllers;
 
+import com.alphasoft.pos.models.Account;
+import com.alphasoft.pos.services.AccountService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -23,6 +25,7 @@ public class LoginFormController{
 
     @FXML
     void login(MouseEvent event) {
-
+        Account account = AccountService.getService().login(loginIdInput.getText(),passwordInput.getText());
+        System.out.println(account.getName());
     }
 }

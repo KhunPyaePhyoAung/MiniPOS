@@ -1,6 +1,7 @@
 package com.alphasoft.pos.services;
 
 import com.alphasoft.pos.contexts.ConnectionManager;
+import com.alphasoft.pos.contexts.PosException;
 import com.alphasoft.pos.models.Account;
 
 import java.sql.Connection;
@@ -21,15 +22,14 @@ public class AccountService {
     public Account login(String loginId,String password){
 
         Account account = findAccountByLoginId(loginId);
-
-
-
+        if(null == account) throw new PosException("Please enter valid login id");
+        if(!account.getPassword().equals(password)) throw new PosException("Please enter correct password");
         return account;
     }
 
     private Account findAccountByLoginId(String loginId){
         try(Connection connection = ConnectionManager.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(getQuery(""))
+            PreparedStatement preparedStatement = connection.prepareStatement(getQuery("account.findByLoginId"))
         ) {
             preparedStatement.setString(1,loginId);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -52,7 +52,7 @@ public class AccountService {
         return account;
     }
 
-    public AccountService getService(){
+    public static AccountService getService(){
         if(null == accountService) accountService = new AccountService();
         return accountService;
     }

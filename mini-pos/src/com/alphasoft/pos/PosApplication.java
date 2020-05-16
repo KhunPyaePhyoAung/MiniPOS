@@ -1,6 +1,5 @@
 package com.alphasoft.pos;
 
-import com.alphasoft.pos.contexts.ConnectionManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -8,7 +7,6 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
-import java.sql.Connection;
 import java.sql.SQLException;
 
 public class PosApplication extends Application {
@@ -19,7 +17,6 @@ public class PosApplication extends Application {
         stage.centerOnScreen();
         stage.initStyle(StageStyle.UNDECORATED);
         stage.show();
-        Connection connection = ConnectionManager.getConnection();
     }
 
     public static void main(String[] args) {
