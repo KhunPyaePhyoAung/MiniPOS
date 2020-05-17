@@ -9,8 +9,8 @@
 	secondary-hover-text-color:#000000;
 	accent-color:#E95420;
 	accent-text-color:#ffffff;
-	accent-hover-color:#3EDADE;
-	accent-hover-text-color:#195469;
+	accent-hover-color:#b23205;
+	accent-hover-text-color:#dddddd;
 	error-color:#be0010;
 	warning-color:#fff200;
 	
@@ -40,9 +40,21 @@
 .button{
     -fx-font-family:Arial;
     -fx-font-size:12px;
+    -fx-background-color:accent-color;
+    -fx-background-radius:3px;
+    -fx-text-fill:accent-text-color;
+    -fx-border-color:secondary-text-color;
+    -fx-border-radius:3px;
+}
+
+.button:hover{
+    -fx-background-color:accent-hover-color;
+    -fx-text-fill:accent-hover-text-color;
 }
 
 .combo-box{
+    -fx-font-family:Arial;
+    -fx-font-size:12px;
     -fx-background-color:transparent;
     -fx-background-radius:3px;
     -fx-border-color:secondary-text-color;
@@ -52,6 +64,17 @@
 .combo-box:focused{
     -fx-border-color:accent-color;
 }
+
+FlowPane{
+    -fx-hgap:10px;
+    -fx-vgap:10px;
+    -fx-padding:10px;
+    -fx-background-color:transparent;
+}
+
+
+
+
 
 
 
@@ -125,6 +148,14 @@
 .clear-button:hover SVGPath{
     -fx-fill:accent-text-color;
 }
+
+
+
+
+
+
+
+
 
 
 
