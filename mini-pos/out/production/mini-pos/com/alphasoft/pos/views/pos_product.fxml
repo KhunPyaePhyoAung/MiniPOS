@@ -1,6 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.SVGPath?>
 
-
-<VBox id="pos_product" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="contact_view" stylesheets="@styles/default_theme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.alphasoft.pos.views.controllers.PosProductController" />
+<VBox id="pos_product" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="500.0" prefWidth="800.0" styleClass="contact_view" stylesheets="@styles/default_theme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.alphasoft.pos.views.controllers.PosProductController">
+   <children>
+      <HBox maxWidth="1.7976931348623157E308" styleClass="toolbar">
+         <children>
+            <TextField focusTraversable="false" />
+            <TextField focusTraversable="false" />
+            <VBox styleClass="clear-button">
+               <children>
+                  <SVGPath content="M14.348 14.849c-0.469 0.469-1.229 0.469-1.697 0l-2.651-3.030-2.651 3.029c-0.469 0.469-1.229 0.469-1.697 0-0.469-0.469-0.469-1.229 0-1.697l2.758-3.15-2.759-3.152c-0.469-0.469-0.469-1.228 0-1.697s1.228-0.469 1.697 0l2.652 3.031 2.651-3.031c0.469-0.469 1.228-0.469 1.697 0s0.469 1.229 0 1.697l-2.758 3.152 2.758 3.15c0.469 0.469 0.469 1.229 0 1.698z" />
+               </children>
+            </VBox>
+            <ComboBox focusTraversable="false" prefWidth="150.0" />
+            <ComboBox focusTraversable="false" prefWidth="150.0" />
+         </children>
+      </HBox>
+      <FlowPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS" />
+   </children>
+</VBox>

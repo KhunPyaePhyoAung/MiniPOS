@@ -20,11 +20,38 @@
 
 .label{
 	-fx-font-size:12px;
+	-fx-font-family:Arial;
 }
 
+.text-field{
+    -fx-background-color:transparent;
+    -fx-background-radius:3px;
+    -fx-border-color:secondary-text-color;
+    -fx-border-radius:3px;
+    -fx-text-fill:secondary-text-color;
+    -fx-font-family:Arial;
+    -fx-font-size:12px;
+}
 
+.text-field:focused{
+    -fx-border-color:accent-color;
+}
 
+.button{
+    -fx-font-family:Arial;
+    -fx-font-size:12px;
+}
 
+.combo-box{
+    -fx-background-color:transparent;
+    -fx-background-radius:3px;
+    -fx-border-color:secondary-text-color;
+    -fx-border-radius:3px;
+}
+
+.combo-box:focused{
+    -fx-border-color:accent-color;
+}
 
 
 
@@ -70,9 +97,34 @@
     -fx-fill:primary-text-color;
 }
 
+.toolbar{
+    -fx-alignment:center-left;
+    -fx-padding:10px;
+    -fx-spacing:10px;
+    -fx-background-color:transparent;
+}
 
+.clear-button{
+    -fx-pref-width:50px;
+    -fx-pref-height:25px;
+    -fx-background-color:transparent;
+    -fx-background-radius:3px;
+    -fx-border-color:secondary-text-color;
+    -fx-border-radius:3px;
+    -fx-alignment:center;
+}
 
+.clear-button SVGPath{
+    -fx-fill:secondary-text-color;
+}
 
+.clear-button:hover{
+    -fx-background-color:accent-color;
+}
+
+.clear-button:hover SVGPath{
+    -fx-fill:accent-text-color;
+}
 
 
 
@@ -121,6 +173,8 @@
 	-fx-background-color:transparent;
 	-fx-border-color:primary-text-color;
 	-fx-text-fill:primary-text-color;
+	-fx-background-radius:0px;
+	-fx-border-radius:0px;
 }
 
 .login-form .text-field:focused{
