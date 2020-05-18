@@ -1,8 +1,8 @@
 *{
-	primary-color:#333333;
+	primary-color:#353535;
 	primary-text-color:#ffffff;
-	primary-hover-color:#262626;
-	primary-hover-text-color:#ffffff;
+	primary-hover-color:#111111;
+	primary-hover-text-color:#dddddd;
 	secondary-color:#ffffff;
 	secondary-text-color:#000000;
 	secondary-hover-color:#c3c3c3;
@@ -69,9 +69,14 @@ FlowPane{
     -fx-hgap:10px;
     -fx-vgap:10px;
     -fx-padding:10px;
-    -fx-background-color:transparent;
+    -fx-background-color:secondary-color;
 }
 
+.scroll-pane{
+    -fx-fit-to-width:true;
+    -fx-fit-to-height:true;
+    -fx-background-color:secondary-color;
+}
 
 
 
@@ -295,9 +300,30 @@ FlowPane{
     -fx-background-color:secondary-color;
 }
 
+.category-card{
+    -fx-background-color:transparent;
+    -fx-border-color:secondary-text-color;
+}
 
+.category-card:hover{
+    -fx-border-color:accent-color;
+}
 
+.category-data-box{
+    -fx-background-color:primary-color;
+}
 
+.category-data-box .label{
+    -fx-text-fill:primary-text-color;
+}
+
+.category-card:hover .category-data-box{
+    -fx-background-color:accent-color;
+}
+
+.category-card:hover .category-data-box .label{
+    -fx-text-fill:accent-text-color;
+}
 
 
 

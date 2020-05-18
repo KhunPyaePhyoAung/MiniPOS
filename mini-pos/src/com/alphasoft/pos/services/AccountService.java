@@ -33,7 +33,7 @@ public class AccountService {
 
     private Account findAccountByLoginId(String loginId){
         try(Connection connection = ConnectionManager.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(getQuery("account.findByLoginId"))
+            PreparedStatement preparedStatement = connection.prepareStatement(getQuery("account.select.login_id"))
         ) {
             preparedStatement.setString(1,loginId);
             ResultSet resultSet = preparedStatement.executeQuery();
