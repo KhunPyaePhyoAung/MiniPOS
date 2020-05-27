@@ -30,6 +30,8 @@ public class MainWindowController implements Initializable {
     @FXML
     private Label username;
 
+    public static Stage mainStage;
+
 
     @FXML
     public void requestView(MouseEvent event){
@@ -66,6 +68,7 @@ public class MainWindowController implements Initializable {
         try {
             Parent view = FXMLLoader.load(PosHomeController.class.getResource("/com/alphasoft/pos/views/main_window.fxml"));
             Stage stage = new Stage();
+            mainStage = stage;
             stage.setScene(new Scene(view));
             stage.centerOnScreen();
             stage.show();
