@@ -62,10 +62,10 @@ public class PosCategoryController implements Initializable {
         );
 
         PosSorter.sort(list,sortModeSelector.getValue());
-        list.stream().map(i->new CategoryCard(i,this::showProductCategoryForm)).forEach(c->flowPane.getChildren().add(c));
+        list.stream().map(i->new CategoryCard(i,this::editProductCategory)).forEach(c->flowPane.getChildren().add(c));
     }
 
-    private void showProductCategoryForm(ProductCategory category){
+    private void editProductCategory(ProductCategory category){
 
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/alphasoft/pos/views/product_category_form.fxml"));
@@ -74,7 +74,8 @@ public class PosCategoryController implements Initializable {
             controller.setData(category);
             PosWindowStage stage = new PosWindowStage(MainWindowController.mainStage);
             stage.setScene(new Scene(view));
-            stage.show();
+            stage.showAndWait();
+            loadData();
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -52,9 +52,33 @@ public class ProductCategoryService {
         }
     }
 
+    public void updateCategory(int id,String name,File imageFile){
+        canUpdate(id,name);
+        List<Object> params = new ArrayList<>();
+        StringBuilder sb = new StringBuilder(getQuery("category.update"));
+        sb.append(" name=?");
+        params.add(name);
+        if(null!=imageFile){
+            sb.append(",image=?");
+            params.add(ImageHelper.fileToInputStream(imageFile));
+        }
+        sb.append(" where id=?");
+        params.add(id);
+        try(Connection connection = ConnectionManager.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sb.toString())
+        ) {
+            for(int i = 0;i<params.size();i++){
+                preparedStatement.setObject(i+1,params.get(i));
+            }
+            preparedStatement.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
     private void canInsert(String name){
         try(Connection connection = ConnectionManager.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(getQuery("category.find.name"))
+            PreparedStatement preparedStatement = connection.prepareStatement(getQuery("category.find.canInsert"))
             ) {
                preparedStatement.setString(1,name);
                ResultSet resultSet = preparedStatement.executeQuery();
@@ -65,6 +89,22 @@ public class ProductCategoryService {
         } catch (SQLException throwable) {
             throwable.printStackTrace();
         }
+    }
+
+    private void canUpdate(int id,String name){
+        try(Connection connection = ConnectionManager.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(getQuery("category.find.canUpdate"))
+        ) {
+            preparedStatement.setString(1,name);
+            preparedStatement.setInt(2,id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if(resultSet.next()){
+                throw new PosException("Item with this name already exists");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
     }
 
     public static ProductCategoryService getService(){

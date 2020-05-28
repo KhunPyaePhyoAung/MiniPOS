@@ -58,17 +58,20 @@ public class ProductCategoryFormController implements Initializable {
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image","*.jpg","*.png","*.jpeg"));
         File file = fileChooser.showOpenDialog(MainWindowController.mainStage);
         if(null!=file){
-            Image image = new Image(ImageHelper.fileToInputStream(file));
+            Image image = new Image(Objects.requireNonNull(ImageHelper.fileToInputStream(file)));
             if(image.getWidth()==image.getHeight()){
                 imageFile = file;
-                imageView.setImage(new Image(ImageHelper.fileToInputStream(imageFile)));
+                imageView.setImage(new Image(Objects.requireNonNull(ImageHelper.fileToInputStream(imageFile))));
             }else {
                 message.setText("Image scale must be 1:1");
+                imageFile=null;
                 imageView.setImage(null);
             }
 
         }
-
+        if(null!=category){
+            toggleUpdateButton();
+        }
     }
 
     @Override
@@ -79,6 +82,8 @@ public class ProductCategoryFormController implements Initializable {
                 mainButtonBox.getChildren().addAll(addButton);
             }else{
                 mainButtonBox.getChildren().addAll(deleteButton,updateButton);
+                categoryNameInput.textProperty().addListener((l,o,n)->toggleUpdateButton());
+                toggleUpdateButton();
             }
         });
     }
@@ -98,6 +103,23 @@ public class ProductCategoryFormController implements Initializable {
                 message.setText(exception.getMessage());
             }
         });
+        updateButton.setOnAction(e->{
+            try{
+                Validations.notEmptyInput(categoryNameInput.getText().trim(),"category name");
+                if(null==imageView.getImage()){
+                    Validations.notNull(imageFile,"No image selected");
+                }
+
+                ProductCategoryService.getService().updateCategory(category.getId(),categoryNameInput.getText().trim(),imageFile);
+                close();
+            }catch (PosException exception){
+                message.setText(exception.getMessage());
+            }
+        });
+    }
+
+    private void toggleUpdateButton(){
+        updateButton.setDisable((imageFile==null && category.getName().contentEquals(categoryNameInput.getText().trim())));
     }
 
     private void close(){
