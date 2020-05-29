@@ -59,6 +59,11 @@
     -fx-background-radius:3px;
     -fx-border-color:secondary-text-color;
     -fx-border-radius:3px;
+    -fx-selection-bar:accent-color;
+}
+
+.combo-box .list-view .list-cell:selected{
+    -fx-background-color:accent-hover-color;
 }
 
 .combo-box:focused{
@@ -132,6 +137,19 @@ FlowPane{
     -fx-background-color:transparent;
 }
 
+.title-bar{
+    -fx-padding:15px;
+    -fx-alignment:center-left;
+    -fx-padding:15px;
+    -fx-background-color:primary-color;
+}
+
+.title-bar .label{
+    -fx-font-size:16px;
+    -fx-font-weight:bold;
+    -fx-text-fill:primary-text-color;
+}
+
 .clear-button{
     -fx-pref-width:50px;
     -fx-pref-height:25px;
@@ -153,6 +171,17 @@ FlowPane{
 .clear-button:hover SVGPath{
     -fx-fill:accent-text-color;
 }
+
+.medium-button-wrapper{
+    -fx-alignment:center;
+    -fx-padding:20px;
+    -fx-spacing:10px;
+}
+.medium-button-wrapper .button{
+    -fx-pref-width:80px;
+    -fx-pref-height:50px;
+}
+
 
 
 
@@ -325,10 +354,17 @@ FlowPane{
     -fx-text-fill:accent-text-color;
 }
 
+.product_category_form{
+    -fx-pref-width:500px;
+    -fx-pref-height:350px;
+    -fx-border-color:primary-color;
+    -fx-background-color:secondary-color;
+}
 
-
-
-
+.image-border{
+    -fx-border-width:1px;
+    -fx-border-color:accent-color;
+}
 
 
 

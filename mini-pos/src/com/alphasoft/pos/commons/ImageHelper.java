@@ -19,6 +19,7 @@ public class ImageHelper {
         return null;
     }
 
+
     public static InputStream blobToInputStream(Blob blob){
         try {
             return blob.getBinaryStream();
