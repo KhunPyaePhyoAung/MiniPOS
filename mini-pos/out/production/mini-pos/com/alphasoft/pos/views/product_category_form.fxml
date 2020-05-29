@@ -9,51 +9,51 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
+
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="product_category_form" stylesheets="@styles/default_theme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.alphasoft.pos.views.controllers.ProductCategoryFormController">
-   <children>
-      <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="title-bar">
-         <children>
-            <Label text="Add new category" />
-         </children>
-      </HBox>
-      <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-         <children>
-            <VBox prefHeight="200.0" prefWidth="100.0">
-               <children>
-                  <StackPane styleClass="image-border">
-                     <children>
-                        <Label text="no image" />
-                        <ImageView fx:id="imageView" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" />
-                     </children>
-                  </StackPane>
-                  <Button focusTraversable="false" mnemonicParsing="false" onAction="#chooseImage" text="Choose Image" />
-               </children>
-               <styleClass>
-                  <String fx:value="center-align" />
-                  <String fx:value="large-wrapper" />
-               </styleClass>
-            </VBox>
-            <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
-               <children>
-                  <VBox VBox.vgrow="ALWAYS">
-                     <children>
-                        <Label text="Category Name" />
-                        <TextField fx:id="categoryNameInput" focusTraversable="false" />
-                        <Label fx:id="message" styleClass="error-message" />
-                     </children>
-                     <styleClass>
-                        <String fx:value="center-left-align" />
+    <children>
+        <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="title-bar">
+            <children>
+                <Label text="Add new category" />
+            </children>
+        </HBox>
+        <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+            <children>
+                <VBox prefHeight="200.0" prefWidth="100.0">
+                    <children>
+                        <StackPane styleClass="image-border">
+                            <children>
+                                <Label text="no image" />
+                                <ImageView fx:id="imageView" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" />
+                            </children>
+                        </StackPane>
+                        <Button focusTraversable="false" mnemonicParsing="false" onAction="#chooseImage" text="Choose Image" />
+                    </children>
+                    <styleClass>
+                        <String fx:value="center-align" />
                         <String fx:value="large-wrapper" />
-                     </styleClass>
-                  </VBox>
-                  <HBox fx:id="mainButtonBox" prefHeight="100.0" prefWidth="200.0" styleClass="medium-button-wrapper">
-                     <children>
-                        <Button focusTraversable="false" mnemonicParsing="false" onAction="#cancel" text="Cancel" />
-                     </children>
-                  </HBox>
-               </children>
-            </VBox>
-         </children>
-      </HBox>
-   </children>
+                    </styleClass>
+                </VBox>
+                <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                    <children>
+                        <VBox VBox.vgrow="ALWAYS">
+                            <children>
+                                <Label text="Category Name" />
+                                <TextField fx:id="categoryNameInput" focusTraversable="false" />
+                            </children>
+                            <styleClass>
+                                <String fx:value="center-left-align" />
+                                <String fx:value="large-wrapper" />
+                            </styleClass>
+                        </VBox>
+                        <HBox fx:id="mainButtonBox" prefHeight="100.0" prefWidth="200.0" styleClass="medium-button-wrapper">
+                            <children>
+                                <Button focusTraversable="false" mnemonicParsing="false" onAction="#cancel" text="Cancel" />
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
+    </children>
 </VBox>

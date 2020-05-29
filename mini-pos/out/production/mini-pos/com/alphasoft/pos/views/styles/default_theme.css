@@ -378,6 +378,7 @@ FlowPane{
     -fx-fill:secondary-text-color;
     -fx-font-family:Arial;
     -fx-font-size:14px;
+    -fx-line-spacing:5px;
 }
 
 

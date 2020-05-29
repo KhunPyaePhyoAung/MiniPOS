@@ -10,7 +10,6 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -30,8 +29,6 @@ public class ProductCategoryFormController implements Initializable {
     @FXML
     private TextField categoryNameInput;
 
-    @FXML
-    private Label message;
 
     @FXML
     private HBox mainButtonBox;
@@ -41,6 +38,7 @@ public class ProductCategoryFormController implements Initializable {
     private Button deleteButton,addButton,updateButton;
 
     private File imageFile;
+
 
     public void setData(ProductCategory category){
         this.category = category;
@@ -55,23 +53,21 @@ public class ProductCategoryFormController implements Initializable {
 
     @FXML
     void chooseImage() {
-        message.setText(null);
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image","*.jpg","*.png","*.jpeg"));
         File file = fileChooser.showOpenDialog(MainWindowController.mainStage);
-        AlertBox alertBox = new AlertBox((Stage)imageView.getScene().getWindow());
-        alertBox.setTitle("Choose Image");
-        alertBox.setContentText(file.toString());
-        alertBox.show();
         if(null!=file){
             Image image = new Image(Objects.requireNonNull(ImageHelper.fileToInputStream(file)));
             if(image.getWidth()==image.getHeight()){
                 imageFile = file;
                 imageView.setImage(new Image(Objects.requireNonNull(ImageHelper.fileToInputStream(imageFile))));
             }else {
-                message.setText("Image scale must be 1:1");
                 imageFile=null;
                 imageView.setImage(null);
+                AlertBox alertBox = new AlertBox((Stage)imageView.getScene().getWindow());
+                alertBox.setTitle("Invalid Image");
+                alertBox.setContentText("Image must be square");
+                alertBox.show();
             }
 
         }
@@ -106,7 +102,10 @@ public class ProductCategoryFormController implements Initializable {
                 ProductCategoryService.getService().addCategory(categoryNameInput.getText().trim(),imageFile);
                 close();
             }catch (PosException exception){
-                message.setText(exception.getMessage());
+                AlertBox alertBox = new AlertBox((Stage)imageView.getScene().getWindow());
+                alertBox.setTitle("Action cannot be completed");
+                alertBox.setContentText(exception.getMessage());
+                alertBox.show();
             }
         });
         updateButton.setOnAction(e->{
@@ -119,7 +118,10 @@ public class ProductCategoryFormController implements Initializable {
                 ProductCategoryService.getService().updateCategory(category.getId(),categoryNameInput.getText().trim(),imageFile);
                 close();
             }catch (PosException exception){
-                message.setText(exception.getMessage());
+                AlertBox alertBox = new AlertBox((Stage)imageView.getScene().getWindow());
+                alertBox.setTitle("Action cannot be completed");
+                alertBox.setContentText(exception.getMessage());
+                alertBox.show();
             }
         });
     }
