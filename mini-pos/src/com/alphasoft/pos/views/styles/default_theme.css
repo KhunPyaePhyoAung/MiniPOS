@@ -367,7 +367,19 @@ FlowPane{
 }
 
 
-
+.alert-box{
+    -fx-pref-width:400px;
+    -fx-pref-height:250px;
+    -fx-background-color:secondary-color;
+    -fx-border-width:1px;
+    -fx-border-color:primary-color;
+}
+.alert-box Text{
+    -fx-fill:secondary-text-color;
+    -fx-font-family:Arial;
+    -fx-font-size:14px;
+    -fx-line-spacing:5px;
+}
 
 
 

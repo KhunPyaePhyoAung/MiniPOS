@@ -5,6 +5,7 @@ import com.alphasoft.pos.commons.Validations;
 import com.alphasoft.pos.contexts.PosException;
 import com.alphasoft.pos.models.ProductCategory;
 import com.alphasoft.pos.services.ProductCategoryService;
+import com.alphasoft.pos.views.customs.AlertBox;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -15,6 +16,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.net.URL;
@@ -57,6 +59,10 @@ public class ProductCategoryFormController implements Initializable {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image","*.jpg","*.png","*.jpeg"));
         File file = fileChooser.showOpenDialog(MainWindowController.mainStage);
+        AlertBox alertBox = new AlertBox((Stage)imageView.getScene().getWindow());
+        alertBox.setTitle("Choose Image");
+        alertBox.setContentText(file.toString());
+        alertBox.show();
         if(null!=file){
             Image image = new Image(Objects.requireNonNull(ImageHelper.fileToInputStream(file)));
             if(image.getWidth()==image.getHeight()){
