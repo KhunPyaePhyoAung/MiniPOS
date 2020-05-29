@@ -7,20 +7,11 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="JavaFX-11" level="application" />
+    <orderEntry type="library" exported="" name="javafx-11" level="application" />
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../../Intellij Projects/Library Projects/AlphasoftLib/out/artifacts/AlphasoftLib_jar/AlphasoftLib.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../../JavaLibrary/mysql-connector-java-5.1.44.jar!/" />
+          <root url="jar:///usr/lib/mysql-connector/mysql-connector-java-5.1.49.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
