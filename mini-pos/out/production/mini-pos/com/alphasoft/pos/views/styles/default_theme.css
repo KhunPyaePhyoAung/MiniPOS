@@ -59,6 +59,11 @@
     -fx-background-radius:3px;
     -fx-border-color:secondary-text-color;
     -fx-border-radius:3px;
+    -fx-selection-bar:accent-color;
+}
+
+.combo-box .list-view .list-cell:selected{
+    -fx-background-color:accent-hover-color;
 }
 
 .combo-box:focused{

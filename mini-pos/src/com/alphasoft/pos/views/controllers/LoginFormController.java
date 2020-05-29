@@ -5,11 +5,16 @@ import com.alphasoft.pos.contexts.PosException;
 import com.alphasoft.pos.models.Account;
 import com.alphasoft.pos.services.AccountService;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 
-public class LoginFormController{
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class LoginFormController implements Initializable {
     @FXML
     private Label message;
 
@@ -35,5 +40,20 @@ public class LoginFormController{
             message.setText(exception.getMessage());
         }
 
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        loginIdInput.requestFocus();
+        loginIdInput.setOnKeyReleased(e->{
+            if(e.getCode()== KeyCode.ENTER){
+                passwordInput.requestFocus();
+            }
+        });
+        passwordInput.setOnKeyReleased(e->{
+            if(e.getCode()==KeyCode.ENTER){
+                login();
+            }
+        });
     }
 }
