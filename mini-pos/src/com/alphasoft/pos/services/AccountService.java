@@ -41,6 +41,7 @@ public class AccountService {
                 return getAccount(resultSet);
             }
         } catch (SQLException throwables) {
+            System.out.println(throwables.getSQLState());
             throwables.printStackTrace();
         }
         return null;

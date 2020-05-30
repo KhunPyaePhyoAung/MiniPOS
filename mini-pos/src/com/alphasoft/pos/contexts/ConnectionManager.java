@@ -27,7 +27,15 @@ public class ConnectionManager {
         }
     }
 
-    public static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(URL,USER,PASSWORD);
+    public static Connection getConnection(){
+        Connection connection=null;
+        try{
+            connection = DriverManager.getConnection(URL,USER,PASSWORD);
+        }catch (SQLException e){
+            if(e.getSQLState().equals("08S01"))
+                throw new PosConnectionException("Cannot connect to the server");
+        }
+        return connection;
+
     }
 }
