@@ -13,7 +13,7 @@
 	accent-hover-text-color:#dddddd;
 	error-color:#be0010;
 	warning-color:#fff200;
-	
+	red:#dd1111;
 }
 
 
@@ -323,7 +323,15 @@ FlowPane{
     -fx-text-fill:secondary-text-color;
 }
 
+.exit-button{
+    -fx-background-color:transparent;
+    -fx-background-radius:3px;
+    -fx-padding:3px;
+}
 
+.exit-button:hover{
+    -fx-background-color:red;
+}
 
 .contact_view{
     -fx-background-color:secondary-color;
@@ -368,8 +376,8 @@ FlowPane{
 
 
 .alert-box{
-    -fx-pref-width:400px;
-    -fx-pref-height:250px;
+    -fx-pref-width:350px;
+    -fx-pref-height:200px;
     -fx-background-color:secondary-color;
     -fx-border-width:1px;
     -fx-border-color:primary-color;
