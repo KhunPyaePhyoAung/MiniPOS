@@ -64,6 +64,10 @@ public class MainWindowController implements Initializable {
         contentPane.getChildren().clear();
         contentPane.getChildren().add(view);
         navigationBar.getChildren().stream().filter(b->b.getId().equals(view.getId())).forEach(Node::requestFocus);
+        navigationBar.getChildren().stream().filter(b->b instanceof VBox).forEach(b->{
+                                                                                        b.getStyleClass().retainAll("navigation-icon-box");
+                                                                                        if(b.getId().equals(view.getId())) b.getStyleClass().add("navigation-icon-box-active");
+                                                                                    });
     }
 
     public static void show(){

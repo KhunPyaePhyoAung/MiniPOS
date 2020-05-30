@@ -313,12 +313,12 @@ FlowPane{
     -fx-text-fill:accent-text-color;
 }
 
-.navigation-icon-box:focused{
+.navigation-icon-box-active{
     -fx-background-color:secondary-color;
 }
 
-.navigation-icon-box:focused SVGPath,
-.navigation-icon-box:focused .label{
+.navigation-icon-box-active SVGPath,
+.navigation-icon-box-active .label{
     -fx-fill:secondary-text-color;
     -fx-text-fill:secondary-text-color;
 }
