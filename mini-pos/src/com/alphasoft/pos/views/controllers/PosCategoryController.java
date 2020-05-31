@@ -1,5 +1,6 @@
 package com.alphasoft.pos.views.controllers;
 
+import com.alphasoft.pos.commons.AutoCompleteTextField;
 import com.alphasoft.pos.commons.PosSorter;
 import com.alphasoft.pos.models.ProductCategory;
 import com.alphasoft.pos.services.ProductCategoryService;
@@ -33,10 +34,13 @@ public class PosCategoryController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        AutoCompleteTextField.attach(categoryNameInput,ProductCategoryService.getService()::searchCategories,this::loadData);
         sortModeSelector.getItems().addAll(PosSorter.Mode.values());
         sortModeSelector.getSelectionModel().selectFirst();
         sortModeSelector.getSelectionModel().selectedItemProperty().addListener((l,o,n)->loadData());
-        categoryNameInput.textProperty().addListener((l,o,n)->loadData());
+        categoryNameInput.textProperty().addListener((l,o,n)->{
+            if(n.isEmpty()) loadData();
+        });
         loadData();
     }
 
@@ -54,12 +58,17 @@ public class PosCategoryController implements Initializable {
         categoryNameInput.clear();
     }
 
+    private void loadData(ProductCategory productCategory){
+        loadData();
+    }
+
     private void loadData(){
         flowPane.getChildren().clear();
         List<ProductCategory> list = ProductCategoryService.getService().getAllCategories();
-        list.retainAll(
-                list.stream().filter(i->i.getName().toLowerCase().contains(categoryNameInput.getText().trim().toLowerCase())).collect(Collectors.toList())
-        );
+        if(!categoryNameInput.getText().trim().isEmpty())
+            list.retainAll(
+                list.stream().filter(i->i.getName().toLowerCase().equals(categoryNameInput.getText().trim().toLowerCase())).collect(Collectors.toList())
+            );
 
         PosSorter.sort(list,sortModeSelector.getValue());
         list.stream().map(i->new CategoryCard(i,this::editProductCategory)).forEach(c->flowPane.getChildren().add(c));

@@ -9,6 +9,7 @@ import java.io.File;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.alphasoft.pos.contexts.SqlHelper.getQuery;
 
@@ -17,6 +18,10 @@ public class ProductCategoryService {
 
     private ProductCategoryService(){
 
+    }
+
+    public List<ProductCategory> searchCategories(String name){
+        return getAllCategories().stream().filter(i->i.getName().toLowerCase().startsWith(name.toLowerCase())).limit(10).collect(Collectors.toList());
     }
 
     public List<ProductCategory> getAllCategories(){
