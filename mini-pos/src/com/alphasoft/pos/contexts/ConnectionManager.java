@@ -32,8 +32,7 @@ public class ConnectionManager {
         try{
             connection = DriverManager.getConnection(URL,USER,PASSWORD);
         }catch (SQLException e){
-            if(e.getSQLState().equals("08S01"))
-                throw new PosConnectionException("Cannot connect to the server");
+            throw new PosConnectionException("Cannot connect to the server");
         }
         return connection;
 
