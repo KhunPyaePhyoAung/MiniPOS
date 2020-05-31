@@ -182,6 +182,17 @@ FlowPane{
     -fx-pref-height:50px;
 }
 
+.small-button-wrapper{
+    -fx-alignment:center;
+    -fx-padding:15px;
+    -fx-spacing:10px;
+}
+
+.small-button-wrapper .button{
+    -fx-pref-width:80px;
+    -fx-pref-height:30px;
+}
+
 
 
 
@@ -387,6 +398,7 @@ FlowPane{
     -fx-font-family:Arial;
     -fx-font-size:14px;
     -fx-line-spacing:5px;
+    -fx-text-alignment:center;
 }
 
 

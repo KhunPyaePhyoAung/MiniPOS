@@ -6,6 +6,7 @@ import com.alphasoft.pos.contexts.PosException;
 import com.alphasoft.pos.models.Account;
 import com.alphasoft.pos.services.AccountService;
 import com.alphasoft.pos.views.customs.AlertBox;
+import com.alphasoft.pos.views.customs.ConfirmBox;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;

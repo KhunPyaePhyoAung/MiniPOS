@@ -28,7 +28,7 @@ public class ConnectionManager {
     }
 
     public static Connection getConnection(){
-        Connection connection=null;
+        Connection connection;
         try{
             connection = DriverManager.getConnection(URL,USER,PASSWORD);
         }catch (SQLException e){
