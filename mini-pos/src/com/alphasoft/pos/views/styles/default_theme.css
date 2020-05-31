@@ -83,6 +83,20 @@ FlowPane{
     -fx-background-color:secondary-color;
 }
 
+.context-menu{
+    -fx-selection-bar:accent-color;
+    -fx-background-color:secondary-color;
+}
+
+.context-menu .menu-item .label{
+    -fx-text-fill:secondary-text-color;
+}
+
+.context-menu .menu-item:focused .label{
+    -fx-text-fill:accent-text-color;
+}
+
+
 
 
 

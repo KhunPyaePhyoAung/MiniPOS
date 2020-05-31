@@ -59,6 +59,8 @@ public class PosCategoryController implements Initializable {
     }
 
     private void loadData(ProductCategory productCategory){
+        categoryNameInput.setText(productCategory.getName());
+        categoryNameInput.positionCaret(categoryNameInput.getText().length());
         loadData();
     }
 

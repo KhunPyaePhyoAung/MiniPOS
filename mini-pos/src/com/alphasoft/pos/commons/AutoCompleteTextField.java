@@ -13,10 +13,8 @@ public class AutoCompleteTextField {
     public static <T> void attach(TextField textField, Function<String, List<T>> searcher, Consumer<T> consumer,int suggestStartLength){
         ContextMenu suggestionMenu = new ContextMenu();
 
-        textField.widthProperty().addListener((l,o,n)-> suggestionMenu.setStyle(String.format("-fx-pref-width:%f",n)));
+        textField.widthProperty().addListener((l,o,n)-> suggestionMenu.setStyle(String.format("-fx-pref-width:%f",n.doubleValue())));
         Consumer<T> executor = s->{
-            textField.setText(s.toString());
-            textField.positionCaret(s.toString().length());
             if(null!=consumer){
                 consumer.accept(s);
             }
