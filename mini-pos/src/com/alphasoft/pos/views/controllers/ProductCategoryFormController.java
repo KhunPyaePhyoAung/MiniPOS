@@ -10,6 +10,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -28,6 +29,9 @@ public class ProductCategoryFormController implements Initializable {
 
     @FXML
     private TextField categoryNameInput;
+
+    @FXML
+    private Label title;
 
 
     @FXML
@@ -81,8 +85,10 @@ public class ProductCategoryFormController implements Initializable {
         setupButton();
         Platform.runLater(()->{
             if(null==category){
+                title.setText("Add new category");
                 mainButtonBox.getChildren().addAll(addButton);
             }else{
+                title.setText("Edit category");
                 mainButtonBox.getChildren().addAll(deleteButton,updateButton);
                 categoryNameInput.textProperty().addListener((l,o,n)->toggleUpdateButton());
                 toggleUpdateButton();

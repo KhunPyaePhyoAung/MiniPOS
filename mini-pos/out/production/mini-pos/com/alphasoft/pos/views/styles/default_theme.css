@@ -340,6 +340,10 @@ FlowPane{
 }
 
 .navigation-icon-box-active{
+    -fx-pref-width:80px;
+    -fx-pref-height:50px;
+    -fx-alignment:center;
+    -fx-padding:5px 0px;
     -fx-background-color:secondary-color;
 }
 
@@ -349,15 +353,6 @@ FlowPane{
     -fx-text-fill:secondary-text-color;
 }
 
-.navigation-icon-box-active:hover{
-    -fx-background-color:secondary-color;
-}
-
-.navigation-icon-box-active:hover SVGPath,
-.navigation-icon-box-active:hover .label{
-    -fx-fill:secondary-text-color;
-    -fx-text-fill:secondary-text-color;
-}
 
 .exit-button{
     -fx-background-color:transparent;

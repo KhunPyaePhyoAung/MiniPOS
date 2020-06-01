@@ -9,12 +9,11 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="product_category_form" stylesheets="@styles/default_theme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.alphasoft.pos.views.controllers.ProductCategoryFormController">
     <children>
         <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="title-bar">
             <children>
-                <Label text="Add new category" />
+                <Label fx:id="title" />
             </children>
         </HBox>
         <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
