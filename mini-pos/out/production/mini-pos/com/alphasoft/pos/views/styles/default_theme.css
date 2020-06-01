@@ -349,6 +349,16 @@ FlowPane{
     -fx-text-fill:secondary-text-color;
 }
 
+.navigation-icon-box-active:hover{
+    -fx-background-color:secondary-color;
+}
+
+.navigation-icon-box-active:hover SVGPath,
+.navigation-icon-box-active:hover .label{
+    -fx-fill:secondary-text-color;
+    -fx-text-fill:secondary-text-color;
+}
+
 .exit-button{
     -fx-background-color:transparent;
     -fx-background-radius:3px;
