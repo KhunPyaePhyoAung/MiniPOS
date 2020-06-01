@@ -21,7 +21,7 @@ public class ProductCategoryService {
     }
 
     public List<ProductCategory> searchCategories(String name){
-        return getAllCategories().stream().filter(i->i.getName().toLowerCase().startsWith(name.toLowerCase())).limit(10).collect(Collectors.toList());
+        return getAllCategories().stream().filter(i->i.getName().toLowerCase().contains(name.toLowerCase())).limit(10).collect(Collectors.toList());
     }
 
     public List<ProductCategory> getAllCategories(){

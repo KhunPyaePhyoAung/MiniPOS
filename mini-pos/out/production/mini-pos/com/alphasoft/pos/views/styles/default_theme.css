@@ -86,6 +86,7 @@ FlowPane{
 .context-menu{
     -fx-selection-bar:accent-color;
     -fx-background-color:secondary-color;
+    -fx-border-color:primary-color;
 }
 
 .context-menu .menu-item .label{
