@@ -72,6 +72,7 @@ public class PosProductController implements Initializable {
         productList.retainAll(productList.stream()
                 .filter(i->i.getName().toLowerCase().contains(productNameInput.getText().trim().toLowerCase()))
                 .collect(Collectors.toList()));
+        ProductFilter.getFilter().filter(productList,showModeSelector.getSelectionModel().getSelectedItem());
         productList.stream().map(i->new ProductCard(i,this::editProduct)).forEach(i->flowPane.getChildren().add(i));
     }
 
@@ -87,6 +88,7 @@ public class PosProductController implements Initializable {
     private void setupSelector(){
         showModeSelector.getItems().addAll(ProductFilter.Mode.values());
         showModeSelector.getSelectionModel().selectFirst();
+        showModeSelector.getSelectionModel().selectedItemProperty().addListener((l,o,n)->loadData());
         sortModeSelector.getItems().addAll(PosSorter.Mode.values());
         sortModeSelector.getSelectionModel().selectFirst();
     }
