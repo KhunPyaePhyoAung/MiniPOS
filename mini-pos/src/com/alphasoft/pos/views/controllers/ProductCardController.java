@@ -26,15 +26,11 @@ public class ProductCardController {
     private Label price;
 
     public void setProduct(Product product){
-        String unavailableStyle = "-fx-text-fill:#dd1111";
         imageView.setImage(new Image(ImageHelper.blobToInputStream(product.getImageBlob())));
         productName.setText(product.getName());
         categoryName.setText(product.getCategoryName());
         price.setText(String.valueOf(product.getPrice()));
-        if(!product.isAvailable()){
-            product_card.getStyleClass().remove("product_card");
-            product_card.getStyleClass().add("product_card_deactivate");
-        }
+        product_card.getStyleClass().add(product.isAvailable()? "product_card_available":"product_card_unavailable");
     }
 
 }
