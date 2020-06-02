@@ -422,6 +422,47 @@ FlowPane{
 }
 
 
+.product_card{
+    -fx-pref-width:230px;
+    -fx-pref-height:80px;
+    -fx-border-width:2px;
+    -fx-border-color:secondary-text-color;
+    -fx-alignment:center-left;
+    -fx-background-color:secondary-color;
+}
+
+.product_card:hover{
+    -fx-scale-x:1.02;
+    -fx-scale-y:1.02;
+}
+
+.product_card_deactivate{
+    -fx-pref-width:230px;
+    -fx-pref-height:80px;
+    -fx-border-width:2px;
+    -fx-border-color:red;
+    -fx-alignment:center-left;
+    -fx-background-color:secondary-color;
+}
+
+.product_card_deactivate .label{
+    -fx-text-fill:red;
+}
+
+.product_card_deactivate:hover{
+    -fx-scale-x:1.02;
+    -fx-scale-y:1.02;
+}
+
+
+
+.product_card_data_box{
+    -fx-alignment:center-left;
+    -fx-padding:5px;
+    -fx-spacing:5px;
+}
+
+
 
 
 

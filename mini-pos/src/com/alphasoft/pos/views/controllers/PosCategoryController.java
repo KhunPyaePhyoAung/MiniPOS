@@ -1,7 +1,7 @@
 package com.alphasoft.pos.views.controllers;
 
 import com.alphasoft.pos.commons.AutoCompleteTextField;
-import com.alphasoft.pos.commons.PosSorter;
+import com.alphasoft.pos.contexts.PosSorter;
 import com.alphasoft.pos.models.ProductCategory;
 import com.alphasoft.pos.services.ProductCategoryService;
 import com.alphasoft.pos.views.customs.CategoryCard;

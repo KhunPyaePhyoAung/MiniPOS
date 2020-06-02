@@ -20,7 +20,7 @@ public class AutoCompleteTextField {
             }
             suggestionMenu.hide();
         };
-        textField.focusedProperty().addListener((l,o,n)->suggestionMenu.hide());
+
         textField.textProperty().addListener((l,o,n)->{
             suggestionMenu.getItems().clear();
             if(textField.getText().length() >= suggestStartLength){

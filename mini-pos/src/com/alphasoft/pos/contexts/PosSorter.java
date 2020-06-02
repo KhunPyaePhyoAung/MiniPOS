@@ -1,4 +1,4 @@
-package com.alphasoft.pos.commons;
+package com.alphasoft.pos.contexts;
 
 import java.util.Comparator;
 import java.util.List;
