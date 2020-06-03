@@ -3,6 +3,7 @@ package com.alphasoft.pos.views.controllers;
 import com.alphasoft.pos.commons.AutoCompleteTextField;
 import com.alphasoft.pos.contexts.ProductFilter;
 import com.alphasoft.pos.contexts.ProductSorter;
+import com.alphasoft.pos.factories.ProductFilterFactory;
 import com.alphasoft.pos.factories.ProductSorterFactory;
 import com.alphasoft.pos.models.Product;
 import com.alphasoft.pos.models.ProductCategory;
@@ -73,7 +74,7 @@ public class PosProductController implements Initializable {
         productList.retainAll(productList.stream()
                 .filter(i->i.getName().toLowerCase().contains(productNameInput.getText().trim().toLowerCase()))
                 .collect(Collectors.toList()));
-        ProductFilter.getFilter().filter(productList,showModeSelector.getSelectionModel().getSelectedItem());
+        ProductFilterFactory.getFactory().getFilter(showModeSelector.getSelectionModel().getSelectedItem()).filter(productList);
         ProductSorterFactory.getFactory().getSorter(sortModeSelector.getSelectionModel().getSelectedItem()).sort(productList);
         productList.stream().map(i->new ProductCard(i,this::editProduct)).forEach(i->flowPane.getChildren().add(i));
     }
