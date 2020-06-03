@@ -5,9 +5,9 @@ import com.alphasoft.pos.models.Product;
 import java.util.List;
 
 public interface ProductFilter {
-    public void filter(List<Product> productList);
+    void filter(List<Product> productList);
 
-    public enum Mode{
+    enum Mode{
         ALL("All"),AVAILABLE("Available"),UNAVAILABLE("Unavailable");
         private final String value;
         Mode(String value){

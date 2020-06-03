@@ -6,21 +6,14 @@ public class ProductSorterFactory {
     private static ProductSorterFactory factory;
 
     public ProductSorter getSorter(ProductSorter.Mode mode){
-        ProductSorter productSorter =null;
         switch (mode){
-            case NAME_ASCENDING:
-                productSorter = new ProductNameAscendingSorter();
-                break;
-            case NAME_DESCENDING:
-                productSorter =  new ProductNameDescendingSorter();
-                break;
-            case PRICE_ASCENDING:
-                productSorter = new ProductPriceAscendingSorter();
-                break;
-            case PRICE_DESCENDING:
-                productSorter = new ProductPriceDescendingSorter();
+            case NAME_ASCENDING:return new ProductNameAscendingSorter();
+            case NAME_DESCENDING:return new ProductNameDescendingSorter();
+            case PRICE_ASCENDING:return new ProductPriceAscendingSorter();
+            case PRICE_DESCENDING:return new ProductPriceDescendingSorter();
+            default:return null;
         }
-        return productSorter;
+
     }
     public static ProductSorterFactory getFactory(){
         if(null==factory) factory = new ProductSorterFactory();
