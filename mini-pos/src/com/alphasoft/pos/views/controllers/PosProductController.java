@@ -1,8 +1,9 @@
 package com.alphasoft.pos.views.controllers;
 
 import com.alphasoft.pos.commons.AutoCompleteTextField;
-import com.alphasoft.pos.contexts.PosSorter;
 import com.alphasoft.pos.contexts.ProductFilter;
+import com.alphasoft.pos.contexts.ProductSorter;
+import com.alphasoft.pos.factories.ProductSorterFactory;
 import com.alphasoft.pos.models.Product;
 import com.alphasoft.pos.models.ProductCategory;
 import com.alphasoft.pos.services.ProductCategoryService;
@@ -31,7 +32,7 @@ public class PosProductController implements Initializable {
     private ComboBox<ProductFilter.Mode> showModeSelector;
 
     @FXML
-    private ComboBox<PosSorter.Mode> sortModeSelector;
+    private ComboBox<ProductSorter.Mode> sortModeSelector;
 
     @FXML
     private FlowPane flowPane;
@@ -73,6 +74,7 @@ public class PosProductController implements Initializable {
                 .filter(i->i.getName().toLowerCase().contains(productNameInput.getText().trim().toLowerCase()))
                 .collect(Collectors.toList()));
         ProductFilter.getFilter().filter(productList,showModeSelector.getSelectionModel().getSelectedItem());
+        ProductSorterFactory.getFactory().getSorter(sortModeSelector.getSelectionModel().getSelectedItem()).sort(productList);
         productList.stream().map(i->new ProductCard(i,this::editProduct)).forEach(i->flowPane.getChildren().add(i));
     }
 
@@ -89,7 +91,8 @@ public class PosProductController implements Initializable {
         showModeSelector.getItems().addAll(ProductFilter.Mode.values());
         showModeSelector.getSelectionModel().selectFirst();
         showModeSelector.getSelectionModel().selectedItemProperty().addListener((l,o,n)->loadData());
-        sortModeSelector.getItems().addAll(PosSorter.Mode.values());
+        sortModeSelector.getItems().addAll(ProductSorter.Mode.values());
         sortModeSelector.getSelectionModel().selectFirst();
+        sortModeSelector.getSelectionModel().selectedItemProperty().addListener((l,o,n)->loadData());
     }
 }
