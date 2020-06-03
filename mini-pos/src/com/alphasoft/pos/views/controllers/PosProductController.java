@@ -74,8 +74,8 @@ public class PosProductController implements Initializable {
         productList.retainAll(productList.stream()
                 .filter(i->i.getName().toLowerCase().contains(productNameInput.getText().trim().toLowerCase()))
                 .collect(Collectors.toList()));
-        ProductFilterFactory.getFactory().getFilter(showModeSelector.getSelectionModel().getSelectedItem()).filter(productList);
-        ProductSorterFactory.getFactory().getSorter(sortModeSelector.getSelectionModel().getSelectedItem()).sort(productList);
+        filterProduct(productList);
+        sortProduct(productList);
         productList.stream().map(i->new ProductCard(i,this::editProduct)).forEach(i->flowPane.getChildren().add(i));
     }
 
@@ -95,5 +95,19 @@ public class PosProductController implements Initializable {
         sortModeSelector.getItems().addAll(ProductSorter.Mode.values());
         sortModeSelector.getSelectionModel().selectFirst();
         sortModeSelector.getSelectionModel().selectedItemProperty().addListener((l,o,n)->loadData());
+    }
+
+    private void filterProduct(List<Product> productList){
+        ProductFilter productFilter = ProductFilterFactory.getFactory().getFilter(showModeSelector.getSelectionModel().getSelectedItem());
+        if(null!=productFilter){
+            productFilter.filter(productList);
+        }
+    }
+    private void sortProduct(List<Product> productList){
+        ProductSorter productSorter = ProductSorterFactory.getFactory().getSorter(sortModeSelector.getSelectionModel().getSelectedItem());
+        if(null!=productSorter){
+            productSorter.sort(productList);
+        }
+
     }
 }

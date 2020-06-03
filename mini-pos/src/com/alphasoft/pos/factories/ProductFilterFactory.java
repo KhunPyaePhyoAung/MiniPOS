@@ -1,6 +1,5 @@
 package com.alphasoft.pos.factories;
 
-import com.alphasoft.pos.contexts.AllProductFilter;
 import com.alphasoft.pos.contexts.AvailableProductFilter;
 import com.alphasoft.pos.contexts.ProductFilter;
 import com.alphasoft.pos.contexts.UnavailableProductFilter;
@@ -10,7 +9,6 @@ public class ProductFilterFactory {
 
     public ProductFilter getFilter(ProductFilter.Mode mode) {
         switch (mode){
-            case ALL: return new AllProductFilter();
             case AVAILABLE: return new AvailableProductFilter();
             case UNAVAILABLE: return new UnavailableProductFilter();
             default: return null;
