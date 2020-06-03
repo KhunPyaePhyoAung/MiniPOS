@@ -1,11 +1,12 @@
 package com.alphasoft.pos.contexts;
 
+
 import java.util.Comparator;
 import java.util.List;
 
 public class PosSorter {
 
-    public static void sort(List list,Mode mode){
+    public static void sort(List list, Mode mode){
         switch (mode){
             case NAME_ASCENDING:
                 list.sort(Comparator.comparing(Object::toString));
@@ -13,6 +14,7 @@ public class PosSorter {
             case NAME_DESCENDING:
                 list.sort((o1,o2)->-o1.toString().compareTo(o2.toString()));
                 break;
+
         }
     }
 
