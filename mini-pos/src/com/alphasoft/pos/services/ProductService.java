@@ -1,6 +1,6 @@
 package com.alphasoft.pos.services;
 
-import com.alphasoft.pos.commons.ImageHelper;
+import com.alphasoft.pos.commons.FileHelper;
 import com.alphasoft.pos.database.ConnectionManager;
 import com.alphasoft.pos.contexts.PosException;
 import com.alphasoft.pos.models.Product;
@@ -28,6 +28,14 @@ public class ProductService {
         addProduct(product);
     }
 
+    public void checkAndUpdateProduct(Product product){
+        checkIfCanUpdateProduct(product);
+        updateProduct(product);
+    }
+
+
+
+
     private void addProduct(Product product){
         if(null==product)return;
         try(Connection connection = ConnectionManager.getConnection();
@@ -36,7 +44,7 @@ public class ProductService {
             preparedStatement.setString(1,product.getName());
             preparedStatement.setInt(2,product.getCategoryId());
             preparedStatement.setInt(3,product.getPrice());
-            preparedStatement.setBlob(4, ImageHelper.fileToInputStream(product.getImageFile()));
+            preparedStatement.setBlob(4, FileHelper.fileToInputStream(product.getImageFile()));
             preparedStatement.setBoolean(5,product.isAvailable());
             preparedStatement.executeUpdate();
         } catch (SQLException throwables) {
@@ -57,11 +65,6 @@ public class ProductService {
         }
     }
 
-    public void checkAndUpdateProduct(Product product){
-        checkIfCanUpdateProduct(product);
-        updateProduct(product);
-    }
-
     private void updateProduct(Product product){
         StringBuilder sb = new StringBuilder(getQuery("product.update"));
         List<Object> params = new ArrayList<>();
@@ -71,7 +74,7 @@ public class ProductService {
         params.add(product.isAvailable());
         if(null!=product.getImageFile()){
             sb.append(",image=?");
-            params.add(ImageHelper.fileToInputStream(product.getImageFile()));
+            params.add(FileHelper.fileToInputStream(product.getImageFile()));
         }
         sb.append(" where id=?");
         params.add(product.getId());

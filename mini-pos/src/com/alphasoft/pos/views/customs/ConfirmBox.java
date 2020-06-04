@@ -2,7 +2,6 @@ package com.alphasoft.pos.views.customs;
 
 import com.alphasoft.pos.views.controllers.ConfirmBoxController;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -27,6 +26,8 @@ public class ConfirmBox {
 
     public ConfirmBox(String title,String contentText){
         setup();
+        controller.setTitle(title);
+        controller.setContentText(contentText);
     }
 
     public void setTitle(String title){

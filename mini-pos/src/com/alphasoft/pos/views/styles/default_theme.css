@@ -423,7 +423,7 @@ FlowPane{
 
 
 .product_card{
-    -fx-pref-width:230px;
+    -fx-pref-width:260px;
     -fx-pref-height:80px;
     -fx-border-width:2px;
     -fx-background-color:secondary-color;

@@ -2,7 +2,6 @@ package com.alphasoft.pos.commons;
 
 import com.alphasoft.pos.contexts.PosException;
 
-import java.util.Objects;
 
 public class Validations {
     public static void notEmptyString(String data, String errorMessage){

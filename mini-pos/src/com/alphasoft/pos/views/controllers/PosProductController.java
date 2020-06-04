@@ -7,7 +7,7 @@ import com.alphasoft.pos.factories.ProductFilterFactory;
 import com.alphasoft.pos.factories.ProductSorterFactory;
 import com.alphasoft.pos.models.Product;
 import com.alphasoft.pos.models.ProductCategory;
-import com.alphasoft.pos.services.ProductCategoryService;
+import com.alphasoft.pos.services.ProductCategoryRepository;
 import com.alphasoft.pos.services.ProductRepository;
 import com.alphasoft.pos.views.customs.PosWindowStage;
 import com.alphasoft.pos.views.customs.ProductCard;
@@ -51,7 +51,7 @@ public class PosProductController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        AutoCompleteTextField.attach(categoryNameInput, ProductCategoryService.getService()::searchCategoriesLike,this::loadData);
+        AutoCompleteTextField.attach(categoryNameInput, ProductCategoryRepository.getRepository()::getAllProductCategoriesLike,this::loadData);
         categoryNameInput.textProperty().addListener((l,o,n)->{
             if(n.isEmpty())
                 loadData();

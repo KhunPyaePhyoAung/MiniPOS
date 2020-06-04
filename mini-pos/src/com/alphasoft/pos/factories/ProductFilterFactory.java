@@ -7,6 +7,8 @@ import com.alphasoft.pos.contexts.UnavailableProductFilter;
 public class ProductFilterFactory {
     private static ProductFilterFactory factory;
 
+    private ProductFilterFactory(){}
+
     public ProductFilter getFilter(ProductFilter.Mode mode) {
         switch (mode){
             case AVAILABLE: return new AvailableProductFilter();

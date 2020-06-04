@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.alphasoft.pos.database.SqlHelper.getQuery;
 
@@ -28,16 +29,24 @@ public class ProductCategoryRepository {
         ) {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
-                ProductCategory item = new ProductCategory();
-                item.setId(resultSet.getInt("id"));
-                item.setName(resultSet.getString("name"));
-                item.setImageBlob(resultSet.getBlob("image"));
-                list.add(item);
+                list.add(parseCategoryFrmResultSet(resultSet));
             }
         } catch (SQLException throwable) {
             throwable.printStackTrace();
         }
         return list;
+    }
+
+    public List<ProductCategory> getAllProductCategoriesLike(String productCategoryName){
+        return getAllProductCategories().stream().filter(i->i.getName().toLowerCase().contains(productCategoryName.toLowerCase())).limit(10).collect(Collectors.toList());
+    }
+
+    private ProductCategory parseCategoryFrmResultSet(ResultSet resultSet) throws SQLException {
+        ProductCategory productCategory = new ProductCategory();
+        productCategory.setId(resultSet.getInt("id"));
+        productCategory.setName(resultSet.getString("name"));
+        productCategory.setImageBlob(resultSet.getBlob("image"));
+        return productCategory;
     }
 
     public ProductCategory getCategory(int id){

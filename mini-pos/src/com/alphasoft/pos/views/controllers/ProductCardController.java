@@ -1,6 +1,6 @@
 package com.alphasoft.pos.views.controllers;
 
-import com.alphasoft.pos.commons.ImageHelper;
+import com.alphasoft.pos.commons.FileHelper;
 import com.alphasoft.pos.commons.StringUtils;
 import com.alphasoft.pos.models.Product;
 import javafx.fxml.FXML;
@@ -29,7 +29,7 @@ public class ProductCardController {
     private Label price;
 
     public void setProduct(Product product){
-        imageView.setImage(new Image(Objects.requireNonNull(ImageHelper.blobToInputStream(product.getImageBlob()))));
+        imageView.setImage(new Image(Objects.requireNonNull(FileHelper.blobToInputStream(product.getImageBlob()))));
         productName.setText(product.getName());
         categoryName.setText(product.getCategoryName());
         price.setText(StringUtils.formatToMmk(product.getPrice()));

@@ -1,6 +1,6 @@
 package com.alphasoft.pos.views.controllers;
 
-import com.alphasoft.pos.commons.ImageHelper;
+import com.alphasoft.pos.commons.FileHelper;
 import com.alphasoft.pos.commons.NumberInput;
 import com.alphasoft.pos.commons.Validations;
 import com.alphasoft.pos.contexts.PosException;
@@ -57,7 +57,7 @@ public class ProductFormController implements Initializable {
 
     public void setProduct(Product product){
         this.product = product;
-        imageView.setImage(new Image(Objects.requireNonNull(ImageHelper.blobToInputStream(product.getImageBlob()))));
+        imageView.setImage(new Image(Objects.requireNonNull(FileHelper.blobToInputStream(product.getImageBlob()))));
         nameInput.setText(product.getName());
         priceInput.setText(String.valueOf(product.getPrice()));
         availability.setSelected(product.isAvailable());
@@ -74,10 +74,10 @@ public class ProductFormController implements Initializable {
         );
         File selectedFile = fileChooser.showOpenDialog(imageView.getScene().getWindow());
         if(null!=selectedFile){
-            Image image = new Image(Objects.requireNonNull(ImageHelper.fileToInputStream(selectedFile)));
+            Image image = new Image(Objects.requireNonNull(FileHelper.fileToInputStream(selectedFile)));
             if(image.getWidth()==image.getHeight()){
                 imageFile = selectedFile;
-                imageView.setImage(new Image(Objects.requireNonNull(ImageHelper.fileToInputStream(imageFile))));
+                imageView.setImage(new Image(Objects.requireNonNull(FileHelper.fileToInputStream(imageFile))));
             }else {
                 showAlert("Invalid Image","Image must be square");
             }
@@ -101,7 +101,6 @@ public class ProductFormController implements Initializable {
     public void cancel(){
         close();
     }
-
 
     private void close(){
         imageView.getScene().getWindow().hide();

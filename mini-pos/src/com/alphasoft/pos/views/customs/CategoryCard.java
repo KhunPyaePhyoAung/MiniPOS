@@ -1,6 +1,6 @@
 package com.alphasoft.pos.views.customs;
 
-import com.alphasoft.pos.commons.ImageHelper;
+import com.alphasoft.pos.commons.FileHelper;
 import com.alphasoft.pos.models.ProductCategory;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -23,7 +23,7 @@ public class CategoryCard extends VBox {
         ImageView imageView = new ImageView();
         imageView.setFitWidth(150);
         imageView.setFitHeight(150);
-        imageView.setImage(new Image(Objects.requireNonNull(ImageHelper.blobToInputStream(productCategory.getImageBlob()))));
+        imageView.setImage(new Image(Objects.requireNonNull(FileHelper.blobToInputStream(productCategory.getImageBlob()))));
         VBox dataBox = new VBox();
         dataBox.getStyleClass().add("category-data-box");
         dataBox.setPrefSize(150,50);

@@ -6,9 +6,7 @@ public class Logger {
     private static Logger logger;
     private static Account loggedAccount;
 
-    private Logger(){
-
-    }
+    private Logger(){}
 
     public void setLoggedAccount(Account account){
         loggedAccount = account;

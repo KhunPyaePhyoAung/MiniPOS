@@ -8,12 +8,12 @@ import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
 
-public class ImageHelper {
+public class FileHelper {
+
     public static InputStream fileToInputStream(File file){
         try {
             return new FileInputStream(file);
         } catch (FileNotFoundException e) {
-            System.out.println("Error");
             e.printStackTrace();
         }
         return null;

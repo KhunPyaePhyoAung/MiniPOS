@@ -2,7 +2,6 @@ package com.alphasoft.pos.contexts;
 
 import com.alphasoft.pos.models.Product;
 
-import java.util.Collection;
 import java.util.List;
 
 public interface ProductSorter {

@@ -1,6 +1,6 @@
 package com.alphasoft.pos.views.controllers;
 
-import com.alphasoft.pos.commons.ImageHelper;
+import com.alphasoft.pos.commons.FileHelper;
 import com.alphasoft.pos.commons.Validations;
 import com.alphasoft.pos.contexts.PosException;
 import com.alphasoft.pos.models.ProductCategory;
@@ -46,7 +46,7 @@ public class ProductCategoryFormController implements Initializable {
 
     public void setData(ProductCategory category){
         this.category = category;
-        imageView.setImage(new Image(Objects.requireNonNull(ImageHelper.blobToInputStream(category.getImageBlob()))));
+        imageView.setImage(new Image(Objects.requireNonNull(FileHelper.blobToInputStream(category.getImageBlob()))));
         categoryNameInput.setText(category.getName());
     }
 
@@ -61,10 +61,10 @@ public class ProductCategoryFormController implements Initializable {
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image File","*.jpg","*.png","*.jpeg"));
         File file = fileChooser.showOpenDialog(MainWindowController.mainStage);
         if(null!=file){
-            Image image = new Image(Objects.requireNonNull(ImageHelper.fileToInputStream(file)));
+            Image image = new Image(Objects.requireNonNull(FileHelper.fileToInputStream(file)));
             if(image.getWidth()==image.getHeight()){
                 imageFile = file;
-                imageView.setImage(new Image(Objects.requireNonNull(ImageHelper.fileToInputStream(imageFile))));
+                imageView.setImage(new Image(Objects.requireNonNull(FileHelper.fileToInputStream(imageFile))));
             }else {
                 showAlert("Invalid Image","Image must be square");
             }

@@ -5,7 +5,6 @@ import com.alphasoft.pos.contexts.ProductCategorySorter;
 import com.alphasoft.pos.factories.ProductCategorySorterFactory;
 import com.alphasoft.pos.models.ProductCategory;
 import com.alphasoft.pos.services.ProductCategoryRepository;
-import com.alphasoft.pos.services.ProductCategoryService;
 import com.alphasoft.pos.views.customs.CategoryCard;
 import com.alphasoft.pos.views.customs.PosWindowStage;
 import javafx.fxml.FXML;
@@ -36,7 +35,7 @@ public class PosCategoryController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        AutoCompleteTextField.attach(categoryNameInput,ProductCategoryService.getService()::searchCategoriesLike,this::loadData);
+        AutoCompleteTextField.attach(categoryNameInput,ProductCategoryRepository.getRepository()::getAllProductCategoriesLike,this::loadData);
         sortModeSelector.getItems().addAll(ProductCategorySorter.Mode.values());
         sortModeSelector.getSelectionModel().selectFirst();
         sortModeSelector.getSelectionModel().selectedItemProperty().addListener((l,o,n)->loadData());
