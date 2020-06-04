@@ -1,10 +1,7 @@
 package com.alphasoft.pos.services;
 
-import com.alphasoft.pos.commons.ImageHelper;
 import com.alphasoft.pos.contexts.ConnectionManager;
 import com.alphasoft.pos.models.Product;
-import javafx.scene.image.Image;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -46,7 +43,6 @@ public class ProductRepository {
         product.setCategoryName(resultSet.getString("category_name"));
         product.setPrice(resultSet.getInt("price"));
         product.setImageBlob(resultSet.getBlob("image"));
-        //ImageHelper.blobToInputStream(resultSet.getBlob("image"))
         product.setAvailable(resultSet.getBoolean("available"));
         return product;
     }
