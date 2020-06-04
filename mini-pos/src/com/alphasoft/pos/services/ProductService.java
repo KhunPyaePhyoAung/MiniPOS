@@ -1,7 +1,7 @@
 package com.alphasoft.pos.services;
 
 import com.alphasoft.pos.commons.ImageHelper;
-import com.alphasoft.pos.contexts.ConnectionManager;
+import com.alphasoft.pos.database.ConnectionManager;
 import com.alphasoft.pos.contexts.PosException;
 import com.alphasoft.pos.models.Product;
 
@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.alphasoft.pos.contexts.SqlHelper.getQuery;
+import static com.alphasoft.pos.database.SqlHelper.getQuery;
 
 public class ProductService {
     private static ProductService service;

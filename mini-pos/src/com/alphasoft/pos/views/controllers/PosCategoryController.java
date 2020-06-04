@@ -1,7 +1,8 @@
 package com.alphasoft.pos.views.controllers;
 
 import com.alphasoft.pos.commons.AutoCompleteTextField;
-import com.alphasoft.pos.contexts.PosSorter;
+import com.alphasoft.pos.contexts.ProductCategorySorter;
+import com.alphasoft.pos.factories.ProductCategorySorterFactory;
 import com.alphasoft.pos.models.ProductCategory;
 import com.alphasoft.pos.services.ProductCategoryRepository;
 import com.alphasoft.pos.services.ProductCategoryService;
@@ -28,7 +29,7 @@ public class PosCategoryController implements Initializable {
     private TextField categoryNameInput;
 
     @FXML
-    private ComboBox<PosSorter.Mode> sortModeSelector;
+    private ComboBox<ProductCategorySorter.Mode> sortModeSelector;
 
     @FXML
     private FlowPane flowPane;
@@ -36,7 +37,7 @@ public class PosCategoryController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         AutoCompleteTextField.attach(categoryNameInput,ProductCategoryService.getService()::searchCategoriesLike,this::loadData);
-        sortModeSelector.getItems().addAll(PosSorter.Mode.values());
+        sortModeSelector.getItems().addAll(ProductCategorySorter.Mode.values());
         sortModeSelector.getSelectionModel().selectFirst();
         sortModeSelector.getSelectionModel().selectedItemProperty().addListener((l,o,n)->loadData());
         categoryNameInput.textProperty().addListener((l,o,n)->{
@@ -72,9 +73,15 @@ public class PosCategoryController implements Initializable {
             list.retainAll(
                 list.stream().filter(i->i.getName().toLowerCase().equals(categoryNameInput.getText().trim().toLowerCase())).collect(Collectors.toList())
             );
-
-        PosSorter.sort(list,sortModeSelector.getValue());
+        sortCategory(list);
         list.stream().map(i->new CategoryCard(i,this::editProductCategory)).forEach(c->flowPane.getChildren().add(c));
+    }
+
+    private void sortCategory(List<ProductCategory> list){
+        ProductCategorySorter sorter = ProductCategorySorterFactory.getFactory().getSorter(sortModeSelector.getSelectionModel().getSelectedItem());
+        if(null!=sorter){
+            sorter.sort(list);
+        }
     }
 
     private void editProductCategory(ProductCategory category){

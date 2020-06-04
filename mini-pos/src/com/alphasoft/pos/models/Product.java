@@ -78,4 +78,9 @@ public class Product {
     public void setImageBlob(Blob imageBlob) {
         this.imageBlob = imageBlob;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

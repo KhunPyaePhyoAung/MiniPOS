@@ -1,11 +1,13 @@
 package com.alphasoft.pos.models;
 
+import java.io.File;
 import java.sql.Blob;
 
 public class ProductCategory {
     private int id;
     private String name;
     private Blob imageBlob;
+    private File imageFile;
 
     public int getId() {
         return id;
@@ -29,6 +31,14 @@ public class ProductCategory {
 
     public void setImageBlob(Blob imageBlob) {
         this.imageBlob = imageBlob;
+    }
+
+    public File getImageFile() {
+        return imageFile;
+    }
+
+    public void setImageFile(File imageFile) {
+        this.imageFile = imageFile;
     }
 
     @Override

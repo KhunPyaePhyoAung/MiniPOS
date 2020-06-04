@@ -1,17 +1,16 @@
 package com.alphasoft.pos.services;
 
 import com.alphasoft.pos.commons.ImageHelper;
-import com.alphasoft.pos.contexts.ConnectionManager;
+import com.alphasoft.pos.database.ConnectionManager;
 import com.alphasoft.pos.contexts.PosException;
 import com.alphasoft.pos.models.ProductCategory;
 
-import java.io.File;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.alphasoft.pos.contexts.SqlHelper.getQuery;
+import static com.alphasoft.pos.database.SqlHelper.getQuery;
 
 public class ProductCategoryService {
     private static ProductCategoryService service;
@@ -34,41 +33,43 @@ public class ProductCategoryService {
         }
         return list.stream().filter(i->i.getName().toLowerCase().contains(name.toLowerCase())).limit(10).collect(Collectors.toList());
     }
-
-    private ProductCategory parseCategoryFrmResultSet(ResultSet resultSet) throws SQLException {
-        ProductCategory productCategory = new ProductCategory();
-        productCategory.setId(resultSet.getInt("id"));
-        productCategory.setName(resultSet.getString("name"));
-        productCategory.setImageBlob(resultSet.getBlob("image"));
-        return productCategory;
+    
+    public void checkAndAddCategory(ProductCategory productCategory){
+        checkIfCanInsertCategory(productCategory);
+        addCategory(productCategory);
     }
 
+    public void checkAndUpdateCategory(ProductCategory productCategory){
+        checkIfCanUpdateCategory(productCategory);
+        updateCategory(productCategory);
+    }
 
-    public void addCategory(String name, File imageFile){
-        canInsert(name);
+    private void addCategory(ProductCategory productCategory){
         try(Connection connection = ConnectionManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(getQuery("category.insert"))
         ) {
-            preparedStatement.setString(1,name);
-            preparedStatement.setBlob(2, ImageHelper.fileToInputStream(imageFile));
+            preparedStatement.setString(1,productCategory.getName());
+            preparedStatement.setBlob(2, ImageHelper.fileToInputStream(productCategory.getImageFile()));
             preparedStatement.executeLargeUpdate();
         } catch (SQLException throwable) {
             throwable.printStackTrace();
         }
     }
 
-    public void updateCategory(int id,String name,File imageFile){
-        canUpdate(id,name);
+
+
+
+    private void updateCategory(ProductCategory productCategory){
         List<Object> params = new ArrayList<>();
         StringBuilder sb = new StringBuilder(getQuery("category.update"));
         sb.append(" name=?");
-        params.add(name);
-        if(null!=imageFile){
+        params.add(productCategory.getName());
+        if(null!=productCategory.getImageFile()){
             sb.append(",image=?");
-            params.add(ImageHelper.fileToInputStream(imageFile));
+            params.add(ImageHelper.fileToInputStream(productCategory.getImageFile()));
         }
         sb.append(" where id=?");
-        params.add(id);
+        params.add(productCategory.getImageFile());
         try(Connection connection = ConnectionManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(sb.toString())
         ) {
@@ -81,11 +82,11 @@ public class ProductCategoryService {
         }
     }
 
-    private void canInsert(String name){
+    private void checkIfCanInsertCategory(ProductCategory productCategory){
         try(Connection connection = ConnectionManager.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(getQuery("category.find.canInsert"))
+            PreparedStatement preparedStatement = connection.prepareStatement(getQuery("category.checkIfCanInsert"))
             ) {
-               preparedStatement.setString(1,name);
+               preparedStatement.setString(1,productCategory.getName());
                ResultSet resultSet = preparedStatement.executeQuery();
                if(resultSet.next()){
                    throw new PosException("Item with this name already exists");
@@ -96,12 +97,12 @@ public class ProductCategoryService {
         }
     }
 
-    private void canUpdate(int id,String name){
+    private void checkIfCanUpdateCategory(ProductCategory category){
         try(Connection connection = ConnectionManager.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(getQuery("category.find.canUpdate"))
+            PreparedStatement preparedStatement = connection.prepareStatement(getQuery("category.checkIfCanUpdate"))
         ) {
-            preparedStatement.setString(1,name);
-            preparedStatement.setInt(2,id);
+            preparedStatement.setString(1,category.getName());
+            preparedStatement.setInt(2,category.getId());
             ResultSet resultSet = preparedStatement.executeQuery();
             if(resultSet.next()){
                 throw new PosException("Item with this name already exists");
@@ -110,6 +111,14 @@ public class ProductCategoryService {
             throwables.printStackTrace();
         }
 
+    }
+
+    private ProductCategory parseCategoryFrmResultSet(ResultSet resultSet) throws SQLException {
+        ProductCategory productCategory = new ProductCategory();
+        productCategory.setId(resultSet.getInt("id"));
+        productCategory.setName(resultSet.getString("name"));
+        productCategory.setImageBlob(resultSet.getBlob("image"));
+        return productCategory;
     }
 
     public static ProductCategoryService getService(){

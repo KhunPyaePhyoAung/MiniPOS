@@ -83,10 +83,10 @@ public class ProductCategoryFormController implements Initializable {
         setupButton();
         Platform.runLater(()->{
             if(null==category){
-                title.setText("Add new category");
+                title.setText("Add New Category");
                 mainButtonBox.getChildren().addAll(addButton);
             }else{
-                title.setText("Edit category");
+                title.setText("Edit Category");
                 mainButtonBox.getChildren().addAll(deleteButton,updateButton);
                 categoryNameInput.textProperty().addListener((l,o,n)->toggleUpdateButton());
                 toggleUpdateButton();
@@ -103,7 +103,7 @@ public class ProductCategoryFormController implements Initializable {
             try{
                 Validations.notEmptyString(categoryNameInput.getText().trim(),"Please enter category name");
                 Validations.notNull(imageFile,"No image selected");
-                ProductCategoryService.getService().addCategory(categoryNameInput.getText().trim(),imageFile);
+                addNewCategory();
                 close();
             }catch (PosException exception){
                 AlertBox alertBox = new AlertBox((Stage)imageView.getScene().getWindow());
@@ -118,8 +118,7 @@ public class ProductCategoryFormController implements Initializable {
                 if(null==imageView.getImage()){
                     Validations.notNull(imageFile,"Please select an image");
                 }
-
-                ProductCategoryService.getService().updateCategory(category.getId(),categoryNameInput.getText().trim(),imageFile);
+                updateCategory();
                 close();
             }catch (PosException exception){
                 AlertBox alertBox = new AlertBox((Stage)imageView.getScene().getWindow());
@@ -128,6 +127,21 @@ public class ProductCategoryFormController implements Initializable {
                 alertBox.show();
             }
         });
+    }
+
+    private void addNewCategory(){
+        ProductCategory productCategory = new ProductCategory();
+        productCategory.setName(categoryNameInput.getText().trim());
+        productCategory.setImageFile(imageFile);
+        ProductCategoryService.getService().checkAndAddCategory(productCategory);
+    }
+
+    private void updateCategory(){
+        ProductCategory productCategory = new ProductCategory();
+        productCategory.setId(category.getId());
+        productCategory.setName(categoryNameInput.getText().trim());
+        productCategory.setImageFile(imageFile);
+        ProductCategoryService.getService().checkAndUpdateCategory(productCategory);
     }
 
     private void toggleUpdateButton(){

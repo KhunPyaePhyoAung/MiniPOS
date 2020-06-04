@@ -1,7 +1,7 @@
 package com.alphasoft.pos.services;
 
 import com.alphasoft.pos.commons.Validations;
-import com.alphasoft.pos.contexts.ConnectionManager;
+import com.alphasoft.pos.database.ConnectionManager;
 import com.alphasoft.pos.contexts.PosException;
 import com.alphasoft.pos.models.Account;
 
@@ -10,7 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import static com.alphasoft.pos.contexts.SqlHelper.getQuery;
+import static com.alphasoft.pos.database.SqlHelper.getQuery;
 
 public class AccountService {
 
@@ -33,7 +33,7 @@ public class AccountService {
 
     private Account findAccountByLoginId(String loginId){
         try(Connection connection = ConnectionManager.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(getQuery("account.select.login_id"))
+            PreparedStatement preparedStatement = connection.prepareStatement(getQuery("account.select.byLoginId"))
         ) {
             preparedStatement.setString(1,loginId);
             ResultSet resultSet = preparedStatement.executeQuery();

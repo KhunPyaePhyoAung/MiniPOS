@@ -1,6 +1,6 @@
 package com.alphasoft.pos.services;
 
-import com.alphasoft.pos.contexts.ConnectionManager;
+import com.alphasoft.pos.database.ConnectionManager;
 import com.alphasoft.pos.models.Product;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.alphasoft.pos.contexts.SqlHelper.getQuery;
+import static com.alphasoft.pos.database.SqlHelper.getQuery;
 
 public class ProductRepository {
 

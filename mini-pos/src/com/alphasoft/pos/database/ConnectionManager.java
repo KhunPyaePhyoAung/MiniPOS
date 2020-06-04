@@ -1,4 +1,6 @@
-package com.alphasoft.pos.contexts;
+package com.alphasoft.pos.database;
+
+import com.alphasoft.pos.contexts.PosConnectionException;
 
 import java.io.IOException;
 import java.sql.Connection;

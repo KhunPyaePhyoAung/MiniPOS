@@ -1,4 +1,4 @@
-package com.alphasoft.pos.contexts;
+package com.alphasoft.pos.database;
 
 import java.io.IOException;
 import java.util.Properties;
