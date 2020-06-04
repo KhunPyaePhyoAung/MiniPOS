@@ -1,46 +1,53 @@
 package com.alphasoft.pos.services;
 
+import com.alphasoft.pos.commons.ImageHelper;
 import com.alphasoft.pos.contexts.ConnectionManager;
+import com.alphasoft.pos.contexts.PosException;
 import com.alphasoft.pos.models.Product;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import static com.alphasoft.pos.contexts.SqlHelper.getQuery;
 
 public class ProductService {
     private static ProductService service;
 
-    public List<Product> getAllProduct(){
-        List<Product> list = new ArrayList<>();
+    private ProductService(){
 
+    }
+
+
+
+
+    public void addProduct(Product product){
+        if(null==product)return;
         try(Connection connection = ConnectionManager.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(getQuery("product.select.all"))
+            PreparedStatement preparedStatement = connection.prepareStatement(getQuery("product.insert"))
         ) {
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()){
-                list.add(getProduct(resultSet));
-            }
+            preparedStatement.setString(1,product.getName());
+            preparedStatement.setInt(2,product.getCategoryId());
+            preparedStatement.setInt(3,product.getPrice());
+            preparedStatement.setBlob(4, ImageHelper.fileToInputStream(product.getImageFile()));
+            preparedStatement.setBoolean(5,product.isAvailable());
+            preparedStatement.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
 
-        return list;
     }
 
-    private Product getProduct(ResultSet resultSet) throws SQLException {
-        Product product = new Product();
-        product.setId(resultSet.getInt("id"));
-        product.setName(resultSet.getString("name"));
-        product.setCategoryId(resultSet.getInt("category_id"));
-        product.setCategoryName(resultSet.getString("category_name"));
-        product.setPrice(resultSet.getInt("price"));
-        product.setImageBlob(resultSet.getBlob("image"));
-        product.setAvailable(resultSet.getBoolean("available"));
-        return product;
+    public void checkIfCanInsertProduct(String productName){
+        try (Connection connection = ConnectionManager.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(getQuery("product.checkIfCanInsert"))
+            ){
+            preparedStatement.setString(1,productName);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if(resultSet.next()) throw new PosException("Product with this name already exists");
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
     public static ProductService getService(){

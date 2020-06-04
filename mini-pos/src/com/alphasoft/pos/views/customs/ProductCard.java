@@ -17,6 +17,11 @@ public class ProductCard extends HBox {
             ProductCardController controller = fxmlLoader.getController();
             controller.setProduct(product);
             getChildren().add(view);
+            setOnMouseClicked(e->{
+                if(e.getClickCount()>1){
+                    clickListener.accept(product);
+                }
+            });
         } catch (IOException e) {
             e.printStackTrace();
         }

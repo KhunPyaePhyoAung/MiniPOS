@@ -1,5 +1,7 @@
 package com.alphasoft.pos.models;
 
+import java.io.File;
+import java.io.InputStream;
 import java.sql.Blob;
 
 public class Product {
@@ -8,8 +10,9 @@ public class Product {
     private int categoryId;
     private String categoryName;
     private int price;
-    private Blob imageBlob;
+    private File imageFile;
     private boolean available;
+    private Blob imageBlob;
 
     public boolean isAvailable() {
         return available;
@@ -59,6 +62,14 @@ public class Product {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public File getImageFile() {
+        return imageFile;
+    }
+
+    public void setImageFile(File imageFile) {
+        this.imageFile = imageFile;
     }
 
     public Blob getImageBlob() {

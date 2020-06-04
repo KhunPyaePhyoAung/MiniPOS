@@ -58,7 +58,7 @@ public class ProductCategoryFormController implements Initializable {
     @FXML
     void chooseImage() {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image","*.jpg","*.png","*.jpeg"));
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image File","*.jpg","*.png","*.jpeg"));
         File file = fileChooser.showOpenDialog(MainWindowController.mainStage);
         if(null!=file){
             Image image = new Image(Objects.requireNonNull(ImageHelper.fileToInputStream(file)));
@@ -103,7 +103,7 @@ public class ProductCategoryFormController implements Initializable {
 
         addButton.setOnAction(e->{
             try{
-                Validations.notEmptyInput(categoryNameInput.getText().trim(),"category name");
+                Validations.notEmptyString(categoryNameInput.getText().trim(),"Please enter category name");
                 Validations.notNull(imageFile,"No image selected");
                 ProductCategoryService.getService().addCategory(categoryNameInput.getText().trim(),imageFile);
                 close();
@@ -116,7 +116,7 @@ public class ProductCategoryFormController implements Initializable {
         });
         updateButton.setOnAction(e->{
             try{
-                Validations.notEmptyInput(categoryNameInput.getText().trim(),"category name");
+                Validations.notEmptyString(categoryNameInput.getText().trim(),"Please enter category name");
                 if(null==imageView.getImage()){
                     Validations.notNull(imageFile,"No image selected");
                 }

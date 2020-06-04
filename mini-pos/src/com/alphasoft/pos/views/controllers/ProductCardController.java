@@ -8,6 +8,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
+import java.util.Objects;
+
 public class ProductCardController {
 
     @FXML
@@ -26,7 +28,7 @@ public class ProductCardController {
     private Label price;
 
     public void setProduct(Product product){
-        imageView.setImage(new Image(ImageHelper.blobToInputStream(product.getImageBlob())));
+        imageView.setImage(new Image(Objects.requireNonNull(ImageHelper.blobToInputStream(product.getImageBlob()))));
         productName.setText(product.getName());
         categoryName.setText(product.getCategoryName());
         price.setText(String.valueOf(product.getPrice()));

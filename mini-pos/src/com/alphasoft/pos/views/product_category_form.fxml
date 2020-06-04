@@ -22,7 +22,7 @@
                     <children>
                         <StackPane styleClass="image-border">
                             <children>
-                                <Label text="no image" />
+                                <Label text="No image" />
                                 <ImageView fx:id="imageView" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" />
                             </children>
                         </StackPane>

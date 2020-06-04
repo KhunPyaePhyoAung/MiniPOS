@@ -22,8 +22,8 @@ public class AccountService {
 
     public Account login(String loginId,String password){
 
-        Validations.notEmptyInput(loginId,"login id");
-        Validations.notEmptyInput(password,"password");
+        Validations.notEmptyString(loginId,"Please enter login id");
+        Validations.notEmptyString(password,"Please enter password");
 
         Account account = findAccountByLoginId(loginId);
         if(null == account) throw new PosException("Please enter valid login id");

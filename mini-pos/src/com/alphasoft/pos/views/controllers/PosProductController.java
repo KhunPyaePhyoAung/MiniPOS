@@ -8,14 +8,19 @@ import com.alphasoft.pos.factories.ProductSorterFactory;
 import com.alphasoft.pos.models.Product;
 import com.alphasoft.pos.models.ProductCategory;
 import com.alphasoft.pos.services.ProductCategoryService;
-import com.alphasoft.pos.services.ProductService;
+import com.alphasoft.pos.services.ProductRepository;
+import com.alphasoft.pos.views.customs.PosWindowStage;
 import com.alphasoft.pos.views.customs.ProductCard;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -46,7 +51,7 @@ public class PosProductController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        AutoCompleteTextField.attach(categoryNameInput, ProductCategoryService.getService()::searchCategories,this::loadData);
+        AutoCompleteTextField.attach(categoryNameInput, ProductCategoryService.getService()::searchCategoriesLike,this::loadData);
         categoryNameInput.textProperty().addListener((l,o,n)->{
             if(n.isEmpty())
                 loadData();
@@ -64,7 +69,7 @@ public class PosProductController implements Initializable {
     }
     private void loadData(){
         flowPane.getChildren().clear();
-        List<Product> productList = ProductService.getService().getAllProduct();
+        List<Product> productList = ProductRepository.getRepository().getAllProducts();
         if(!categoryNameInput.getText().trim().isEmpty())
             productList.retainAll(
                     productList.stream()
@@ -81,11 +86,26 @@ public class PosProductController implements Initializable {
 
     @FXML
     public void uploadProduct(){
-
+        showProductForm(null);
+        loadData();
     }
 
-    private void editProduct(Product product){
+    private void editProduct(Product product) {
+        showProductForm(product);
+        loadData();
+    }
 
+    private void showProductForm(Product product){
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(ProductFormController.class.getResource("/com/alphasoft/pos/views/product_form.fxml"));
+            Parent view = fxmlLoader.load();
+            if(null!=product)((ProductFormController)fxmlLoader.getController()).setProduct(product);
+            PosWindowStage stage = new PosWindowStage(MainWindowController.mainStage);
+            stage.setScene(new Scene(view));
+            stage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void setupSelector(){

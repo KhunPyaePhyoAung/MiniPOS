@@ -5,9 +5,9 @@ import com.alphasoft.pos.contexts.PosException;
 import java.util.Objects;
 
 public class Validations {
-    public static void notEmptyInput(String data,String field){
+    public static void notEmptyString(String data, String errorMessage){
         if(StringUtils.isEmpty(data))
-            throw new PosException(String.format("Please enter %s",field));
+            throw new PosException(errorMessage);
     }
 
     public static void notNull(Object object,String errorMessage){

@@ -20,29 +20,29 @@ public class ProductCategoryService {
 
     }
 
-    public List<ProductCategory> searchCategories(String name){
-        return getAllCategories().stream().filter(i->i.getName().toLowerCase().contains(name.toLowerCase())).limit(10).collect(Collectors.toList());
-    }
-
-    public List<ProductCategory> getAllCategories(){
+    public List<ProductCategory> searchCategoriesLike(String name){
         List<ProductCategory> list = new ArrayList<>();
-        try(
-                Connection connection = ConnectionManager.getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(getQuery("category.select.all"))
-                ) {
+        try (Connection connection = ConnectionManager.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(getQuery("category.select.all"))
+        ){
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
-                ProductCategory item = new ProductCategory();
-                item.setId(resultSet.getInt("id"));
-                item.setName(resultSet.getString("name"));
-                item.setImageBlob(resultSet.getBlob("image"));
-                list.add(item);
+                list.add(parseCategoryFrmResultSet(resultSet));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return list;
+        return list.stream().filter(i->i.getName().toLowerCase().contains(name.toLowerCase())).limit(10).collect(Collectors.toList());
     }
+
+    private ProductCategory parseCategoryFrmResultSet(ResultSet resultSet) throws SQLException {
+        ProductCategory productCategory = new ProductCategory();
+        productCategory.setId(resultSet.getInt("id"));
+        productCategory.setName(resultSet.getString("name"));
+        productCategory.setImageBlob(resultSet.getBlob("image"));
+        return productCategory;
+    }
+
 
     public void addCategory(String name, File imageFile){
         canInsert(name);

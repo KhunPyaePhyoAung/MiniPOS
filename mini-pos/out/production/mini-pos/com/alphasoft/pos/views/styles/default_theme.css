@@ -459,8 +459,36 @@ FlowPane{
 }
 
 
+.product_form{
+    -fx-pref-width:500px;
+    -fx-pref-height:350px;
+    -fx-background-color:secondary-color;
+}
+
+.product_form .name_input{
+    -fx-pref-width:300px;
+}
+
+.product_form .price_input{
+    -fx-pref-width:150px;
+}
+
+.product_form .category_selector{
+    -fx-pref-width:300px;
+}
+
+.product_form .h_form_wrapper{
+    -fx-pref-width:300px;
+    -fx-spacing:10px;
+    -fx-alignment:center-left;
+}
 
 
+.product_form .input_wrapper{
+    -fx-padding:10px 30px;
+    -fx-spacing:10px;
+    -fx-alignment:center-left;
+}
 
 
 
