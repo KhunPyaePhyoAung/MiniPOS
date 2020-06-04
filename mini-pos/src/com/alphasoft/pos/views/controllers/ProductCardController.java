@@ -1,6 +1,7 @@
 package com.alphasoft.pos.views.controllers;
 
 import com.alphasoft.pos.commons.ImageHelper;
+import com.alphasoft.pos.commons.StringUtils;
 import com.alphasoft.pos.models.Product;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -31,7 +32,7 @@ public class ProductCardController {
         imageView.setImage(new Image(Objects.requireNonNull(ImageHelper.blobToInputStream(product.getImageBlob()))));
         productName.setText(product.getName());
         categoryName.setText(product.getCategoryName());
-        price.setText(String.valueOf(product.getPrice()));
+        price.setText(StringUtils.formatToMmk(product.getPrice()));
         product_card.getStyleClass().add(product.isAvailable()? "product_card_available":"product_card_unavailable");
     }
 
