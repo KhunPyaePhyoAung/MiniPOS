@@ -66,10 +66,7 @@ public class ProductCategoryFormController implements Initializable {
                 imageFile = file;
                 imageView.setImage(new Image(Objects.requireNonNull(ImageHelper.fileToInputStream(imageFile))));
             }else {
-                AlertBox alertBox = new AlertBox((Stage)imageView.getScene().getWindow());
-                alertBox.setTitle("Invalid Image");
-                alertBox.setContentText("Image must be square");
-                alertBox.show();
+                showAlert("Invalid Image","Image must be square");
             }
 
         }
@@ -81,17 +78,7 @@ public class ProductCategoryFormController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setupButton();
-        Platform.runLater(()->{
-            if(null==category){
-                title.setText("Add New Category");
-                mainButtonBox.getChildren().addAll(addButton);
-            }else{
-                title.setText("Edit Category");
-                mainButtonBox.getChildren().addAll(deleteButton,updateButton);
-                categoryNameInput.textProperty().addListener((l,o,n)->toggleUpdateButton());
-                toggleUpdateButton();
-            }
-        });
+        Platform.runLater(this::runLater);
     }
 
     private void setupButton(){
@@ -99,34 +86,32 @@ public class ProductCategoryFormController implements Initializable {
         updateButton = new Button("Update");
         addButton = new Button("Add");
 
-        addButton.setOnAction(e->{
-            try{
-                Validations.notEmptyString(categoryNameInput.getText().trim(),"Please enter category name");
-                Validations.notNull(imageFile,"No image selected");
-                addNewCategory();
-                close();
-            }catch (PosException exception){
-                AlertBox alertBox = new AlertBox((Stage)imageView.getScene().getWindow());
-                alertBox.setTitle("Action cannot be completed");
-                alertBox.setContentText(exception.getMessage());
-                alertBox.show();
+        addButton.setOnAction(e-> onAdd());
+        updateButton.setOnAction(e-> onUpdate());
+    }
+
+    private void onAdd(){
+        try{
+            Validations.notEmptyString(categoryNameInput.getText().trim(),"Please enter category name");
+            Validations.notNull(imageFile,"No image selected");
+            addNewCategory();
+            close();
+        }catch (PosException exception){
+            showAlert("Action cannot be completed",exception.getMessage());
+        }
+    }
+
+    private void onUpdate(){
+        try{
+            Validations.notEmptyString(categoryNameInput.getText().trim(),"Please enter category name");
+            if(null==imageView.getImage()){
+                Validations.notNull(imageFile,"Please select an image");
             }
-        });
-        updateButton.setOnAction(e->{
-            try{
-                Validations.notEmptyString(categoryNameInput.getText().trim(),"Please enter category name");
-                if(null==imageView.getImage()){
-                    Validations.notNull(imageFile,"Please select an image");
-                }
-                updateCategory();
-                close();
-            }catch (PosException exception){
-                AlertBox alertBox = new AlertBox((Stage)imageView.getScene().getWindow());
-                alertBox.setTitle("Action cannot be completed");
-                alertBox.setContentText(exception.getMessage());
-                alertBox.show();
-            }
-        });
+            updateCategory();
+            close();
+        }catch (PosException exception){
+            showAlert("Action cannot be completed",exception.getMessage());
+        }
     }
 
     private void addNewCategory(){
@@ -148,10 +133,28 @@ public class ProductCategoryFormController implements Initializable {
         updateButton.setDisable((imageFile==null && category.getName().contentEquals(categoryNameInput.getText().trim())));
     }
 
+    private void runLater(){
+        if(null==category){
+            title.setText("Add New Category");
+            mainButtonBox.getChildren().addAll(addButton);
+        }else{
+            title.setText("Edit Category");
+            mainButtonBox.getChildren().addAll(deleteButton,updateButton);
+            categoryNameInput.textProperty().addListener((l,o,n)->toggleUpdateButton());
+            toggleUpdateButton();
+        }
+    }
+
     private void close(){
         categoryNameInput.getScene().getWindow().hide();
     }
 
+    private void showAlert(String title,String message){
+        AlertBox alertBox = new AlertBox((Stage)imageView.getScene().getWindow());
+        alertBox.setTitle(title);
+        alertBox.setContentText(message);
+        alertBox.show();
+    }
 
 
 }

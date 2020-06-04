@@ -94,7 +94,7 @@ public class ProductFormController implements Initializable {
         ProductCategorySorterFactory.getFactory().getSorter(ProductCategorySorter.Mode.NAME_ASCENDING).sort(productCategoryList);
         categorySelector.getItems().addAll(productCategoryList);
         setupButton();
-        runLater();
+        Platform.runLater(this::runLater);
     }
 
     @FXML
@@ -111,31 +111,34 @@ public class ProductFormController implements Initializable {
         addButton = new Button("Add");
         updateButton = new Button("Update");
         deleteButton = new Button("Delete");
-        addButton.setOnAction(e->{
-            try{
-                Validations.notEmptyString(nameInput.getText().trim(),"Please enter product name");
-                Validations.notEmptyString(priceInput.getText().trim(),"Please enter price");
-                Validations.notNull(categorySelector.getSelectionModel().getSelectedItem(),"Please select a category");
-                Validations.notNull(imageFile,"Please select an image");
-                addProduct();
-                close();
-            }catch (PosException exception){
-                showAlert("Action cannot be completed",exception.getMessage());
-            }
-        });
-        updateButton.setOnAction(e->{
-            try{
-                Validations.notEmptyString(nameInput.getText().trim(),"Please enter product name");
-                Validations.notEmptyString(priceInput.getText().trim(),"Please enter price");
-                Validations.notNull(categorySelector.getSelectionModel().getSelectedItem(),"Please select a category");
-                if(null==imageView.getImage()) Validations.notNull(imageFile,"Please select an image");
-                updateProduct();
-                close();
-            }catch (PosException exception){
-                showAlert("Action cannot be completed",exception.getMessage());
-            }
-        });
+        addButton.setOnAction(e->onAdd());
+        updateButton.setOnAction(e->onUpdate());
+    }
 
+    private void onAdd(){
+        try{
+            Validations.notEmptyString(nameInput.getText().trim(),"Please enter product name");
+            Validations.notEmptyString(priceInput.getText().trim(),"Please enter price");
+            Validations.notNull(categorySelector.getSelectionModel().getSelectedItem(),"Please select a category");
+            Validations.notNull(imageFile,"Please select an image");
+            addProduct();
+            close();
+        }catch (PosException exception){
+            showAlert("Action cannot be completed",exception.getMessage());
+        }
+    }
+
+    private void onUpdate(){
+        try{
+            Validations.notEmptyString(nameInput.getText().trim(),"Please enter product name");
+            Validations.notEmptyString(priceInput.getText().trim(),"Please enter price");
+            Validations.notNull(categorySelector.getSelectionModel().getSelectedItem(),"Please select a category");
+            if(null==imageView.getImage()) Validations.notNull(imageFile,"Please select an image");
+            updateProduct();
+            close();
+        }catch (PosException exception){
+            showAlert("Action cannot be completed",exception.getMessage());
+        }
     }
 
     private void runLater(){
@@ -182,7 +185,6 @@ public class ProductFormController implements Initializable {
     }
 
     private void toggleUpdateButton(){
-//        updateButton.setDisable(imageFile==null & nameInput.getText().trim().contentEquals(product.getName()) & priceInput.getText().trim().contentEquals(String.valueOf(product.getPrice())) & availability.isSelected()==product.isAvailable() & getSelectedCategory().getId()==product.getCategoryId());
         updateButton.setDisable(imageFile==null && nameInput.getText().trim().contentEquals(product.getName()) && priceInput.getText().trim().contentEquals(String.valueOf(product.getPrice())) && availability.isSelected()==product.isAvailable() && getSelectedCategory().getId()==product.getCategoryId());
     }
 
