@@ -1,7 +1,6 @@
 package com.alphasoft.pos.models;
 
 import java.io.File;
-import java.io.InputStream;
 import java.sql.Blob;
 
 public class Product {

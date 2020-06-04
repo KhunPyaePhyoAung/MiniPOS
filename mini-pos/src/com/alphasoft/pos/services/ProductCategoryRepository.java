@@ -40,7 +40,7 @@ public class ProductCategoryRepository {
         return list;
     }
 
-    public ProductCategory getCategoryById(int id){
+    public ProductCategory getCategory(int id){
         return getAllProductCategories().stream().filter(i->i.getId()==id).findAny().orElse(null);
     }
 

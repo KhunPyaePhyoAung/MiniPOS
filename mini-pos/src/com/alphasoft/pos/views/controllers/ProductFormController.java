@@ -58,7 +58,7 @@ public class ProductFormController implements Initializable {
         nameInput.setText(product.getName());
         priceInput.setText(String.valueOf(product.getPrice()));
         availability.setSelected(product.isAvailable());
-        categorySelector.getSelectionModel().select(ProductCategoryRepository.getRepository().getCategoryById(product.getId()));
+        categorySelector.getSelectionModel().select(ProductCategoryRepository.getRepository().getCategory(product.getCategoryId()));
 
     }
 
@@ -76,11 +76,11 @@ public class ProductFormController implements Initializable {
                 imageFile = selectedFile;
                 imageView.setImage(new Image(Objects.requireNonNull(ImageHelper.fileToInputStream(imageFile))));
             }else {
-                imageFile=null;
-                imageView.setImage(null);
                 showAlert("Invalid Image","Image must be square");
             }
-
+        }
+        if(null!=product){
+            toggleUpdateButton();
         }
     }
 
@@ -118,6 +118,18 @@ public class ProductFormController implements Initializable {
                 showAlert("Action cannot be completed",exception.getMessage());
             }
         });
+        updateButton.setOnAction(e->{
+            try{
+                Validations.notEmptyString(nameInput.getText().trim(),"Please enter product name");
+                Validations.notEmptyString(priceInput.getText().trim(),"Please enter price");
+                Validations.notNull(categorySelector.getSelectionModel().getSelectedItem(),"Please select a category");
+                if(null==imageView.getImage()) Validations.notNull(imageFile,"Please select an image");
+                updateProduct();
+                close();
+            }catch (PosException exception){
+                showAlert("Action cannot be completed",exception.getMessage());
+            }
+        });
 
     }
 
@@ -128,21 +140,45 @@ public class ProductFormController implements Initializable {
                 actionButtonGroup.getChildren().add(addButton);
             }else{
                 title.setText("Edit Product");
+                nameInput.textProperty().addListener((l,o,n)->toggleUpdateButton());
+                priceInput.textProperty().addListener((l,o,n)->toggleUpdateButton());
+                availability.selectedProperty().addListener((l,o,n)->toggleUpdateButton());
+                categorySelector.getSelectionModel().selectedItemProperty().addListener((l,o,n)->toggleUpdateButton());
                 actionButtonGroup.getChildren().addAll(deleteButton,updateButton);
+                toggleUpdateButton();
             }
         });
     }
 
     private void addProduct(){
-        Product product = new Product();
-        product.setName(nameInput.getText().trim());
-        product.setPrice(Integer.parseInt(priceInput.getText().trim()));
-        product.setAvailable(availability.isSelected());
-        product.setCategoryId(categorySelector.getSelectionModel().getSelectedItem().getId());
-        product.setCategoryName(categorySelector.getSelectionModel().getSelectedItem().getName());
-        product.setImageFile(imageFile);
-        ProductService.getService().checkIfCanInsertProduct(product.getName());
-        ProductService.getService().addProduct(product);
+        Product newProduct = new Product();
+        newProduct.setName(nameInput.getText().trim());
+        newProduct.setPrice(Integer.parseInt(priceInput.getText().trim()));
+        newProduct.setAvailable(availability.isSelected());
+        newProduct.setCategoryId(categorySelector.getSelectionModel().getSelectedItem().getId());
+        newProduct.setCategoryName(categorySelector.getSelectionModel().getSelectedItem().getName());
+        newProduct.setImageFile(imageFile);
+        ProductService.getService().checkAndAddProduct(newProduct);
+    }
+
+    private void updateProduct(){
+        Product editedProduct = new Product();
+        editedProduct.setId(product.getId());
+        editedProduct.setName(nameInput.getText().trim());
+        editedProduct.setCategoryId(getSelectedCategory().getId());
+        editedProduct.setPrice(Integer.parseInt(priceInput.getText().trim()));
+        editedProduct.setAvailable(availability.isSelected());
+        if(null!=imageFile) editedProduct.setImageFile(imageFile);
+        ProductService.getService().checkAndUpdateProduct(editedProduct);
+    }
+
+    private ProductCategory getSelectedCategory(){
+        return categorySelector.getSelectionModel().getSelectedItem();
+    }
+
+    private void toggleUpdateButton(){
+//        updateButton.setDisable(imageFile==null & nameInput.getText().trim().contentEquals(product.getName()) & priceInput.getText().trim().contentEquals(String.valueOf(product.getPrice())) & availability.isSelected()==product.isAvailable() & getSelectedCategory().getId()==product.getCategoryId());
+        updateButton.setDisable(imageFile==null && nameInput.getText().trim().contentEquals(product.getName()) && priceInput.getText().trim().contentEquals(String.valueOf(product.getPrice())) && availability.isSelected()==product.isAvailable() && getSelectedCategory().getId()==product.getCategoryId());
     }
 
     private void showAlert(String title,String message){

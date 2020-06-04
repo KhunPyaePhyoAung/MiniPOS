@@ -66,8 +66,6 @@ public class ProductCategoryFormController implements Initializable {
                 imageFile = file;
                 imageView.setImage(new Image(Objects.requireNonNull(ImageHelper.fileToInputStream(imageFile))));
             }else {
-                imageFile=null;
-                imageView.setImage(null);
                 AlertBox alertBox = new AlertBox((Stage)imageView.getScene().getWindow());
                 alertBox.setTitle("Invalid Image");
                 alertBox.setContentText("Image must be square");
@@ -118,7 +116,7 @@ public class ProductCategoryFormController implements Initializable {
             try{
                 Validations.notEmptyString(categoryNameInput.getText().trim(),"Please enter category name");
                 if(null==imageView.getImage()){
-                    Validations.notNull(imageFile,"No image selected");
+                    Validations.notNull(imageFile,"Please select an image");
                 }
 
                 ProductCategoryService.getService().updateCategory(category.getId(),categoryNameInput.getText().trim(),imageFile);
