@@ -30,6 +30,8 @@
     dark-teal:#297380;
     silver:#C6C6C6;
     dark-silver:#AAABA9;
+    skyblue:#00C5F6;
+    dark-skyblue:#00B7F6;
 }
 
 /********** Global *************/
@@ -58,6 +60,8 @@
 
 .scroll-pane{
     -fx-background-color:transparent;
+    -fx-fit-to-width:true;
+    -fx-fit-to-height:true;
 }
 
 FlowPane{
@@ -80,8 +84,53 @@ FlowPane{
     -fx-min-width:90px;
 }
 
+.table-view{
+    -fx-background-color:background;
+    -fx-border-color:black;
+}
+
+.table-view .column-header{
+    -fx-background-color:amber;
+    -fx-font-size:12px;
+    -fx-font-family:Arial;
+    -fx-text-fill:black;
+}
+
+.table-view .table-cell{
+    -fx-font-family:Arial;
+    -fx-font-size:12px;
+    -fx-text-fill:background-content;
+}
+
+.table-view .scroll-bar{
+    -fx-pref-width:0px;
+    -fx-pref-height:0px;
+}
+
+.table-view *.scroll-bar:vertical *.increment-arrow,
+.table-view *.scroll-bar:vertical *.decrement-arrow {
+    -fx-background-color: null;
+    -fx-background-radius: 0;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-shape: null;
+}
+
+.table-view *.scroll-bar:horizontal *.increment-arrow,
+.table-view *.scroll-bar:horizontal *.decrement-arrow {
+    -fx-background-color: null;
+    -fx-background-radius: 0;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-shape: null;
+}
 
 
+GridPane .label{
+    -fx-font-family:Arial;
+    -fx-font-size:12px;
+    -fx-text-fill:black;
+}
 
 
 
@@ -121,8 +170,26 @@ FlowPane{
     -fx-text-fill:primary-content;
 }
 
+.component-title-bar{
+    -fx-padding:10px;
+    -fx-spacing:10px;
+    -fx-alignment:center-left;
+    -fx-background-color:skyblue;
+    -fx-border-color:black;
+}
+
+.component-title-bar .label{
+    -fx-text-fill:black;
+    -fx-font-size:12px;
+}
+
+.component-title-bar .SVGPath{
+    -fx-fill:black;
+}
+
 .clear-button{
     -fx-pref-width:50px;
+    -fx-pref-height:26px;
     -fx-alignment:center;
     -fx-background-color:silver;
     -fx-background-radius:3px;
@@ -163,6 +230,18 @@ FlowPane{
 
 .l-text{
     -fx-font-size:16px;
+}
+
+.table-view .center-align{
+    -fx-alignment:center;
+}
+
+.table-view .left-align{
+    -fx-alignment:center-left;
+}
+
+.table-view .right-align{
+    -fx-alignment:center-right;
 }
 
 .primary-button{
@@ -626,3 +705,5 @@ FlowPane{
     -fx-spacing:10px;
     -fx-alignment:center-left;
 }
+
+
