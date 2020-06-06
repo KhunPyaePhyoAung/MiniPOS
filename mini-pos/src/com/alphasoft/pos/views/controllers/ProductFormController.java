@@ -110,6 +110,11 @@ public class ProductFormController implements Initializable {
         addButton = new Button("Add");
         updateButton = new Button("Update");
         deleteButton = new Button("Delete");
+
+        addButton.getStyleClass().add("green-button");
+        updateButton.getStyleClass().add("green-button");
+        deleteButton.getStyleClass().add("red-button");
+
         addButton.setOnAction(e->onAdd());
         updateButton.setOnAction(e->onUpdate());
     }

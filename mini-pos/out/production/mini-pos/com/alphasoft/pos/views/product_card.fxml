@@ -1,23 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
 
-<HBox fx:id="product_card" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="product_card" stylesheets="@styles/default_theme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.alphasoft.pos.views.controllers.ProductCardController">
+<VBox fx:id="product_card" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="product-card" stylesheets="@styles/default.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.alphasoft.pos.views.controllers.ProductCardController">
    <children>
-      <ImageView fx:id="imageView" fitHeight="74.0" fitWidth="74.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../../../../../../../Pictures/POS/category/phone.jpg" />
-         </image></ImageView>
-      <VBox prefHeight="200.0" prefWidth="100.0" styleClass="product_card_data_box" HBox.hgrow="ALWAYS">
+      <HBox alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
          <children>
-            <Label fx:id="productName" text="Redmi K20 Pro" VBox.vgrow="ALWAYS" />
-            <Label fx:id="categoryName" text="Phone" />
-            <Label fx:id="price" text="750,000 MMK" />
+            <HBox alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="price-wrapper">
+               <children>
+                  <Label fx:id="price" />
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+      <ImageView fx:id="imageView" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" />
+      <Line endX="70.0" startX="-70.0" stroke="#32c360" />
+      <VBox prefHeight="200.0" prefWidth="100.0" styleClass="product-card-data-box" VBox.vgrow="ALWAYS">
+         <children>
+            <Label fx:id="productName" styleClass="product-name" />
+            <Label fx:id="categoryName" styleClass="category-name" />
          </children>
       </VBox>
    </children>
-</HBox>
+</VBox>

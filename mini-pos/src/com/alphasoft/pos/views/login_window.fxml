@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.SVGPath?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="login-window" stylesheets="@styles/default_theme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.alphasoft.pos.views.controllers.LoginFormController">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="login-window" stylesheets="@styles/default.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.alphasoft.pos.views.controllers.LoginWindowController">
    <children>
-      <VBox prefHeight="200.0" prefWidth="100.0" styleClass="login-window-icon-display">
+      <VBox prefHeight="200.0" prefWidth="100.0" styleClass="login-window-icon-wrapper">
          <children>
             <SVGPath content="M27 4.996l-22 0.004c-0.553 0-1 0.443-1 0.996v14c0 0.553 0.447 1 1 1h22c0.553 0 1-0.447 1-1v-14c0-0.553-0.447-1-1-1zM27 20h-22v-14.004h22v14.004zM29 1h-26c-1.657 0-3 1.342-3 3v20c0 1.654 1.338 2.994 2.99 2.998h10.010v1.217l-6.242 0.811c-0.446 0.111-0.758 0.511-0.758 0.97 0 0.553 0.447 1 1 1h18c0.553 0 1-0.447 1-1 0-0.459-0.312-0.859-0.758-0.971l-6.242-0.81v-1.217h10.010c1.652-0.004 2.99-1.344 2.99-2.998v-20c0-1.658-1.344-3-3-3zM30 24c0 0.551-0.449 1-1 1h-26c-0.552 0-1-0.449-1-1v-20c0-0.552 0.448-1 1-1h26c0.551 0 1 0.448 1 1v20z" />
             <Label text="Mini POS" />
@@ -18,7 +18,7 @@
       </VBox>
       <VBox prefHeight="200.0" prefWidth="100.0" styleClass="login-form" HBox.hgrow="ALWAYS">
          <children>
-            <Label styleClass="login-form-title" text="LOGIN" />
+            <SVGPath content="M14.004 0c-5.514 0-9.998 4.488-9.998 10h4c0-3.305 2.689-6 5.998-6s5.996 2.695 5.996 6v2h-20v14c0 3.312 2.691 6 5.998 6h12.002c3.309 0 6-2.688 6-6v-16c0-5.512-4.484-10-9.996-10zM18 28h-12.002c-1.102 0-2-0.895-2-2v-10h16.002v10c0 1.105-0.898 2-2 2zM14 22c0 1.109-0.895 2-2 2s-2-0.891-2-2c0-1.102 0.895-2 2-2s2 0.898 2 2z" styleClass="login-form-user-icon" />
             <HBox>
                <children>
                   <Label fx:id="message" styleClass="login-form-message" />

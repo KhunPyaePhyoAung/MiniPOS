@@ -86,6 +86,11 @@ public class ProductCategoryFormController implements Initializable {
         updateButton = new Button("Update");
         addButton = new Button("Add");
 
+        deleteButton.getStyleClass().add("red-button");
+        updateButton.getStyleClass().add("green-button");
+        addButton.getStyleClass().add("green-button");
+
+
         addButton.setOnAction(e-> onAdd());
         updateButton.setOnAction(e-> onUpdate());
     }

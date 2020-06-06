@@ -22,12 +22,12 @@ public class AccountService {
 
     public Account login(String loginId,String password){
 
-        Validations.notEmptyString(loginId,"Please enter login id");
-        Validations.notEmptyString(password,"Please enter password");
+        Validations.notEmptyString(loginId,"Please Enter Login ID");
+        Validations.notEmptyString(password,"Please Enter Password");
 
         Account account = findAccountByLoginId(loginId);
-        if(null == account) throw new PosException("Please enter valid login id");
-        if(!account.getPassword().equals(password)) throw new PosException("Please enter correct password");
+        if(null == account) throw new PosException("Please Enter Valid Login ID");
+        if(!account.getPassword().equals(password)) throw new PosException("Please Enter Correct Password");
         return account;
     }
 

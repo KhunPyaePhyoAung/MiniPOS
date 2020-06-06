@@ -9,9 +9,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.SVGPath?>
 
-<VBox id="pos_category" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="500.0" prefWidth="800.0" styleClass="contact_view" stylesheets="@styles/default_theme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.alphasoft.pos.views.controllers.PosCategoryController">
+<VBox id="pos_category" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="500.0" prefWidth="800.0" styleClass="content_view" stylesheets="@styles/default.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.alphasoft.pos.views.controllers.PosCategoryController">
    <children>
-      <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="toolbar">
+      <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="tool-bar">
          <children>
             <TextField fx:id="categoryNameInput" focusTraversable="false" promptText="Category" />
             <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#clearInput" styleClass="clear-button">
@@ -20,10 +20,10 @@
                </children>
             </VBox>
             <ComboBox fx:id="sortModeSelector" focusTraversable="false" prefWidth="150.0" />
-            <Button mnemonicParsing="false" onAction="#upload" text="Upload" />
+            <Button focusTraversable="false" mnemonicParsing="false" onAction="#upload" styleClass="blue-button" text="Upload" />
          </children>
       </HBox>
-      <ScrollPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #ffffff;" VBox.vgrow="ALWAYS">
+      <ScrollPane fitToHeight="true" fitToWidth="true" focusTraversable="false" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
          <content>
             <FlowPane fx:id="flowPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
          </content>
