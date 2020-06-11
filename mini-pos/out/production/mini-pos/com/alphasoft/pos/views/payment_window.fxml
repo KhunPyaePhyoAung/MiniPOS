@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="payment-window" stylesheets="@styles/default.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.alphasoft.pos.views.controllers.PaymentWindowController">
+    <children>
+        <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="title-bar">
+            <children>
+                <Label text="Payment" />
+            </children>
+        </HBox>
+        <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="m-wrapper" VBox.vgrow="ALWAYS">
+            <children>
+                <HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="m-container">
+                    <children>
+                        <Label styleClass="total-amount-label" text="Total Amount" />
+                        <Label fx:id="totalAmountLabel" styleClass="total-amount-label" text="100,000 MMK" />
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" layoutX="20.0" layoutY="83.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                    <children>
+                        <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="s-wrapper">
+                            <children>
+                                <Label text="Discount (Cash)" />
+                                <TextField fx:id="discountCashInput" focusTraversable="false" styleClass="currency-input" />
+                            </children>
+                        </VBox>
+                        <VBox layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="s-wrapper">
+                            <children>
+                                <Label text="Discount (%)" />
+                        <TextField fx:id="discountPercentInput" focusTraversable="false" styleClass="currency-input" />
+                            </children>
+                        </VBox>
+                  <VBox layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="s-wrapper">
+                     <children>
+                        <Label text="Totol Discount" />
+                        <TextField fx:id="totalDiscountInput" editable="false" focusTraversable="false">
+                           <styleClass>
+                              <String fx:value="currency-input" />
+                              <String fx:value="uneditable-text-field" />
+                           </styleClass></TextField>
+                     </children>
+                  </VBox>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                    <children>
+                        <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="s-wrapper">
+                            <children>
+                                <Label text="Amount Due" />
+                                <TextField fx:id="dueInput" editable="false" focusTraversable="false">
+                           <styleClass>
+                              <String fx:value="currency-input" />
+                              <String fx:value="uneditable-text-field" />
+                           </styleClass></TextField>
+                            </children>
+                        </VBox>
+                        <VBox layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="s-wrapper">
+                            <children>
+                                <Label text="Amount Tendered" />
+                                <TextField fx:id="tenderedInput" focusTraversable="false" styleClass="currency-input" />
+                            </children>
+                        </VBox>
+                        <VBox layoutX="150.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="s-wrapper">
+                            <children>
+                                <Label text="Change" />
+                                <TextField fx:id="changeInput" editable="false" focusTraversable="false">
+                           <styleClass>
+                              <String fx:value="currency-input" />
+                              <String fx:value="uneditable-text-field" />
+                           </styleClass></TextField>
+                            </children>
+                        </VBox>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER" styleClass="payment-action-button-group">
+                    <children>
+                          <Button mnemonicParsing="false" onAction="#cancel" prefHeight="40.0" prefWidth="80.0" styleClass="red-button" text="Cancel" />
+                          <Button mnemonicParsing="false" onAction="#save" prefHeight="40.0" prefWidth="80.0" styleClass="blue-button" text="Save" />
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+</VBox>

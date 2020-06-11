@@ -1,6 +1,6 @@
 package com.alphasoft.pos.models;
 
-public class ProductSaleItem {
+public class SaleItem {
 
 
     private int productId;

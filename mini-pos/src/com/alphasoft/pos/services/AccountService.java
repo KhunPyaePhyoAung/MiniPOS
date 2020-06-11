@@ -49,6 +49,7 @@ public class AccountService {
 
     private Account getAccount(ResultSet resultSet) throws SQLException {
         Account account = new Account();
+        account.setId(resultSet.getInt("id"));
         account.setLoginId(resultSet.getString("login_id"));
         account.setPassword(resultSet.getString("password"));
         account.setName(resultSet.getString("name"));

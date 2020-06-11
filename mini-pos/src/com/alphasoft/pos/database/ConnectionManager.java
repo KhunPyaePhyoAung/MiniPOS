@@ -18,7 +18,7 @@ public class ConnectionManager {
 
         try {
             Properties connectionProperties = new Properties();
-            connectionProperties.load(ConnectionManager.class.getResourceAsStream("connection.properties"));
+            connectionProperties.load(ConnectionManager.class.getResourceAsStream("/com/alphasoft/pos/properties/connection.properties"));
             DRIVER = connectionProperties.getProperty("DRIVER");
             URL = connectionProperties.getProperty("URL");
             USER = connectionProperties.getProperty("USER");

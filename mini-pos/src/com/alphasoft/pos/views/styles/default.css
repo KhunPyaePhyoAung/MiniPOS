@@ -66,8 +66,8 @@
 
 FlowPane{
     -fx-padding:10px;
-    -fx-hgap:10px;
-    -fx-vgap:10px;
+    -fx-hgap:8px;
+    -fx-vgap:8px;
     -fx-background-color:background;
 }
 
@@ -78,15 +78,22 @@ FlowPane{
 
 .button{
     -fx-background-radius:3px;
-    -fx-border-width:1px;
-    -fx-border-color:black;
-    -fx-border-radius:3px;
     -fx-min-width:90px;
+}
+
+.context-menu{
+    -fx-background-color:white;
+    -fx-selection-bar:primary;
+    -fx-background-radius:3px;
+    -fx-border-radius:3px;
+    -fx-border-color:primary
 }
 
 .table-view{
     -fx-background-color:background;
     -fx-border-color:black;
+    -fx-selection-bar:skyblue;
+    -fx-selection-bar-non-focused:silver;
 }
 
 .table-view .column-header{
@@ -209,6 +216,11 @@ GridPane .label{
     -fx-background-color:background;
 }
 
+.s-wrapper{
+    -fx-padding:5px;
+    -fx-spacing:5px;
+}
+
 .m-wrapper{
     -fx-padding:10px;
     -fx-spacing:10px;
@@ -230,6 +242,22 @@ GridPane .label{
 
 .l-text{
     -fx-font-size:16px;
+}
+
+.s-container{
+    -fx-spacing:5px;
+}
+
+.m-container{
+    -fx-spacing:10px;
+}
+
+.l-container{
+    -fx-spacing:15px;
+}
+
+.xl-container{
+    -fx-spacing:20px;
 }
 
 .table-view .center-align{
@@ -340,9 +368,14 @@ GridPane .label{
     -fx-background-color:dark-yellow;
 }
 
+.currency-input{
+    -fx-pref-width:120;
+    -fx-alignment:center-right;
+}
 
-
-
+.uneditable-text-field{
+    -fx-background-color:silver;
+}
 
 
 
@@ -501,8 +534,10 @@ GridPane .label{
 
 
 .exit-button{
+    -fx-pref-width:36px;
+    -fx-pref-height:36px;
     -fx-background-color:transparent;
-    -fx-background-radius:3px;
+    -fx-background-radius:18px;
     -fx-padding:5px;
 }
 
@@ -641,6 +676,7 @@ GridPane .label{
 
 .product-card .price-wrapper .label{
     -fx-text-fill:white;
+    -fx-font-size:11px;
 }
 
 .product-card Line{
@@ -690,6 +726,7 @@ GridPane .label{
 
 .product_form .price_input{
     -fx-pref-width:150px;
+    -fx-alignment:center-right;
 }
 
 
@@ -707,3 +744,38 @@ GridPane .label{
 }
 
 
+/******* Sale ************/
+.bill-total-wrapper{
+    -fx-background-color:black;
+    -fx-background-radius:0px;
+    -fx-padding:10px;
+}
+
+.bill-total-wrapper .label{
+    -fx-font-size:16px;
+    -fx-font-weight:bold;
+    -fx-text-fill:amber;
+}
+
+/*******Payment***********/
+
+.payment-window{
+    -fx-background-color:background;
+}
+
+.total-amount-label{
+    -fx-font-size:18px;
+    -fx-font-weight:bold;
+    -fx-text-fill:green;
+}
+
+.payment-action-button-group{
+    -fx-alignment:center;
+    -fx-padding:10px;
+    -fx-spacing:10px;
+}
+
+.payment-action-button-group .button{
+    -fx-pref-width:80px;
+    -fx-pref-height:40px;
+}

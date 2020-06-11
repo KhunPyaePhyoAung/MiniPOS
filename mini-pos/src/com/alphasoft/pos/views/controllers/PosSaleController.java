@@ -2,24 +2,25 @@ package com.alphasoft.pos.views.controllers;
 
 import com.alphasoft.pos.commons.AutoCompleteTextField;
 import com.alphasoft.pos.commons.DecimalFormattedCellFactory;
-import com.alphasoft.pos.models.Product;
-import com.alphasoft.pos.models.ProductCategory;
-import com.alphasoft.pos.models.ProductSaleItem;
+import com.alphasoft.pos.commons.MmkFormatter;
+import com.alphasoft.pos.contexts.Logger;
+import com.alphasoft.pos.contexts.ProductSorter;
+import com.alphasoft.pos.factories.ProductSorterFactory;
+import com.alphasoft.pos.models.*;
 import com.alphasoft.pos.services.ProductCategoryRepository;
 import com.alphasoft.pos.services.ProductRepository;
-import com.alphasoft.pos.views.customs.ProductCard;
-import javafx.event.ActionEvent;
+import com.alphasoft.pos.services.SaleService;
+import com.alphasoft.pos.services.TaxRepository;
+import com.alphasoft.pos.views.customs.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -27,22 +28,25 @@ import java.util.stream.Collectors;
 
 public class PosSaleController implements Initializable {
     @FXML
-    private TableView<ProductSaleItem> saleTable;
+    private TableView<SaleItem> cart;
 
     @FXML
-    private TableColumn<ProductSaleItem, String> nameColumn;
+    private TableColumn<SaleItem, String> nameColumn;
 
     @FXML
-    private TableColumn<ProductSaleItem, Integer> priceColumn;
+    private TableColumn<SaleItem, Integer> priceColumn;
 
     @FXML
-    private TableColumn<ProductSaleItem, Integer> qtyColumn;
+    private TableColumn<SaleItem, Integer> qtyColumn;
 
     @FXML
-    private TableColumn<ProductSaleItem, Integer> totalColumn;
+    private TableColumn<SaleItem, Integer> totalColumn;
 
     @FXML
     private Label subTotalLabel;
+
+    @FXML
+    private Label taxRateLabel;
 
     @FXML
     private Label taxLabel;
@@ -57,10 +61,32 @@ public class PosSaleController implements Initializable {
     private TextField productNameInput;
 
     @FXML
+    private ComboBox<ProductSorter.Mode> sortModeSelector;
+
+    @FXML
     private FlowPane flowPane;
+
+    private Sale sale;
+
+    private Payment payment;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        sortModeSelector.getItems().addAll(ProductSorter.Mode.values());
+        sortModeSelector.getSelectionModel().selectFirst();
+        sortModeSelector.getSelectionModel().selectedItemProperty().addListener((l,o,n)->loadProducts());
+
+        payment = new Payment();
+
+        int taxRateValue = TaxRepository.getRepository().getTaxRate(LocalDate.now());
+        payment.taxRateProperty().set(taxRateValue);
+        subTotalLabel.textProperty().bindBidirectional(payment.subTotalProperty(),new MmkFormatter());
+        taxRateLabel.setText(String.format("Tax : %d %%",taxRateValue));
+        taxLabel.textProperty().bindBidirectional(payment.taxProperty(),new MmkFormatter());
+        totalLabel.textProperty().bindBidirectional(payment.totalProperty(),new MmkFormatter());
+
         AutoCompleteTextField.attach(categoryNameInput, ProductCategoryRepository.getRepository()::getAllProductCategoriesLike,this::loadProductOf);
         categoryNameInput.textProperty().addListener((l,o,n)->{
             if(n.isEmpty()) loadProducts();
@@ -71,30 +97,48 @@ public class PosSaleController implements Initializable {
     }
 
     @FXML
-    void clear(ActionEvent event) {
+    public void clear() {
+
+        if(!cart.getItems().isEmpty()){
+            ConfirmBox confirmBox = new ConfirmBox(MainWindowController.mainStage);
+            confirmBox.setTitle("Confirm");
+            confirmBox.setContentText("Are you sure to clear cart?");
+            confirmBox.setOnConfirmed(e->{
+                cart.getItems().clear();
+                calculateCartItem();
+                confirmBox.close();
+            });
+            confirmBox.showAndWait();
+        }
 
     }
 
     @FXML
-    void clearInput() {
+    public void clearInput() {
         categoryNameInput.clear();
         productNameInput.clear();
     }
 
     @FXML
-    void hold(ActionEvent event) {
+    public void hold() {
 
     }
 
     @FXML
-    void pay(ActionEvent event) {
-
+    public void pay() {
+        if(cart.getItems().isEmpty()){
+            showAlertBox("Action cannot be completed","The cart is empty");
+            return;
+        }
+        PaymentWindow paymentWindow = new PaymentWindow(getSale(),this::saveSale);
+        paymentWindow.showAndWait();
     }
 
     @FXML
-    void recall(ActionEvent event) {
+    public void recall() {
 
     }
+
 
     private void loadProductOf(ProductCategory productCategory){
         categoryNameInput.setText(productCategory.getName());
@@ -104,9 +148,10 @@ public class PosSaleController implements Initializable {
 
     private void loadProducts(){
         flowPane.getChildren().clear();
-        List<Product> productList = ProductRepository.getRepository().getAllProducts();
+        List<Product> productList = ProductRepository.getRepository().getAllProducts().stream().filter(Product::isAvailable).collect(Collectors.toList());
         filterCategories(productList);
         filterProducts(productList);
+        ProductSorterFactory.getFactory().getSorter(sortModeSelector.getSelectionModel().getSelectedItem()).sort(productList);
 
         productList.stream().map(i->new ProductCard(i,this::addToCart)).forEach(i->flowPane.getChildren().add(i));
 
@@ -130,7 +175,29 @@ public class PosSaleController implements Initializable {
     }
 
     private void addToCart(Product product){
-        
+        SaleItem saleItem = cart.getItems().stream().filter(i->i.getProductId()==product.getId()).findAny().orElse(null);
+        if(null == saleItem){
+            saleItem = new SaleItem();
+            saleItem.setProduct(product);
+            cart.getItems().add(saleItem);
+        }
+        saleItem.setQuantity(saleItem.getQuantity()+1);
+        calculateCartItem();
+    }
+
+    private void prepareForNextSale(){
+        sale = null;
+        resetPayment();
+        cart.getItems().clear();
+        calculateCartItem();
+    }
+
+    private void calculateCartItem(){
+        int subTotalValue = cart.getItems().stream().mapToInt(i->i.getPrice()*i.getQuantity()).sum();
+        payment.subTotalProperty().set(subTotalValue);
+        List<SaleItem> saleItemList = new ArrayList<>(cart.getItems());
+        cart.getItems().clear();
+        cart.getItems().addAll(saleItemList);
     }
 
     private void setupTable(){
@@ -142,6 +209,70 @@ public class PosSaleController implements Initializable {
         priceColumn.setCellFactory(new DecimalFormattedCellFactory<>());
         qtyColumn.setCellFactory(new DecimalFormattedCellFactory<>());
         totalColumn.setCellFactory(new DecimalFormattedCellFactory<>());
+
+        cart.setOnKeyReleased(e->{
+            SaleItem selectedItem = cart.getSelectionModel().getSelectedItem();
+            if(null!=selectedItem){
+                switch (e.getCode()){
+                    case ADD:
+                        selectedItem.setQuantity(selectedItem.getQuantity()+1);
+                        calculateCartItem();
+                        cart.getSelectionModel().select(selectedItem);
+                        break;
+                    case SUBTRACT:
+                        if(selectedItem.getQuantity()>1){
+                            selectedItem.setQuantity(selectedItem.getQuantity()-1);
+                            calculateCartItem();
+                            cart.getSelectionModel().select(selectedItem);
+                        }else{
+                            cart.getItems().remove(selectedItem);
+                            calculateCartItem();
+                        }
+                        break;
+                    case DELETE:
+                        cart.getItems().removeAll(selectedItem);
+                        calculateCartItem();
+                        break;
+                }
+
+            }
+        });
+    }
+
+    private void showAlertBox(String title,String message){
+        AlertBox alertBox = new AlertBox(MainWindowController.mainStage);
+        alertBox.setTitle(title);
+        alertBox.setContentText(message);
+        alertBox.showAndWait();
+    }
+
+    private void saveSale(Sale sale){
+        SaleService.getService().save(sale);
+        prepareForNextSale();
+    }
+
+    private Sale getSale(){
+        if(null==sale){
+            sale = new Sale();
+        }
+
+        SaleDetail saleDetail = sale.getSaleDetail();
+        saleDetail.setSalePersonId(Logger.getLogger().getLoggedAccount().getId());
+        saleDetail.setSaleDate(LocalDate.now());
+        saleDetail.setSaleTime(LocalTime.now());
+        saleDetail.setTaxRate(TaxRepository.getRepository().getTaxRate(LocalDate.now()));
+        sale.getSaleItemList().clear();
+        sale.getSaleItemList().addAll(cart.getItems());
+        sale.setPayment(payment);
+        return sale;
+    }
+
+    private void resetPayment(){
+        payment.taxRateProperty().set(TaxRepository.getRepository().getTaxRate(LocalDate.now()));
+        payment.subTotalProperty().set(0);
+        payment.discountCashProperty().set(0);
+        payment.discountPercentProperty().set(0);
+        payment.tenderedProperty().set(0);
     }
 
 }

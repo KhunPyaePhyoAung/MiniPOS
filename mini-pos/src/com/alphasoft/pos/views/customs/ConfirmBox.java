@@ -40,10 +40,15 @@ public class ConfirmBox {
 
     public void setOnConfirmed(EventHandler<ActionEvent> eventHandler){
         controller.setOnConfirmed(eventHandler);
+
     }
 
     public void setOnCanceled(EventHandler<ActionEvent> eventHandler){
         controller.setOnCanceled(eventHandler);
+    }
+
+    public void close(){
+        stage.close();
     }
 
     private void setup(){
