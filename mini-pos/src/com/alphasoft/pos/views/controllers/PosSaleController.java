@@ -121,7 +121,7 @@ public class PosSaleController implements Initializable {
 
     @FXML
     public void hold() {
-
+        SaleService.getService().save(getSale(),false);
     }
 
     @FXML
@@ -247,7 +247,7 @@ public class PosSaleController implements Initializable {
     }
 
     private void saveSale(Sale sale){
-        SaleService.getService().save(sale);
+        SaleService.getService().save(sale,true);
         prepareForNextSale();
     }
 

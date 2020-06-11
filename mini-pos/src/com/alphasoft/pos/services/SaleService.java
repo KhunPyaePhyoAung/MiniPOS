@@ -16,15 +16,15 @@ public class SaleService {
 
     private SaleService(){}
 
-    public void save(Sale sale){
+    public void save(Sale sale,boolean paid){
         if(sale.getSaleDetail().getId()==0){
-            insertSale(sale);
+            insertSale(sale,paid);
         }else{
-            updateSale(sale);
+            updateSale(sale,paid);
         }
     }
 
-    private void insertSale(Sale sale){
+    private void insertSale(Sale sale,boolean paid){
         SaleDetail saleDetail = sale.getSaleDetail();
         List<SaleItem> saleItemList = sale.getSaleItemList();
         Payment payment = sale.getPayment();
@@ -38,17 +38,17 @@ public class SaleService {
             insertSaleDetail.setDate(2,Date.valueOf(saleDetail.getSaleDate()));
             insertSaleDetail.setTime(3,Time.valueOf(saleDetail.getSaleTime()));
             insertSaleDetail.setInt(4,saleDetail.getTaxRate());
+            insertSaleDetail.setBoolean(5,paid);
             insertSaleDetail.executeUpdate();
             ResultSet resultSet = insertSaleDetail.getGeneratedKeys();
 
             if(resultSet.next()){
                 int saleId = resultSet.getInt(1);
-                for(int i=0;i<saleItemList.size();i++){
-                    SaleItem saleItem = saleItemList.get(i);
-                    insertSaleItem.setInt(1,saleId);
-                    insertSaleItem.setInt(2,saleItem.getProductId());
-                    insertSaleItem.setInt(3,saleItem.getPrice());
-                    insertSaleItem.setInt(4,saleItem.getQuantity());
+                for (SaleItem saleItem : saleItemList) {
+                    insertSaleItem.setInt(1, saleId);
+                    insertSaleItem.setInt(2, saleItem.getProductId());
+                    insertSaleItem.setInt(3, saleItem.getPrice());
+                    insertSaleItem.setInt(4, saleItem.getQuantity());
                     insertSaleItem.addBatch();
                 }
                 insertSaleItem.executeBatch();
@@ -68,7 +68,7 @@ public class SaleService {
 
     }
 
-    private void updateSale(Sale sale){
+    private void updateSale(Sale sale,boolean paid){
 
     }
 
