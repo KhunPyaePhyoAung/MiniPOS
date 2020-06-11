@@ -121,7 +121,17 @@ public class PosSaleController implements Initializable {
 
     @FXML
     public void hold() {
-        SaleService.getService().save(getSale(),false);
+        ConfirmBox confirmBox = new ConfirmBox(MainWindowController.mainStage);
+        confirmBox.setTitle("Confirm");
+        confirmBox.setContentText("Are you sure to hold this cart?");
+        confirmBox.setOnConfirmed(e->{
+            SaleService.getService().save(getSale(),false);
+            prepareForNextSale();
+            confirmBox.close();
+        });
+        confirmBox.showAndWait();
+
+
     }
 
     @FXML

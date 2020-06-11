@@ -53,11 +53,14 @@ public class SaleService {
                 }
                 insertSaleItem.executeBatch();
 
-                insertPayment.setInt(1,saleId);
-                insertPayment.setInt(2,payment.discountPercentProperty().get());
-                insertPayment.setInt(3,payment.discountCashProperty().get());
-                insertPayment.setInt(4,payment.tenderedProperty().get());
-                insertPayment.executeUpdate();
+                if(paid){
+                    insertPayment.setInt(1,saleId);
+                    insertPayment.setInt(2,payment.discountPercentProperty().get());
+                    insertPayment.setInt(3,payment.discountCashProperty().get());
+                    insertPayment.setInt(4,payment.tenderedProperty().get());
+                    insertPayment.executeUpdate();
+                }
+
 
             }
 
