@@ -60,7 +60,7 @@
                         </VBox>
                      </children>
                   </VBox>
-                  <HBox fx:id="actionButtonGroup" prefHeight="100.0" prefWidth="200.0" styleClass="crud-button-group">
+                  <HBox fx:id="actionButtonGroup" prefHeight="100.0" prefWidth="200.0" styleClass="form-button-group">
                      <children>
                         <Button focusTraversable="false" mnemonicParsing="false" onAction="#cancel" styleClass="gray-button" text="Cancel" />
                      </children>

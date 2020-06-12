@@ -1,6 +1,111 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.SVGPath?>
 
-
-<VBox id="pos_sale" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="content_view" stylesheets="@styles/default.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.alphasoft.pos.views.controllers.PosSaleController" />
+<HBox id="pos_sale" alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" stylesheets="@styles/default.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.alphasoft.pos.views.controllers.PosSaleController">
+   <styleClass>
+      <String fx:value="content_view" />
+      <String fx:value="m-wrapper" />
+   </styleClass>
+   <children>
+      <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWidth="470.0" styleClass="m-wrapper">
+         <children>
+            <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="component-title-bar">
+               <children>
+                  <SVGPath content="M17.016 18q0.797 0 1.383 0.609t0.586 1.406-0.586 1.383-1.383 0.586-1.406-0.586-0.609-1.383 0.609-1.406 1.406-0.609zM0.984 2.016h3.281l0.938 1.969h14.813q0.422 0 0.703 0.305t0.281 0.727q0 0.047-0.141 0.469l-3.563 6.469q-0.563 1.031-1.734 1.031h-7.453l-0.891 1.641-0.047 0.141q0 0.234 0.234 0.234h11.578v2.016h-12q-0.797 0-1.383-0.609t-0.586-1.406q0-0.469 0.234-0.938l1.359-2.484-3.609-7.594h-2.016v-1.969zM6.984 18q0.797 0 1.406 0.609t0.609 1.406-0.609 1.383-1.406 0.586-1.383-0.586-0.586-1.383 0.586-1.406 1.383-0.609z" />
+                  <Label text="Shopping Cart" />
+               </children>
+            </HBox>
+            <TableView fx:id="cart" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="50.0" VBox.vgrow="ALWAYS">
+              <columns>
+                <TableColumn fx:id="nameColumn" prefWidth="180.0" resizable="false" styleClass="left-align" text="Product" />
+                <TableColumn fx:id="priceColumn" prefWidth="100.0" resizable="false" styleClass="right-align" text="Unit Price" />
+                  <TableColumn fx:id="qtyColumn" minWidth="0.0" prefWidth="55.0" resizable="false" styleClass="right-align" text="Qty" />
+                  <TableColumn fx:id="totalColumn" prefWidth="112.0" resizable="false" styleClass="right-align" text="Total" />
+              </columns>
+            </TableView>
+            <VBox alignment="CENTER" spacing="10.0" styleClass="m-wrapper">
+               <children>
+                  <GridPane>
+                    <columnConstraints>
+                      <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label text="Sub Total" />
+                        <Label fx:id="taxRateLabel" text="Tax 5%" GridPane.rowIndex="1" />
+                        <Label fx:id="subTotalLabel" text="100,000 MMK" GridPane.columnIndex="1" />
+                        <Label fx:id="taxLabel" text="1,000 MMK" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label GridPane.rowIndex="1" />
+                     </children>
+                  </GridPane>
+                  <GridPane prefHeight="22.0" prefWidth="390.0" styleClass="bill-total-wrapper">
+                    <columnConstraints>
+                      <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label text="Total" />
+                        <Label fx:id="totalLabel" text="101,000 MMK" GridPane.columnIndex="1" />
+                     </children>
+                  </GridPane>
+                  <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="10.0">
+                     <children>
+                        <Button focusTraversable="false" mnemonicParsing="false" onAction="#createNewSale" prefHeight="28.0" prefWidth="136.0" styleClass="gray-button" text="New" />
+                        <Button focusTraversable="false" mnemonicParsing="false" onAction="#hold" prefHeight="28.0" prefWidth="136.0" styleClass="red-button" text="Hold" />
+                        <Button focusTraversable="false" mnemonicParsing="false" onAction="#recall" prefHeight="28.0" prefWidth="136.0" styleClass="blue-button" text="Recall" />
+                     </children>
+                  </HBox>
+                  <Button focusTraversable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#pay" styleClass="green-button" text="Payment" />
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+      <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+         <children>
+            <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="tool-bar">
+               <children>
+                  <TextField fx:id="categoryNameInput" focusTraversable="false" promptText="Category" />
+                  <TextField fx:id="productNameInput" focusTraversable="false" promptText="Product" />
+                  <VBox onMouseClicked="#clearInput" prefHeight="200.0" prefWidth="100.0" styleClass="clear-button">
+                     <children>
+                        <SVGPath content="M14.348 14.849c-0.469 0.469-1.229 0.469-1.697 0l-2.651-3.030-2.651 3.029c-0.469 0.469-1.229 0.469-1.697 0-0.469-0.469-0.469-1.229 0-1.697l2.758-3.15-2.759-3.152c-0.469-0.469-0.469-1.228 0-1.697s1.228-0.469 1.697 0l2.652 3.031 2.651-3.031c0.469-0.469 1.228-0.469 1.697 0s0.469 1.229 0 1.697l-2.758 3.152 2.758 3.15c0.469 0.469 0.469 1.229 0 1.698z" />
+                     </children>
+                  </VBox>
+                  <ComboBox fx:id="sortModeSelector" focusTraversable="false" prefWidth="150.0" />
+               </children>
+            </HBox>
+            <ScrollPane focusTraversable="false" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+               <content>
+                  <FlowPane fx:id="flowPane" prefHeight="200.0" prefWidth="200.0" />
+               </content>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </ScrollPane>
+         </children>
+      </VBox>
+   </children>
+</HBox>

@@ -8,7 +8,7 @@ public class SqlHelper {
     static {
         try{
             properties = new Properties();
-            properties.load(SqlHelper.class.getResourceAsStream("sql.properties"));
+            properties.load(SqlHelper.class.getResourceAsStream("/com/alphasoft/pos/properties/sql.properties"));
         } catch (IOException e) {
             e.printStackTrace();
         }

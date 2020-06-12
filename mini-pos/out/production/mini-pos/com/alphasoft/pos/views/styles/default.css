@@ -30,6 +30,8 @@
     dark-teal:#297380;
     silver:#C6C6C6;
     dark-silver:#AAABA9;
+    skyblue:#00C5F6;
+    dark-skyblue:#00B7F6;
 }
 
 /********** Global *************/
@@ -58,12 +60,14 @@
 
 .scroll-pane{
     -fx-background-color:transparent;
+    -fx-fit-to-width:true;
+    -fx-fit-to-height:true;
 }
 
 FlowPane{
     -fx-padding:10px;
-    -fx-hgap:10px;
-    -fx-vgap:10px;
+    -fx-hgap:8px;
+    -fx-vgap:8px;
     -fx-background-color:background;
 }
 
@@ -74,14 +78,67 @@ FlowPane{
 
 .button{
     -fx-background-radius:3px;
-    -fx-border-width:1px;
-    -fx-border-color:black;
-    -fx-border-radius:3px;
     -fx-min-width:90px;
 }
 
+.context-menu{
+    -fx-background-color:white;
+    -fx-selection-bar:primary;
+    -fx-background-radius:3px;
+    -fx-border-radius:3px;
+    -fx-border-color:primary
+}
+
+.table-view{
+    -fx-background-color:background;
+    -fx-border-color:black;
+    -fx-selection-bar:skyblue;
+    -fx-selection-bar-non-focused:silver;
+}
+
+.table-view .column-header{
+    -fx-background-color:amber;
+    -fx-font-size:12px;
+    -fx-font-family:Arial;
+    -fx-text-fill:black;
+}
+
+.table-view .table-cell{
+    -fx-font-family:Arial;
+    -fx-font-size:12px;
+    -fx-text-fill:background-content;
+    -fx-padding:0 5 0 5;
+}
+
+.table-view .scroll-bar{
+    -fx-pref-width:0px;
+    -fx-pref-height:0px;
+}
+
+.table-view *.scroll-bar:vertical *.increment-arrow,
+.table-view *.scroll-bar:vertical *.decrement-arrow {
+    -fx-background-color: null;
+    -fx-background-radius: 0;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-shape: null;
+}
+
+.table-view *.scroll-bar:horizontal *.increment-arrow,
+.table-view *.scroll-bar:horizontal *.decrement-arrow {
+    -fx-background-color: null;
+    -fx-background-radius: 0;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-shape: null;
+}
 
 
+GridPane .label{
+    -fx-font-family:Arial;
+    -fx-font-size:12px;
+    -fx-text-fill:black;
+}
 
 
 
@@ -121,8 +178,26 @@ FlowPane{
     -fx-text-fill:primary-content;
 }
 
+.component-title-bar{
+    -fx-padding:10px;
+    -fx-spacing:10px;
+    -fx-alignment:center-left;
+    -fx-background-color:skyblue;
+    -fx-border-color:black;
+}
+
+.component-title-bar .label{
+    -fx-text-fill:black;
+    -fx-font-size:12px;
+}
+
+.component-title-bar .SVGPath{
+    -fx-fill:black;
+}
+
 .clear-button{
     -fx-pref-width:50px;
+    -fx-pref-height:26px;
     -fx-alignment:center;
     -fx-background-color:silver;
     -fx-background-radius:3px;
@@ -140,6 +215,11 @@ FlowPane{
 
 .content_view{
     -fx-background-color:background;
+}
+
+.s-wrapper{
+    -fx-padding:5px;
+    -fx-spacing:5px;
 }
 
 .m-wrapper{
@@ -163,6 +243,34 @@ FlowPane{
 
 .l-text{
     -fx-font-size:16px;
+}
+
+.s-container{
+    -fx-spacing:5px;
+}
+
+.m-container{
+    -fx-spacing:10px;
+}
+
+.l-container{
+    -fx-spacing:15px;
+}
+
+.xl-container{
+    -fx-spacing:20px;
+}
+
+.table-view .center-align{
+    -fx-alignment:center;
+}
+
+.table-view .left-align{
+    -fx-alignment:center-left;
+}
+
+.table-view .right-align{
+    -fx-alignment:center-right;
 }
 
 .primary-button{
@@ -261,9 +369,14 @@ FlowPane{
     -fx-background-color:dark-yellow;
 }
 
+.currency-input{
+    -fx-pref-width:120;
+    -fx-alignment:center-right;
+}
 
-
-
+.uneditable-text-field{
+    -fx-background-color:silver;
+}
 
 
 
@@ -422,8 +535,10 @@ FlowPane{
 
 
 .exit-button{
+    -fx-pref-width:36px;
+    -fx-pref-height:36px;
     -fx-background-color:transparent;
-    -fx-background-radius:3px;
+    -fx-background-radius:18px;
     -fx-padding:5px;
 }
 
@@ -443,6 +558,8 @@ FlowPane{
     -fx-pref-height:200px;
     -fx-background-color:background;
     -fx-border-color:gray;
+    -fx-background-radius:5px;
+    -fx-border-radius:5px;
     -fx-alignment:top-center;
     -fx-spacing:10px;
 }
@@ -457,7 +574,7 @@ FlowPane{
     -fx-pref-width:90px;
     -fx-padding:5px;
     -fx-background-color:green;
-    -fx-background-radius:0 0 0 8;
+    -fx-background-radius:0 5 0 8;
 }
 
 .category-card .item-count-wrapper .label{
@@ -501,13 +618,13 @@ FlowPane{
 
 /******* CRUD button group **********/
 
-.crud-button-group{
+.form-button-group{
     -fx-padding:20px;
     -fx-spacing:10px;
     -fx-alignment:center;
 }
 
-.crud-button-group .button{
+.form-button-group .button{
     -fx-pref-width:80px;
     -fx-pref-height:40px;
 }
@@ -543,6 +660,8 @@ FlowPane{
     -fx-pref-height:190px;
     -fx-border-width:1px;
     -fx-background-color:background;
+    -fx-background-radius:5px;
+    -fx-border-radius:5px;
     -fx-alignment:top-center;
     -fx-spacing:5px;
 
@@ -556,12 +675,13 @@ FlowPane{
 .product-card .price-wrapper{
     -fx-padding:5px;
     -fx-pref-width:100px;
-    -fx-background-radius:0 0 0 10;
+    -fx-background-radius:0 5 0 10;
     -fx-background-color:red;
 }
 
 .product-card .price-wrapper .label{
     -fx-text-fill:white;
+    -fx-font-size:11px;
 }
 
 .product-card Line{
@@ -611,6 +731,7 @@ FlowPane{
 
 .product_form .price_input{
     -fx-pref-width:150px;
+    -fx-alignment:center-right;
 }
 
 
@@ -625,4 +746,73 @@ FlowPane{
     -fx-padding:10px 30px;
     -fx-spacing:10px;
     -fx-alignment:center-left;
+}
+
+
+/******* Sale ************/
+.bill-total-wrapper{
+    -fx-background-color:black;
+    -fx-background-radius:0px;
+    -fx-padding:10px;
+}
+
+.bill-total-wrapper .label{
+    -fx-font-size:16px;
+    -fx-font-weight:bold;
+    -fx-text-fill:amber;
+}
+
+/*******Payment***********/
+
+.payment-window{
+    -fx-background-color:background;
+}
+
+.total-amount-label{
+    -fx-font-size:18px;
+    -fx-font-weight:bold;
+    -fx-text-fill:green;
+}
+
+.payment-action-button-group{
+    -fx-alignment:center;
+    -fx-padding:10px;
+    -fx-spacing:10px;
+}
+
+.payment-action-button-group .button{
+    -fx-pref-width:80px;
+    -fx-pref-height:40px;
+}
+
+.cash-suggestion-flow-pane{
+    -fx-alignment:center-left;
+    -fx-hgap:10px;
+    -fx-vgap:10px;
+    -fx-padding:5px;
+}
+
+.cash-suggestion-flow-pane .button{
+    -fx-pref-width:120px;
+    -fx-pref-height:30px;
+    -fx-focus-traversable:false;
+}
+
+/******Recall sale*************/
+
+.recall_sale_window{
+    -fx-pref-width:650px;
+    -fx-pref-height:450px;
+    -fx-background-color:background;
+}
+
+.recall_sale_action_button_group{
+    -fx-padding:10px;
+    -fx-spacing:10px;
+    -fx-alignment:center-right;
+}
+
+.recall_sale_action_button_group .button{
+    -fx-pref-width:80px;
+    -fx-pref-height:40px;
 }
