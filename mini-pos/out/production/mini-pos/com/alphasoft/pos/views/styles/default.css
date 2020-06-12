@@ -107,6 +107,7 @@ FlowPane{
     -fx-font-family:Arial;
     -fx-font-size:12px;
     -fx-text-fill:background-content;
+    -fx-padding:0 5 0 5;
 }
 
 .table-view .scroll-bar{
@@ -557,6 +558,8 @@ GridPane .label{
     -fx-pref-height:200px;
     -fx-background-color:background;
     -fx-border-color:gray;
+    -fx-background-radius:5px;
+    -fx-border-radius:5px;
     -fx-alignment:top-center;
     -fx-spacing:10px;
 }
@@ -571,7 +574,7 @@ GridPane .label{
     -fx-pref-width:90px;
     -fx-padding:5px;
     -fx-background-color:green;
-    -fx-background-radius:0 0 0 8;
+    -fx-background-radius:0 5 0 8;
 }
 
 .category-card .item-count-wrapper .label{
@@ -615,13 +618,13 @@ GridPane .label{
 
 /******* CRUD button group **********/
 
-.crud-button-group{
+.form-button-group{
     -fx-padding:20px;
     -fx-spacing:10px;
     -fx-alignment:center;
 }
 
-.crud-button-group .button{
+.form-button-group .button{
     -fx-pref-width:80px;
     -fx-pref-height:40px;
 }
@@ -657,6 +660,8 @@ GridPane .label{
     -fx-pref-height:190px;
     -fx-border-width:1px;
     -fx-background-color:background;
+    -fx-background-radius:5px;
+    -fx-border-radius:5px;
     -fx-alignment:top-center;
     -fx-spacing:5px;
 
@@ -670,7 +675,7 @@ GridPane .label{
 .product-card .price-wrapper{
     -fx-padding:5px;
     -fx-pref-width:100px;
-    -fx-background-radius:0 0 0 10;
+    -fx-background-radius:0 5 0 10;
     -fx-background-color:red;
 }
 
@@ -776,6 +781,26 @@ GridPane .label{
 }
 
 .payment-action-button-group .button{
+    -fx-pref-width:80px;
+    -fx-pref-height:40px;
+}
+
+
+/******Recall sale*************/
+
+.recall_sale_window{
+    -fx-pref-width:650px;
+    -fx-pref-height:450px;
+    -fx-background-color:background;
+}
+
+.recall_sale_action_button_group{
+    -fx-padding:10px;
+    -fx-spacing:10px;
+    -fx-alignment:center-right;
+}
+
+.recall_sale_action_button_group .button{
     -fx-pref-width:80px;
     -fx-pref-height:40px;
 }

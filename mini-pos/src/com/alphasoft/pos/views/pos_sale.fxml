@@ -23,7 +23,7 @@
       <String fx:value="m-wrapper" />
    </styleClass>
    <children>
-      <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWidth="430.0" styleClass="m-wrapper">
+      <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWidth="470.0" styleClass="m-wrapper">
          <children>
             <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="component-title-bar">
                <children>
@@ -33,10 +33,10 @@
             </HBox>
             <TableView fx:id="cart" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="50.0" VBox.vgrow="ALWAYS">
               <columns>
-                <TableColumn fx:id="nameColumn" prefWidth="181.0" resizable="false" styleClass="left-align" text="Product" />
-                <TableColumn fx:id="priceColumn" prefWidth="92.0" resizable="false" styleClass="right-align" text="Unit Price" />
-                  <TableColumn fx:id="qtyColumn" minWidth="0.0" prefWidth="39.0" resizable="false" styleClass="right-align" text="Qty" />
-                  <TableColumn fx:id="totalColumn" prefWidth="95.0" resizable="false" styleClass="right-align" text="Total" />
+                <TableColumn fx:id="nameColumn" prefWidth="180.0" resizable="false" styleClass="left-align" text="Product" />
+                <TableColumn fx:id="priceColumn" prefWidth="100.0" resizable="false" styleClass="right-align" text="Unit Price" />
+                  <TableColumn fx:id="qtyColumn" minWidth="0.0" prefWidth="55.0" resizable="false" styleClass="right-align" text="Qty" />
+                  <TableColumn fx:id="totalColumn" prefWidth="112.0" resizable="false" styleClass="right-align" text="Total" />
               </columns>
             </TableView>
             <VBox alignment="CENTER" spacing="10.0" styleClass="m-wrapper">
@@ -73,9 +73,9 @@
                   </GridPane>
                   <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="10.0">
                      <children>
-                        <Button focusTraversable="false" mnemonicParsing="false" onAction="#clear" prefHeight="28.0" prefWidth="125.0" styleClass="gray-button" text="Clear" />
-                        <Button focusTraversable="false" mnemonicParsing="false" onAction="#hold" prefHeight="28.0" prefWidth="125.0" styleClass="red-button" text="Hold" />
-                        <Button focusTraversable="false" mnemonicParsing="false" onAction="#recall" prefHeight="28.0" prefWidth="125.0" styleClass="blue-button" text="Recall" />
+                        <Button focusTraversable="false" mnemonicParsing="false" onAction="#clear" prefHeight="28.0" prefWidth="136.0" styleClass="gray-button" text="Clear" />
+                        <Button focusTraversable="false" mnemonicParsing="false" onAction="#hold" prefHeight="28.0" prefWidth="136.0" styleClass="red-button" text="Hold" />
+                        <Button focusTraversable="false" mnemonicParsing="false" onAction="#recall" prefHeight="28.0" prefWidth="136.0" styleClass="blue-button" text="Recall" />
                      </children>
                   </HBox>
                   <Button focusTraversable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#pay" styleClass="green-button" text="Payment" />

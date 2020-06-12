@@ -4,6 +4,7 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
 public class Payment {
+    private int saleId;
     private final IntegerProperty subTotal = new SimpleIntegerProperty();
     private final IntegerProperty taxRate= new SimpleIntegerProperty();
     private final IntegerProperty tax= new SimpleIntegerProperty();
@@ -21,6 +22,14 @@ public class Payment {
         totalDiscount.bind(total.multiply(discountPercent).divide(100).add(discountCash));
         due.bind(total.subtract(totalDiscount));
         change.bind(tendered.subtract(due));
+    }
+
+    public int getSaleId() {
+        return saleId;
+    }
+
+    public void setSaleId(int saleId) {
+        this.saleId = saleId;
     }
 
     public IntegerProperty subTotalProperty() {

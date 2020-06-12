@@ -121,11 +121,17 @@ public class PosSaleController implements Initializable {
 
     @FXML
     public void hold() {
+        if(cart.getItems().isEmpty()){
+            showAlertBox("Action cannot be completed","The cart is empty");
+            return;
+        }
         ConfirmBox confirmBox = new ConfirmBox(MainWindowController.mainStage);
         confirmBox.setTitle("Confirm");
         confirmBox.setContentText("Are you sure to hold this cart?");
         confirmBox.setOnConfirmed(e->{
-            SaleService.getService().save(getSale(),false);
+            Sale saleToSave = getSale();
+            saleToSave.getSaleDetail().setPaid(false);
+            SaleService.getService().save(saleToSave);
             prepareForNextSale();
             confirmBox.close();
         });
@@ -140,13 +146,22 @@ public class PosSaleController implements Initializable {
             showAlertBox("Action cannot be completed","The cart is empty");
             return;
         }
-        PaymentWindow paymentWindow = new PaymentWindow(getSale(),this::saveSale);
+        PaymentWindow paymentWindow = new PaymentWindow(getSale(),this::onSave);
         paymentWindow.showAndWait();
     }
 
     @FXML
     public void recall() {
+        RecallSaleWindow recallSaleWindow = new RecallSaleWindow(this::onRecall);
+        recallSaleWindow.showAndWait();
+    }
 
+    private void onRecall(Sale sale){
+        this.sale = sale;
+        cart.getItems().clear();
+        cart.getItems().addAll(sale.getSaleItemList());
+        resetPayment();
+        calculateCartItem();
     }
 
 
@@ -256,8 +271,9 @@ public class PosSaleController implements Initializable {
         alertBox.showAndWait();
     }
 
-    private void saveSale(Sale sale){
-        SaleService.getService().save(sale,true);
+    private void onSave(Sale sale){
+        sale.getSaleDetail().setPaid(true);
+        SaleService.getService().save(sale);
         prepareForNextSale();
     }
 
@@ -271,6 +287,7 @@ public class PosSaleController implements Initializable {
         saleDetail.setSaleDate(LocalDate.now());
         saleDetail.setSaleTime(LocalTime.now());
         saleDetail.setTaxRate(TaxRepository.getRepository().getTaxRate(LocalDate.now()));
+        saleDetail.setPaid(false);
         sale.getSaleItemList().clear();
         sale.getSaleItemList().addAll(cart.getItems());
         sale.setPayment(payment);

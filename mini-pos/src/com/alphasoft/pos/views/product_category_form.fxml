@@ -41,7 +41,7 @@
                         </VBox>
                             </children>
                         </VBox>
-                  <HBox fx:id="mainButtonBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="crud-button-group">
+                  <HBox fx:id="mainButtonBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="form-button-group">
                      <children>
                         <Button focusTraversable="false" mnemonicParsing="false" onAction="#cancel" styleClass="gray-button" text="Cancel" />
                      </children>

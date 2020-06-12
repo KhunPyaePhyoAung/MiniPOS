@@ -3,13 +3,13 @@ package com.alphasoft.pos.models;
 public class SaleItem {
 
 
+    private int saleId;
     private int productId;
     private String productName;
     private int categoryId;
     private String categoryName;
     private int price;
     private int quantity;
-    private int total;
 
     public void setProduct(Product product){
         productId = product.getId();
@@ -17,6 +17,14 @@ public class SaleItem {
         categoryId = product.getCategoryId();
         categoryName = product.getCategoryName();
         price = product.getPrice();
+    }
+
+    public int getSaleId() {
+        return saleId;
+    }
+
+    public void setSaleId(int saleId) {
+        this.saleId = saleId;
     }
 
     public int getProductId() {

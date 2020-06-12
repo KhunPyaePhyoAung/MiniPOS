@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="recall_sale_window" stylesheets="@styles/default.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.alphasoft.pos.views.controllers.RecallSaleWindowController">
+   <children>
+      <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="title-bar">
+         <children>
+            <Label text="Recall" />
+         </children>
+      </HBox>
+      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="m-wrapper" VBox.vgrow="ALWAYS">
+         <children>
+            <TableView fx:id="tableView" prefHeight="100.0" VBox.vgrow="ALWAYS">
+              <columns>
+                <TableColumn fx:id="idColumn" prefWidth="77.0" resizable="false" styleClass="right-align" text="ID" />
+                <TableColumn fx:id="dateColumn" prefWidth="110.0" resizable="false" styleClass="center-align" text="Date" />
+                  <TableColumn fx:id="timeColumn" prefWidth="110.0" resizable="false" styleClass="center-align" text="Time" />
+                  <TableColumn fx:id="qtyColumn" prefWidth="50.0" resizable="false" styleClass="right-align" text="Qty" />
+                  <TableColumn fx:id="subTotalColumn" prefWidth="113.0" resizable="false" styleClass="right-align" text="Sub Total" />
+                  <TableColumn fx:id="cashierColumn" prefWidth="168.0" resizable="false" styleClass="left-align" text="Cashier" />
+              </columns>
+            </TableView>
+         </children>
+      </VBox>
+      <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="recall_sale_action_button_group">
+         <children>
+            <Button focusTraversable="false" mnemonicParsing="false" onAction="#cancel" styleClass="gray-button" text="Cancel" />
+            <Button focusTraversable="false" mnemonicParsing="false" onAction="#remove" styleClass="red-button" text="Remove" />
+            <Button focusTraversable="false" mnemonicParsing="false" onAction="#recall" styleClass="green-button" text="Recall" />
+         </children>
+      </HBox>
+   </children>
+</VBox>
