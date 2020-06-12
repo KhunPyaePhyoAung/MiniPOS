@@ -52,7 +52,7 @@ public class ProductCategoryService {
             params.add(FileHelper.fileToInputStream(productCategory.getImageFile()));
         }
         sb.append(" where id=?");
-        params.add(productCategory.getImageFile());
+        params.add(productCategory.getId());
         try(Connection connection = ConnectionManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(sb.toString())
         ) {
