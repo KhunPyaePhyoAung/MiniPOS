@@ -1,5 +1,6 @@
 package com.alphasoft.pos.views.controllers;
 
+import com.alphasoft.pos.commons.CashSuggester;
 import com.alphasoft.pos.commons.CurrencyFormatter;
 import com.alphasoft.pos.commons.NumberInput;
 import com.alphasoft.pos.commons.StringUtils;
@@ -8,8 +9,10 @@ import com.alphasoft.pos.views.customs.ConfirmBox;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.FlowPane;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -39,17 +42,16 @@ public class PaymentWindowController implements Initializable {
     @FXML
     private TextField totalDiscountInput;
 
+    @FXML
+    private FlowPane cashSuggestionFlowPane;
+
     private Sale sale;
     private Consumer<Sale> onSave;
 
 
     public void setSale(Sale sale){
         this.sale = sale;
-        totalAmountLabel.setText(StringUtils.formatToMmk(sale.getPayment().totalProperty().get()));
 
-        totalDiscountInput.textProperty().bindBidirectional(sale.getPayment().totalDiscountProperty(),new CurrencyFormatter());
-        dueInput.textProperty().bindBidirectional(sale.getPayment().dueProperty(),new CurrencyFormatter());
-        changeInput.textProperty().bindBidirectional(sale.getPayment().changeProperty(),new CurrencyFormatter());
     }
 
     public void setOnSave(Consumer<Sale> onSave){
@@ -94,12 +96,31 @@ public class PaymentWindowController implements Initializable {
             }
 
         });
-
         tenderedInput.textProperty().addListener((l,o,n)-> Platform.runLater(()->{
             tenderedInput.setText(String.valueOf(Math.abs(Integer.parseInt(n))));
             setPositionCaret(tenderedInput);
             sale.getPayment().tenderedProperty().set(Integer.parseInt(tenderedInput.getText()));
         }));
+        dueInput.textProperty().addListener((l,o,n)->refreshCashSuggestion());
+        changeInput.textProperty().addListener((l,o,n)->{
+            int value = sale.getPayment().changeProperty().get();
+            String style;
+            if(value>=0){
+                style = "-fx-text-fill:black";
+            }else{
+                style = "-fx-text-fill:dark-red";
+            }
+            changeInput.setStyle(style);
+        });
+
+        Platform.runLater(()->{
+            totalAmountLabel.setText(StringUtils.formatToMmk(sale.getPayment().totalProperty().get()));
+
+            totalDiscountInput.textProperty().bindBidirectional(sale.getPayment().totalDiscountProperty(),new CurrencyFormatter());
+            dueInput.textProperty().bindBidirectional(sale.getPayment().dueProperty(),new CurrencyFormatter());
+            changeInput.textProperty().bindBidirectional(sale.getPayment().changeProperty(),new CurrencyFormatter());
+
+        });
 
     }
 
@@ -155,5 +176,27 @@ public class PaymentWindowController implements Initializable {
         textField.positionCaret(textField.getText().length());
     }
 
+    private void refreshCashSuggestion(){
+        cashSuggestionFlowPane.getChildren().clear();
+
+        Consumer<Integer> executor = i-> tenderedInput.setText(String.valueOf(i));
+
+        Button exactButton = new Button("Exact");
+        exactButton.getStyleClass().add("blue-button");
+        exactButton.setOnAction(e->executor.accept(sale.getPayment().dueProperty().get()));
+        cashSuggestionFlowPane.getChildren().add(exactButton);
+
+        CashSuggester cashSuggester = new CashSuggester(500,1000,5000,10000);
+        int MAX_COUNT = 5;
+        int count = 0;
+        for(int sug:cashSuggester.get(sale.getPayment().dueProperty().get())){
+            Button button = new Button(new CurrencyFormatter().toString(sug));
+            button.setOnAction(e->executor.accept(sug));
+            button.getStyleClass().add("green-button");
+            cashSuggestionFlowPane.getChildren().add(button);
+            count++;
+            if(count>=MAX_COUNT) break;
+        }
+    }
 
 }

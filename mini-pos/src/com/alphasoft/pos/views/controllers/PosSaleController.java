@@ -17,6 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.FlowPane;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -24,6 +25,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
 public class PosSaleController implements Initializable {
@@ -97,14 +99,15 @@ public class PosSaleController implements Initializable {
     }
 
     @FXML
-    public void clear() {
+    public void createNewSale() {
 
         if(!cart.getItems().isEmpty()){
             ConfirmBox confirmBox = new ConfirmBox(MainWindowController.mainStage);
             confirmBox.setTitle("Confirm");
-            confirmBox.setContentText("Are you sure to clear cart?");
+            confirmBox.setContentText("Are you sure to create new sale?");
             confirmBox.setOnConfirmed(e->{
                 cart.getItems().clear();
+                sale = null;
                 calculateCartItem();
                 confirmBox.close();
             });
@@ -153,7 +156,25 @@ public class PosSaleController implements Initializable {
     @FXML
     public void recall() {
         RecallSaleWindow recallSaleWindow = new RecallSaleWindow(this::onRecall);
-        recallSaleWindow.showAndWait();
+        AtomicBoolean proceed = new AtomicBoolean(true);
+        if(!cart.getItems().isEmpty()){
+            ConfirmBox confirmBox = new ConfirmBox(getStage());
+            confirmBox.setTitle("Warning");
+            confirmBox.setContentText("Sale is in progress.\nProceed anyway?");
+            confirmBox.setOnConfirmed(e->{
+                proceed.set(true);
+                confirmBox.close();
+            });
+            confirmBox.setOnCanceled(e-> {
+                proceed.set(false);
+                confirmBox.close();
+            });
+            confirmBox.showAndWait();
+        }
+
+        if(proceed.get()){
+            recallSaleWindow.showAndWait();
+        }
     }
 
     private void onRecall(Sale sale){
@@ -300,6 +321,10 @@ public class PosSaleController implements Initializable {
         payment.discountCashProperty().set(0);
         payment.discountPercentProperty().set(0);
         payment.tenderedProperty().set(0);
+    }
+
+    private Stage getStage(){
+        return (Stage)cart.getScene().getWindow();
     }
 
 }

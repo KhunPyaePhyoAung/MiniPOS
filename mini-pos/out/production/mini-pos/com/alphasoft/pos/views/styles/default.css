@@ -785,6 +785,18 @@ GridPane .label{
     -fx-pref-height:40px;
 }
 
+.cash-suggestion-flow-pane{
+    -fx-alignment:center-left;
+    -fx-hgap:10px;
+    -fx-vgap:10px;
+    -fx-padding:5px;
+}
+
+.cash-suggestion-flow-pane .button{
+    -fx-pref-width:120px;
+    -fx-pref-height:30px;
+    -fx-focus-traversable:false;
+}
 
 /******Recall sale*************/
 
