@@ -17,20 +17,24 @@ public class ProductCategoryService {
     private ProductCategoryService(){}
 
     
-    public void checkAndAddCategory(ProductCategory productCategory){
-        checkIfCanInsertCategory(productCategory);
-        addCategory(productCategory);
+    public void checkAndAdd(ProductCategory productCategory){
+        checkIfCanAdd(productCategory);
+        add(productCategory);
     }
 
-    public void checkAndUpdateCategory(ProductCategory productCategory){
-        checkIfCanUpdateCategory(productCategory);
-        updateCategory(productCategory);
+    public void checkAndUpdate(ProductCategory productCategory){
+        checkIfCanUpdate(productCategory);
+        update(productCategory);
+    }
+
+    public void checkAndDelete(ProductCategory productCategory){
+        checkIfCanDelete(productCategory);
+        delete(productCategory);
     }
 
 
 
-
-    private void addCategory(ProductCategory productCategory){
+    private void add(ProductCategory productCategory){
         try(Connection connection = ConnectionManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(getQuery("category.insert"))
         ) {
@@ -42,7 +46,7 @@ public class ProductCategoryService {
         }
     }
 
-    private void updateCategory(ProductCategory productCategory){
+    private void update(ProductCategory productCategory){
         List<Object> params = new ArrayList<>();
         StringBuilder sb = new StringBuilder(getQuery("category.update"));
         sb.append(" name=?");
@@ -65,14 +69,25 @@ public class ProductCategoryService {
         }
     }
 
-    private void checkIfCanInsertCategory(ProductCategory productCategory){
+    private void delete(ProductCategory productCategory){
+        try (Connection connection = ConnectionManager.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(getQuery("category.delete.byId"))
+        ){
+            preparedStatement.setInt(1,productCategory.getId());
+            preparedStatement.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    private void checkIfCanAdd(ProductCategory productCategory){
         try(Connection connection = ConnectionManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(getQuery("category.checkIfCanInsert"))
             ) {
                preparedStatement.setString(1,productCategory.getName());
                ResultSet resultSet = preparedStatement.executeQuery();
                if(resultSet.next()){
-                   throw new PosException("Item with this name already exists");
+                   throw new PosException("Category with this name already exists");
                }
 
         } catch (SQLException throwable) {
@@ -80,21 +95,36 @@ public class ProductCategoryService {
         }
     }
 
-    private void checkIfCanUpdateCategory(ProductCategory category){
+    private void checkIfCanUpdate(ProductCategory productCategory){
         try(Connection connection = ConnectionManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(getQuery("category.checkIfCanUpdate"))
         ) {
-            preparedStatement.setString(1,category.getName());
-            preparedStatement.setInt(2,category.getId());
+            preparedStatement.setString(1,productCategory.getName());
+            preparedStatement.setInt(2,productCategory.getId());
             ResultSet resultSet = preparedStatement.executeQuery();
             if(resultSet.next()){
-                throw new PosException("Item with this name already exists");
+                throw new PosException("Category with this name already exists");
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
 
     }
+
+    private void checkIfCanDelete(ProductCategory productCategory){
+        try(Connection connection = ConnectionManager.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(getQuery("product.select.byCategoryId"))
+        ) {
+            preparedStatement.setInt(1,productCategory.getId());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if(resultSet.next()){
+                throw new PosException("Could not delete this category");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
 
 
     public static ProductCategoryService getService(){

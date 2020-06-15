@@ -6,6 +6,7 @@ import com.alphasoft.pos.contexts.PosException;
 import com.alphasoft.pos.models.ProductCategory;
 import com.alphasoft.pos.services.ProductCategoryService;
 import com.alphasoft.pos.views.customs.AlertBox;
+import com.alphasoft.pos.views.customs.ConfirmBox;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -93,6 +94,7 @@ public class ProductCategoryFormController implements Initializable {
 
         addButton.setOnAction(e-> onAdd());
         updateButton.setOnAction(e-> onUpdate());
+        deleteButton.setOnAction(e->onDelete());
     }
 
     private void onAdd(){
@@ -119,11 +121,27 @@ public class ProductCategoryFormController implements Initializable {
         }
     }
 
+    private void onDelete(){
+        ConfirmBox confirmBox = new ConfirmBox(getStage());
+        confirmBox.setTitle("Confirm");
+        confirmBox.setContentText("Are you sure to delete this category?");
+        confirmBox.setOnConfirmed(e->{
+            try {
+                ProductCategoryService.getService().checkAndDelete(category);
+            }catch (PosException exception){
+                showAlert("Action cannot be completed",exception.getMessage());
+            }
+            confirmBox.close();
+            close();
+        });
+        confirmBox.showAndWait();
+    }
+
     private void addNewCategory(){
         ProductCategory productCategory = new ProductCategory();
         productCategory.setName(categoryNameInput.getText().trim());
         productCategory.setImageFile(imageFile);
-        ProductCategoryService.getService().checkAndAddCategory(productCategory);
+        ProductCategoryService.getService().checkAndAdd(productCategory);
     }
 
     private void updateCategory(){
@@ -131,7 +149,7 @@ public class ProductCategoryFormController implements Initializable {
         productCategory.setId(category.getId());
         productCategory.setName(categoryNameInput.getText().trim());
         productCategory.setImageFile(imageFile);
-        ProductCategoryService.getService().checkAndUpdateCategory(productCategory);
+        ProductCategoryService.getService().checkAndUpdate(productCategory);
     }
 
     private void toggleUpdateButton(){
@@ -155,10 +173,14 @@ public class ProductCategoryFormController implements Initializable {
     }
 
     private void showAlert(String title,String message){
-        AlertBox alertBox = new AlertBox((Stage)imageView.getScene().getWindow());
+        AlertBox alertBox = new AlertBox(getStage());
         alertBox.setTitle(title);
         alertBox.setContentText(message);
-        alertBox.show();
+        alertBox.showAndWait();
+    }
+
+    private Stage getStage(){
+        return (Stage)imageView.getScene().getWindow();
     }
 
 
