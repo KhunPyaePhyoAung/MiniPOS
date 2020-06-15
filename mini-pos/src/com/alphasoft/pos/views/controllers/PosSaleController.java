@@ -173,6 +173,7 @@ public class PosSaleController implements Initializable {
         }
 
         if(proceed.get()){
+            prepareForNextSale();
             recallSaleWindow.showAndWait();
         }
     }
@@ -311,7 +312,8 @@ public class PosSaleController implements Initializable {
         saleDetail.setPaid(false);
         sale.getSaleItemList().clear();
         sale.getSaleItemList().addAll(cart.getItems());
-        sale.setPayment(payment);
+        sale.getPayment().subTotalProperty().set(payment.subTotalProperty().get());
+        sale.getPayment().taxRateProperty().set(payment.taxRateProperty().get());
         return sale;
     }
 
