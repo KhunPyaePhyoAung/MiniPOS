@@ -11,6 +11,7 @@ import com.alphasoft.pos.models.ProductCategory;
 import com.alphasoft.pos.services.ProductCategoryRepository;
 import com.alphasoft.pos.services.ProductService;
 import com.alphasoft.pos.views.customs.AlertBox;
+import com.alphasoft.pos.views.customs.ConfirmBox;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -117,6 +118,7 @@ public class ProductFormController implements Initializable {
 
         addButton.setOnAction(e->onAdd());
         updateButton.setOnAction(e->onUpdate());
+        deleteButton.setOnAction(e->onDelete());
     }
 
     private void onAdd(){
@@ -145,6 +147,23 @@ public class ProductFormController implements Initializable {
         }
     }
 
+    private void onDelete(){
+        ConfirmBox confirmBox = new ConfirmBox(getStage());
+        confirmBox.setTitle("Confirm");
+        confirmBox.setContentText("Are you sure to delete this product?");
+        confirmBox.setOnConfirmed(e->{
+            try {
+                ProductService.getService().checkAndDelete(product);
+                close();
+            }catch (PosException exception){
+                showAlert("Action cannot be completed",exception.getMessage());
+            }
+            confirmBox.close();
+        });
+        confirmBox.showAndWait();
+
+    }
+
     private void runLater(){
         Platform.runLater(()->{
             if(null==product){
@@ -170,7 +189,7 @@ public class ProductFormController implements Initializable {
         newProduct.setCategoryId(categorySelector.getSelectionModel().getSelectedItem().getId());
         newProduct.setCategoryName(categorySelector.getSelectionModel().getSelectedItem().getName());
         newProduct.setImageFile(imageFile);
-        ProductService.getService().checkAndAddProduct(newProduct);
+        ProductService.getService().checkAndAdd(newProduct);
     }
 
     private void updateProduct(){
@@ -181,7 +200,7 @@ public class ProductFormController implements Initializable {
         editedProduct.setPrice(Integer.parseInt(priceInput.getText().trim()));
         editedProduct.setAvailable(availability.isSelected());
         if(null!=imageFile) editedProduct.setImageFile(imageFile);
-        ProductService.getService().checkAndUpdateProduct(editedProduct);
+        ProductService.getService().checkAndUpdate(editedProduct);
     }
 
     private ProductCategory getSelectedCategory(){
@@ -193,9 +212,13 @@ public class ProductFormController implements Initializable {
     }
 
     private void showAlert(String title,String message){
-        AlertBox alertBox = new AlertBox((Stage)imageView.getScene().getWindow());
+        AlertBox alertBox = new AlertBox(getStage());
         alertBox.setTitle(title);
         alertBox.setContentText(message);
         alertBox.show();
+    }
+
+    private Stage getStage(){
+        return (Stage)imageView.getScene().getWindow();
     }
 }

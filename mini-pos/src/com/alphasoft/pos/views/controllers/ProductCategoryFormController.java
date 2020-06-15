@@ -128,11 +128,11 @@ public class ProductCategoryFormController implements Initializable {
         confirmBox.setOnConfirmed(e->{
             try {
                 ProductCategoryService.getService().checkAndDelete(category);
+                close();
             }catch (PosException exception){
                 showAlert("Action cannot be completed",exception.getMessage());
             }
             confirmBox.close();
-            close();
         });
         confirmBox.showAndWait();
     }

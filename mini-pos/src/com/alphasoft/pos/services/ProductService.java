@@ -17,26 +17,24 @@ import static com.alphasoft.pos.database.SqlHelper.getQuery;
 public class ProductService {
     private static ProductService service;
 
-    private ProductService(){
+    private ProductService(){}
 
+    public void checkAndAdd(Product product){
+        checkIfCanAdd(product);
+        add(product);
     }
 
-
-
-    public void checkAndAddProduct(Product product){
-        checkIfCanInsertProduct(product);
-        addProduct(product);
+    public void checkAndUpdate(Product product){
+        checkIfCanUpdate(product);
+        update(product);
     }
 
-    public void checkAndUpdateProduct(Product product){
-        checkIfCanUpdateProduct(product);
-        updateProduct(product);
+    public void checkAndDelete(Product product){
+        checkIfCanDelete(product);
+        delete(product);
     }
 
-
-
-
-    private void addProduct(Product product){
+    private void add(Product product){
         if(null==product)return;
         try(Connection connection = ConnectionManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(getQuery("product.insert"))
@@ -53,19 +51,7 @@ public class ProductService {
 
     }
 
-    private void checkIfCanInsertProduct(Product product){
-        try (Connection connection = ConnectionManager.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(getQuery("product.checkIfCanInsert"))
-            ){
-            preparedStatement.setString(1,product.getName());
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if(resultSet.next()) throw new PosException("Product with this name already exists");
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-    }
-
-    private void updateProduct(Product product){
+    private void update(Product product){
         StringBuilder sb = new StringBuilder(getQuery("product.update"));
         List<Object> params = new ArrayList<>();
         params.add(product.getName());
@@ -90,7 +76,30 @@ public class ProductService {
         }
     }
 
-    private void checkIfCanUpdateProduct(Product product){
+    private void delete(Product product){
+        try(Connection connection = ConnectionManager.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(getQuery("product.delete.byId"))
+        ) {
+            preparedStatement.setInt(1,product.getId());
+            preparedStatement.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    private void checkIfCanAdd(Product product){
+        try (Connection connection = ConnectionManager.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(getQuery("product.checkIfCanInsert"))
+            ){
+            preparedStatement.setString(1,product.getName());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if(resultSet.next()) throw new PosException("Product with this name already exists");
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    private void checkIfCanUpdate(Product product){
         try(Connection connection = ConnectionManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(getQuery("product.checkIfCanUpdate"))
         ) {
@@ -99,6 +108,20 @@ public class ProductService {
             ResultSet resultSet = preparedStatement.executeQuery();
             if(resultSet.next()) {
                 throw new PosException("Product with this name already exists");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    private void checkIfCanDelete(Product product){
+        try(Connection connection = ConnectionManager.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(getQuery("sale_item.select.byProductId"))
+        ) {
+            preparedStatement.setInt(1,product.getId());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if(resultSet.next()){
+                throw new PosException("Could not delete this product");
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
