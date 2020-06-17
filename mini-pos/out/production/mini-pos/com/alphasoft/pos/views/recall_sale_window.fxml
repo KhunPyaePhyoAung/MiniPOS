@@ -6,11 +6,13 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.SVGPath?>
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="recall_sale_window" stylesheets="@styles/default.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.alphasoft.pos.views.controllers.RecallSaleWindowController">
    <children>
       <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="title-bar">
          <children>
+            <SVGPath content="M12 10h-4v-2c0-1.102 0.898-2 2-2h12c1.102 0 2 0.898 2 2v2h4v-2c0-3.309-2.691-6-6-6h-12c-3.309 0-6 2.691-6 6v2h-4l6 8 6-8zM26 14l-6 8h4v2c0 1.102-0.898 2-2 2h-12c-1.102 0-2-0.898-2-2v-2h-4v2c0 3.309 2.691 6 6 6h12c3.309 0 6-2.691 6-6v-2h4l-6-8z" />
             <Label text="Recall" />
          </children>
       </HBox>

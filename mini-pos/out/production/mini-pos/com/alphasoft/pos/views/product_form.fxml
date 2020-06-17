@@ -15,6 +15,7 @@
    <children>
       <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="title-bar">
          <children>
+            <SVGPath content="M15.452 3.006l-13.362 5.757 13.375 5.712 13.513-5.725-13.526-5.744zM16 15.194v13.8l12.995-6.169v-13.151l-12.995 5.52zM2.005 22.825l13.039 6.169v-13.8l-13.039-5.52v13.151z" />
             <Label fx:id="title" />
          </children>
       </HBox>
