@@ -9,6 +9,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.alphasoft.pos.commons.MessageRepo.getMessage;
 import static com.alphasoft.pos.database.SqlHelper.getQuery;
 
 public class ProductCategoryService {
@@ -87,7 +88,7 @@ public class ProductCategoryService {
                preparedStatement.setString(1,productCategory.getName());
                ResultSet resultSet = preparedStatement.executeQuery();
                if(resultSet.next()){
-                   throw new PosException("Category with this name already exists");
+                   throw new PosException(getMessage("category.exists"));
                }
 
         } catch (SQLException throwable) {
@@ -103,7 +104,7 @@ public class ProductCategoryService {
             preparedStatement.setInt(2,productCategory.getId());
             ResultSet resultSet = preparedStatement.executeQuery();
             if(resultSet.next()){
-                throw new PosException("Category with this name already exists");
+                throw new PosException(getMessage("category.exists"));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -118,7 +119,7 @@ public class ProductCategoryService {
             preparedStatement.setInt(1,productCategory.getId());
             ResultSet resultSet = preparedStatement.executeQuery();
             if(resultSet.next()){
-                throw new PosException("Could not delete this category");
+                throw new PosException(getMessage("category.couldn't.delete"));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();

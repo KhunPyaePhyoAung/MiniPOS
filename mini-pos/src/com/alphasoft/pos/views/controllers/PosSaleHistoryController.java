@@ -26,6 +26,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
+import static com.alphasoft.pos.commons.MessageRepo.getMessage;
+
 public class PosSaleHistoryController implements Initializable {
 
     @FXML
@@ -108,8 +110,8 @@ public class PosSaleHistoryController implements Initializable {
     @FXML
     public void deleteSale() {
         ConfirmBox confirmBox = new ConfirmBox(getStage());
-        confirmBox.setTitle("Confirm");
-        confirmBox.setContentText("Are you sure to delete this sale?");
+        confirmBox.setTitle(getMessage("confirmation"));
+        confirmBox.setContentText(getMessage("alert.deleting.sale"));
         confirmBox.setOnConfirmed(e->{
             SaleService.getService().remove(getSelectedSale());
             loadSales();

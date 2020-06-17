@@ -28,6 +28,8 @@ import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
+import static com.alphasoft.pos.commons.MessageRepo.getMessage;
+
 public class PosSaleController implements Initializable {
     @FXML
     private TableView<SaleItem> cart;
@@ -111,8 +113,8 @@ public class PosSaleController implements Initializable {
 
         if(!cart.getItems().isEmpty()){
             ConfirmBox confirmBox = new ConfirmBox(MainWindowController.mainStage);
-            confirmBox.setTitle("Confirm");
-            confirmBox.setContentText("Are you sure to create new sale?");
+            confirmBox.setTitle(getMessage("confirmation"));
+            confirmBox.setContentText(getMessage("alert.creating.sale"));
             confirmBox.setOnConfirmed(e->{
                 cart.getItems().clear();
                 sale = null;
@@ -133,12 +135,12 @@ public class PosSaleController implements Initializable {
     @FXML
     public void hold() {
         if(cart.getItems().isEmpty()){
-            showAlertBox("Action cannot be completed","The cart is empty");
+            showAlertBox(getMessage("action.cannot.completed"),getMessage("cart.empty"));
             return;
         }
         ConfirmBox confirmBox = new ConfirmBox(MainWindowController.mainStage);
-        confirmBox.setTitle("Confirm");
-        confirmBox.setContentText("Are you sure to hold this cart?");
+        confirmBox.setTitle(getMessage("confirmation"));
+        confirmBox.setContentText(getMessage("alert.holding.cart"));
         confirmBox.setOnConfirmed(e->{
             Sale saleToSave = getSale();
             saleToSave.getSaleDetail().setPaid(false);
@@ -154,7 +156,7 @@ public class PosSaleController implements Initializable {
     @FXML
     public void pay() {
         if(cart.getItems().isEmpty()){
-            showAlertBox("Action cannot be completed","The cart is empty");
+            showAlertBox(getMessage("action.cannot.completed"),getMessage("cart.empty"));
             return;
         }
         PaymentWindow paymentWindow = new PaymentWindow(getSale(),this::onSave);
@@ -167,8 +169,8 @@ public class PosSaleController implements Initializable {
         AtomicBoolean proceed = new AtomicBoolean(true);
         if(!cart.getItems().isEmpty()){
             ConfirmBox confirmBox = new ConfirmBox(getStage());
-            confirmBox.setTitle("Warning");
-            confirmBox.setContentText("Sale is in progress.\nProceed anyway?");
+            confirmBox.setTitle(getMessage("warning"));
+            confirmBox.setContentText(getMessage("sale.inProgress").concat("\n").concat(getMessage("alert.proceeding")));
             confirmBox.setOnConfirmed(e->{
                 proceed.set(true);
                 confirmBox.close();

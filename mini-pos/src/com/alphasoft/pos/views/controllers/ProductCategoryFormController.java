@@ -24,6 +24,8 @@ import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+import static com.alphasoft.pos.commons.MessageRepo.getMessage;
+
 public class ProductCategoryFormController implements Initializable {
     @FXML
     private ImageView imageView;
@@ -67,7 +69,7 @@ public class ProductCategoryFormController implements Initializable {
                 imageFile = file;
                 imageView.setImage(new Image(Objects.requireNonNull(FileHelper.fileToInputStream(imageFile))));
             }else {
-                showAlert("Invalid Image","Image must be square");
+                showAlert(getMessage("image.invalid"),getMessage("image.must.square"));
             }
 
         }
@@ -99,38 +101,38 @@ public class ProductCategoryFormController implements Initializable {
 
     private void onAdd(){
         try{
-            Validations.notEmptyString(categoryNameInput.getText().trim(),"Please enter category name");
-            Validations.notNull(imageFile,"No image selected");
+            Validations.notEmptyString(categoryNameInput.getText().trim(),getMessage("category.enter.name"));
+            Validations.notNull(imageFile,getMessage("image.notSelected"));
             addNewCategory();
             close();
         }catch (PosException exception){
-            showAlert("Action cannot be completed",exception.getMessage());
+            showAlert(getMessage("action.cannot.completed"),exception.getMessage());
         }
     }
 
     private void onUpdate(){
         try{
-            Validations.notEmptyString(categoryNameInput.getText().trim(),"Please enter category name");
+            Validations.notEmptyString(categoryNameInput.getText().trim(),getMessage("category.enter.name"));
             if(null==imageView.getImage()){
-                Validations.notNull(imageFile,"Please select an image");
+                Validations.notNull(imageFile,getMessage("select.image"));
             }
             updateCategory();
             close();
         }catch (PosException exception){
-            showAlert("Action cannot be completed",exception.getMessage());
+            showAlert(getMessage("action.cannot.completed"),exception.getMessage());
         }
     }
 
     private void onDelete(){
         ConfirmBox confirmBox = new ConfirmBox(getStage());
-        confirmBox.setTitle("Confirm");
-        confirmBox.setContentText("Are you sure to delete this category?");
+        confirmBox.setTitle(getMessage("confirmation"));
+        confirmBox.setContentText(getMessage("alert.deleting.category"));
         confirmBox.setOnConfirmed(e->{
             try {
                 ProductCategoryService.getService().checkAndDelete(category);
                 close();
             }catch (PosException exception){
-                showAlert("Action cannot be completed",exception.getMessage());
+                showAlert(getMessage("action.cannot.completed"),exception.getMessage());
             }
             confirmBox.close();
         });
@@ -158,10 +160,10 @@ public class ProductCategoryFormController implements Initializable {
 
     private void runLater(){
         if(null==category){
-            title.setText("Add New Category");
+            title.setText(getMessage("title.category.add"));
             mainButtonBox.getChildren().addAll(addButton);
         }else{
-            title.setText("Edit Category");
+            title.setText(getMessage("title.edit.category"));
             mainButtonBox.getChildren().addAll(deleteButton,updateButton);
             categoryNameInput.textProperty().addListener((l,o,n)->toggleUpdateButton());
             toggleUpdateButton();

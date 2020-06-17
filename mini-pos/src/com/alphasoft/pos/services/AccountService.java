@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import static com.alphasoft.pos.commons.MessageRepo.getMessage;
 import static com.alphasoft.pos.database.SqlHelper.getQuery;
 
 public class AccountService {
@@ -22,12 +23,12 @@ public class AccountService {
 
     public Account login(String loginId,String password){
 
-        Validations.notEmptyString(loginId,"Please Enter Login ID");
-        Validations.notEmptyString(password,"Please Enter Password");
+        Validations.notEmptyString(loginId,getMessage("enter.loginId"));
+        Validations.notEmptyString(password,getMessage("enter.password"));
 
         Account account = findAccountByLoginId(loginId);
-        if(null == account) throw new PosException("Please Enter Valid Login ID");
-        if(!account.getPassword().equals(password)) throw new PosException("Please Enter Correct Password");
+        if(null == account) throw new PosException(getMessage("enter.validLoginId"));
+        if(!account.getPassword().equals(password)) throw new PosException(getMessage("enter.correctPassword"));
         return account;
     }
 

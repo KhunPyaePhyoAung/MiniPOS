@@ -8,6 +8,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
+import static com.alphasoft.pos.commons.MessageRepo.getMessage;
+
 public class ConnectionManager {
     private static String DRIVER;
     private static String URL;
@@ -34,7 +36,7 @@ public class ConnectionManager {
         try{
             connection = DriverManager.getConnection(URL,USER,PASSWORD);
         }catch (SQLException e){
-            throw new PosConnectionException("Cannot connect to the server");
+            throw new PosConnectionException(getMessage("server.cannot.connect"));
         }
         return connection;
 

@@ -17,10 +17,11 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import javax.swing.text.View;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import static com.alphasoft.pos.commons.MessageRepo.getMessage;
 
 public class MainWindowController implements Initializable , ViewLoader {
 
@@ -80,8 +81,8 @@ public class MainWindowController implements Initializable , ViewLoader {
 
     public void exit(){
         ConfirmBox confirmBox = new ConfirmBox(mainStage);
-        confirmBox.setTitle("Confirm");
-        confirmBox.setContentText("Are you sure to exit?");
+        confirmBox.setTitle(getMessage("confirmation"));
+        confirmBox.setContentText(getMessage("alert.exiting"));
         confirmBox.setOnConfirmed(e->mainStage.close());
         confirmBox.showAndWait();
     }

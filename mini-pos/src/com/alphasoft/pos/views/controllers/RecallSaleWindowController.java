@@ -24,6 +24,8 @@ import java.util.ResourceBundle;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
+import static com.alphasoft.pos.commons.MessageRepo.getMessage;
+
 public class RecallSaleWindowController implements Initializable {
 
     @FXML
@@ -74,7 +76,7 @@ public class RecallSaleWindowController implements Initializable {
             onRecall.accept(selectedSale);
             close();
         }else{
-            showAlert("Action cannot be completed","Select an item first");
+            showAlert(getMessage("action.cannot.completed"),getMessage("select.item"));
         }
     }
 
@@ -83,8 +85,8 @@ public class RecallSaleWindowController implements Initializable {
         SaleDetail selectedItem = tableView.getSelectionModel().getSelectedItem();
         if(null!=selectedItem){
             ConfirmBox confirmBox = new ConfirmBox(getStage());
-            confirmBox.setTitle("Confirm");
-            confirmBox.setContentText("Are you sure to remove this item?");
+            confirmBox.setTitle(getMessage("confirmation"));
+            confirmBox.setContentText(getMessage("alert.removing.item"));
             confirmBox.setOnConfirmed(e->{
                 Sale selectedSale = SaleRepository.getRepository().get(selectedItem.getId());
                 SaleService.getService().remove(selectedSale);
@@ -95,7 +97,7 @@ public class RecallSaleWindowController implements Initializable {
 
 
         }else{
-            showAlert("Action cannot be completed","Select an item first");
+            showAlert(getMessage("action.cannot.completed"),getMessage("select.item"));
         }
     }
 

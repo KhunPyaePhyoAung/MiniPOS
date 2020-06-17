@@ -28,6 +28,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+import static com.alphasoft.pos.commons.MessageRepo.getMessage;
+
 public class ProductFormController implements Initializable {
     @FXML
     private Label title;
@@ -69,7 +71,7 @@ public class ProductFormController implements Initializable {
     @FXML
     void chooseImage() {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Choose a image");
+        fileChooser.setTitle(getMessage("select.image"));
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Image File","*.jpg","*.jpeg","*.png")
         );
@@ -80,7 +82,7 @@ public class ProductFormController implements Initializable {
                 imageFile = selectedFile;
                 imageView.setImage(new Image(Objects.requireNonNull(FileHelper.fileToInputStream(imageFile))));
             }else {
-                showAlert("Invalid Image","Image must be square");
+                showAlert(getMessage("image.invalid"),getMessage("image.must.square"));
             }
         }
         if(null!=product){
@@ -123,40 +125,40 @@ public class ProductFormController implements Initializable {
 
     private void onAdd(){
         try{
-            Validations.notEmptyString(nameInput.getText().trim(),"Please enter product name");
-            Validations.notEmptyString(priceInput.getText().trim(),"Please enter price");
-            Validations.notNull(categorySelector.getSelectionModel().getSelectedItem(),"Please select a category");
-            Validations.notNull(imageFile,"Please select an image");
+            Validations.notEmptyString(nameInput.getText().trim(),getMessage("product.enter.name"));
+            Validations.notEmptyString(priceInput.getText().trim(),getMessage("product.enter.price"));
+            Validations.notNull(categorySelector.getSelectionModel().getSelectedItem(),getMessage("select.category"));
+            Validations.notNull(imageFile,getMessage("select.image"));
             addProduct();
             close();
         }catch (PosException exception){
-            showAlert("Action cannot be completed",exception.getMessage());
+            showAlert(getMessage("action.cannot.completed"),exception.getMessage());
         }
     }
 
     private void onUpdate(){
         try{
-            Validations.notEmptyString(nameInput.getText().trim(),"Please enter product name");
-            Validations.notEmptyString(priceInput.getText().trim(),"Please enter price");
-            Validations.notNull(categorySelector.getSelectionModel().getSelectedItem(),"Please select a category");
-            if(null==imageView.getImage()) Validations.notNull(imageFile,"Please select an image");
+            Validations.notEmptyString(nameInput.getText().trim(),getMessage("product.enter.name"));
+            Validations.notEmptyString(priceInput.getText().trim(),getMessage("product.enter.price"));
+            Validations.notNull(categorySelector.getSelectionModel().getSelectedItem(),getMessage("select.category"));
+            if(null==imageView.getImage()) Validations.notNull(imageFile,getMessage("select.image"));
             updateProduct();
             close();
         }catch (PosException exception){
-            showAlert("Action cannot be completed",exception.getMessage());
+            showAlert(getMessage("action.cannot.completed"),exception.getMessage());
         }
     }
 
     private void onDelete(){
         ConfirmBox confirmBox = new ConfirmBox(getStage());
-        confirmBox.setTitle("Confirm");
-        confirmBox.setContentText("Are you sure to delete this product?");
+        confirmBox.setTitle(getMessage("confirmation"));
+        confirmBox.setContentText(getMessage("alert.deleting.product"));
         confirmBox.setOnConfirmed(e->{
             try {
                 ProductService.getService().checkAndDelete(product);
                 close();
             }catch (PosException exception){
-                showAlert("Action cannot be completed",exception.getMessage());
+                showAlert(getMessage("action.cannot.completed"),exception.getMessage());
             }
             confirmBox.close();
         });
@@ -167,10 +169,10 @@ public class ProductFormController implements Initializable {
     private void runLater(){
         Platform.runLater(()->{
             if(null==product){
-                title.setText("Add New Product");
+                title.setText(getMessage("title.add.product"));
                 actionButtonGroup.getChildren().add(addButton);
             }else{
-                title.setText("Edit Product");
+                title.setText(getMessage("title.edit.product"));
                 nameInput.textProperty().addListener((l,o,n)->toggleUpdateButton());
                 priceInput.textProperty().addListener((l,o,n)->toggleUpdateButton());
                 availability.selectedProperty().addListener((l,o,n)->toggleUpdateButton());

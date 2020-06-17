@@ -17,6 +17,8 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import static com.alphasoft.pos.commons.MessageRepo.getMessage;
+
 public class LoginWindowController implements Initializable {
     @FXML
     private Label message;
@@ -43,7 +45,7 @@ public class LoginWindowController implements Initializable {
             message.setText(exception.getMessage());
         }catch (PosConnectionException exception){
             AlertBox alertBox = new AlertBox((Stage)loginIdInput.getScene().getWindow());
-            alertBox.setTitle("Warning");
+            alertBox.setTitle(getMessage("warning"));
             alertBox.setContentText(exception.getMessage());
             alertBox.show();
         }

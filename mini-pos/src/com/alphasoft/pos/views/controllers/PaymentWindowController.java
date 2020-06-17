@@ -19,6 +19,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
+import static com.alphasoft.pos.commons.MessageRepo.getMessage;
+
 
 public class PaymentWindowController implements Initializable {
 
@@ -142,8 +144,8 @@ public class PaymentWindowController implements Initializable {
 
         if(payment.dueProperty().get()>0 && payment.tenderedProperty().get()==0){
             ConfirmBox confirmBox = new ConfirmBox(MainWindowController.mainStage);
-            confirmBox.setTitle("Confirm");
-            confirmBox.setContentText("Have not entered tendered amount.\nProceed anyway?");
+            confirmBox.setTitle(getMessage("confirmation"));
+            confirmBox.setContentText(getMessage("tenderedAmount.haven't.entered").concat("\n").concat(getMessage("alert.proceeding")));
             confirmBox.setOnConfirmed(e-> onSave());
             confirmBox.showAndWait();
         }else{

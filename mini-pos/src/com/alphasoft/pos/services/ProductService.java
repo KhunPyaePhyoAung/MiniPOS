@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.alphasoft.pos.commons.MessageRepo.getMessage;
 import static com.alphasoft.pos.database.SqlHelper.getQuery;
 
 public class ProductService {
@@ -93,7 +94,7 @@ public class ProductService {
             ){
             preparedStatement.setString(1,product.getName());
             ResultSet resultSet = preparedStatement.executeQuery();
-            if(resultSet.next()) throw new PosException("Product with this name already exists");
+            if(resultSet.next()) throw new PosException(getMessage("product.exists"));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -107,7 +108,7 @@ public class ProductService {
             preparedStatement.setInt(2,product.getId());
             ResultSet resultSet = preparedStatement.executeQuery();
             if(resultSet.next()) {
-                throw new PosException("Product with this name already exists");
+                throw new PosException(getMessage("product.exists"));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -121,7 +122,7 @@ public class ProductService {
             preparedStatement.setInt(1,product.getId());
             ResultSet resultSet = preparedStatement.executeQuery();
             if(resultSet.next()){
-                throw new PosException("Could not delete this product");
+                throw new PosException(getMessage("product.couldn't.delete"));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
