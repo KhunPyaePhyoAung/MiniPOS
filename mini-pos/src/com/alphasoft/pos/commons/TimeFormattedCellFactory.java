@@ -16,7 +16,7 @@ public class TimeFormattedCellFactory<S> implements Callback<TableColumn<S, Loca
                 if(null == item || empty){
                     setText("");
                 }else{
-                    setText(item.format(DateTimeFormatter.ofPattern("hh:mm:ss a")));
+                    setText(item.format(DateTimeFormatter.ofPattern("hh:mm a")));
                 }
             }
         };

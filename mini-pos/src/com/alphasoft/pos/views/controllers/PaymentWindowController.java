@@ -1,7 +1,7 @@
 package com.alphasoft.pos.views.controllers;
 
 import com.alphasoft.pos.commons.CashSuggester;
-import com.alphasoft.pos.commons.CurrencyFormatter;
+import com.alphasoft.pos.commons.DecimalFormatter;
 import com.alphasoft.pos.commons.NumberInput;
 import com.alphasoft.pos.commons.StringUtils;
 import com.alphasoft.pos.models.Payment;
@@ -64,9 +64,9 @@ public class PaymentWindowController implements Initializable {
 
         payment = new Payment();
 
-        NumberInput.attach(discountCashInput);
-        NumberInput.attach(discountPercentInput);
-        NumberInput.attach(tenderedInput);
+        NumberInput.getNew().attach(discountCashInput,0);
+        NumberInput.getNew().attach(discountPercentInput,0);
+        NumberInput.getNew().attach(tenderedInput,0);
 
         discountCashInput.textProperty().addListener((l,o,n)-> {
             if(isValidDiscountAmount()){
@@ -124,9 +124,9 @@ public class PaymentWindowController implements Initializable {
             discountPercentInput.setText(String.valueOf(payment.discountPercentProperty().get()));
             tenderedInput.setText(String.valueOf(payment.tenderedProperty().get()));
 
-            totalDiscountInput.textProperty().bindBidirectional(payment.totalDiscountProperty(),new CurrencyFormatter());
-            dueInput.textProperty().bindBidirectional(payment.dueProperty(),new CurrencyFormatter());
-            changeInput.textProperty().bindBidirectional(payment.changeProperty(),new CurrencyFormatter());
+            totalDiscountInput.textProperty().bindBidirectional(payment.totalDiscountProperty(),new DecimalFormatter());
+            dueInput.textProperty().bindBidirectional(payment.dueProperty(),new DecimalFormatter());
+            changeInput.textProperty().bindBidirectional(payment.changeProperty(),new DecimalFormatter());
 
         });
 
@@ -204,7 +204,7 @@ public class PaymentWindowController implements Initializable {
         int MAX_COUNT = 5;
         int count = 0;
         for(int sug:cashSuggester.get(payment.dueProperty().get())){
-            Button button = new Button(new CurrencyFormatter().toString(sug));
+            Button button = new Button(new DecimalFormatter().toString(sug));
             button.setOnAction(e->executor.accept(sug));
             button.getStyleClass().add("green-button");
             cashSuggestionFlowPane.getChildren().add(button);

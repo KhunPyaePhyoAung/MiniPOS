@@ -5,7 +5,7 @@ import javafx.util.StringConverter;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 
-public class CurrencyFormatter extends StringConverter<Number> {
+public class DecimalFormatter extends StringConverter<Number> {
 
     private static final DecimalFormat decimalFormat = new DecimalFormat("#,###");
 

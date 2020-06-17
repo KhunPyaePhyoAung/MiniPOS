@@ -87,7 +87,7 @@ public class RecallSaleWindowController implements Initializable {
             confirmBox.setContentText("Are you sure to remove this item?");
             confirmBox.setOnConfirmed(e->{
                 Sale selectedSale = SaleRepository.getRepository().get(selectedItem.getId());
-                SaleService.getService().removeSale(selectedSale);
+                SaleService.getService().remove(selectedSale);
                 loadUnpaidSales();
                 confirmBox.close();
             });

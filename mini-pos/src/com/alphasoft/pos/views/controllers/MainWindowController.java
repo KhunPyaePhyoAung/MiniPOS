@@ -1,5 +1,6 @@
 package com.alphasoft.pos.views.controllers;
 
+import com.alphasoft.pos.commons.ViewLoader;
 import com.alphasoft.pos.contexts.Logger;
 import com.alphasoft.pos.views.customs.ConfirmBox;
 import javafx.application.Platform;
@@ -16,11 +17,12 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import javax.swing.text.View;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MainWindowController implements Initializable {
+public class MainWindowController implements Initializable , ViewLoader {
 
     @FXML
     private HBox navigationBar;
@@ -33,6 +35,7 @@ public class MainWindowController implements Initializable {
 
     public static Stage mainStage;
 
+    private static ViewLoader viewLoader;
 
     @FXML
     public void requestView(MouseEvent event){
@@ -45,9 +48,15 @@ public class MainWindowController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        viewLoader = this;
         username.setText(Logger.getLogger().getLoggedAccount().getName());
         Platform.runLater(()-> loadView("pos_home"));
     }
+
+    public static ViewLoader getViewLoader(){
+        return viewLoader;
+    }
+
 
     private void loadView(String viewName){
         try {
@@ -59,7 +68,7 @@ public class MainWindowController implements Initializable {
         }
     }
 
-    private void loadView(Parent view){
+    public void loadView(Parent view){
         contentPane.getChildren().clear();
         contentPane.getChildren().add(view);
         navigationBar.getChildren().stream().filter(b->b.getId().equals(view.getId())).forEach(Node::requestFocus);

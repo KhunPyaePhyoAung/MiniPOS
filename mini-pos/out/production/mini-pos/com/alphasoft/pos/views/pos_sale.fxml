@@ -23,7 +23,7 @@
       <String fx:value="m-wrapper" />
    </styleClass>
    <children>
-      <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWidth="470.0" styleClass="m-wrapper">
+      <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="m-wrapper">
          <children>
             <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="component-title-bar">
                <children>
@@ -31,7 +31,7 @@
                   <Label text="Shopping Cart" />
                </children>
             </HBox>
-            <TableView fx:id="cart" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="50.0" VBox.vgrow="ALWAYS">
+            <TableView fx:id="cart" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="450.0" VBox.vgrow="ALWAYS">
               <columns>
                 <TableColumn fx:id="nameColumn" prefWidth="180.0" resizable="false" styleClass="left-align" text="Product" />
                 <TableColumn fx:id="priceColumn" prefWidth="100.0" resizable="false" styleClass="right-align" text="Unit Price" />

@@ -78,6 +78,10 @@ public class SaleDetail {
         this.subTotal = subTotal;
     }
 
+    public int getTotal(){
+        return (subTotal*taxRate/100)+subTotal;
+    }
+
     public boolean isPaid() {
         return paid;
     }

@@ -19,11 +19,11 @@
             <TableView fx:id="tableView" prefHeight="100.0" VBox.vgrow="ALWAYS">
               <columns>
                 <TableColumn fx:id="idColumn" prefWidth="77.0" resizable="false" styleClass="right-align" text="ID" />
-                <TableColumn fx:id="dateColumn" prefWidth="110.0" resizable="false" styleClass="center-align" text="Date" />
-                  <TableColumn fx:id="timeColumn" prefWidth="110.0" resizable="false" styleClass="center-align" text="Time" />
+                <TableColumn fx:id="dateColumn" prefWidth="130.0" resizable="false" styleClass="center-align" text="Date" />
+                  <TableColumn fx:id="timeColumn" prefWidth="100.0" resizable="false" styleClass="center-align" text="Time" />
                   <TableColumn fx:id="qtyColumn" prefWidth="50.0" resizable="false" styleClass="right-align" text="Qty" />
                   <TableColumn fx:id="subTotalColumn" prefWidth="113.0" resizable="false" styleClass="right-align" text="Sub Total" />
-                  <TableColumn fx:id="cashierColumn" prefWidth="168.0" resizable="false" styleClass="left-align" text="Cashier" />
+                  <TableColumn fx:id="cashierColumn" prefWidth="156.0" resizable="false" styleClass="left-align" text="Cashier" />
               </columns>
             </TableView>
          </children>

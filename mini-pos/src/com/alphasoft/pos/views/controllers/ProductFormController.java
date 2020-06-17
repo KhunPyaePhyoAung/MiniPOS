@@ -90,7 +90,7 @@ public class ProductFormController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        NumberInput.attach(priceInput);
+        NumberInput.getNew().attach(priceInput);
         List<ProductCategory> productCategoryList = ProductCategoryRepository.getRepository().getAllProductCategories();
         ProductCategorySorterFactory.getFactory().getSorter(ProductCategorySorter.Mode.NAME_ASCENDING).sort(productCategoryList);
         categorySelector.getItems().addAll(productCategoryList);

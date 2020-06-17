@@ -72,6 +72,14 @@ public class PosSaleController implements Initializable {
 
     private Payment payment;
 
+    public void setSale(Sale sale){
+        this.sale = sale;
+        cart.getItems().clear();
+        cart.getItems().addAll(sale.getSaleItemList());
+        calculateCartItem();
+    }
+
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

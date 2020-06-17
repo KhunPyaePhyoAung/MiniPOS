@@ -110,7 +110,7 @@ public class SaleService {
         }
     }
 
-    public void removeSale(Sale sale){
+    public void remove(Sale sale){
         try(Connection connection = ConnectionManager.getConnection();
             PreparedStatement deleteSaleDetail = connection.prepareStatement(getQuery("sale_detail.delete.byId"));
             PreparedStatement deleteSaleItem = connection.prepareStatement(getQuery("sale_item.delete.bySaleId"));

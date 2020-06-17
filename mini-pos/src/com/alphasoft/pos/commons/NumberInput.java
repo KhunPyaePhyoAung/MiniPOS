@@ -6,8 +6,17 @@ import javafx.scene.control.TextField;
 
 public class NumberInput {
 
-    public static void attach(TextField  textField){
-        textField.setText("0");
+    private Integer def=null;
+
+    private NumberInput(){}
+
+    public  void attach(TextField textField,Integer defaultValue){
+        def = defaultValue;
+        attach(textField);
+    }
+
+    public void attach(TextField  textField){
+        textField.setText(null==def? "":String.valueOf(def));
         textField.textProperty().addListener((l,o,n)->{
             try{
                 if(!StringUtils.isEmpty(n)){
@@ -21,12 +30,16 @@ public class NumberInput {
                         textField.positionCaret(textField.getText().length());
                     });
                 }else{
-                    textField.setText("0");
+                    textField.setText(null==def ? "":String.valueOf(def));
                 }
             }catch (Exception exception){
                 textField.setText(o);
             }
         });
+    }
+
+    public static NumberInput getNew(){
+        return new NumberInput();
     }
 
 
