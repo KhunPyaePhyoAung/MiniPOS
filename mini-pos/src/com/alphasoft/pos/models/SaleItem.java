@@ -1,5 +1,8 @@
 package com.alphasoft.pos.models;
 
+
+import java.time.LocalDate;
+
 public class SaleItem {
 
 
@@ -10,6 +13,10 @@ public class SaleItem {
     private String categoryName;
     private int price;
     private int quantity;
+    private LocalDate saleDate;
+    private int taxRate;
+
+
 
     public void setProduct(Product product){
         productId = product.getId();
@@ -75,8 +82,29 @@ public class SaleItem {
         this.quantity = quantity;
     }
 
-    public int getTotal() {
+    public LocalDate getSaleDate() {
+        return saleDate;
+    }
+
+    public void setSaleDate(LocalDate saleDate) {
+        this.saleDate = saleDate;
+    }
+
+    public int getTaxRate() {
+        return taxRate;
+    }
+
+    public void setTaxRate(int taxRate) {
+        this.taxRate = taxRate;
+    }
+
+    public int getSubTotal(){
         return price*quantity;
     }
+
+    public int getTotal() {
+        return (getSubTotal()*taxRate/100)+getSubTotal();
+    }
+
 
 }

@@ -52,9 +52,12 @@ public class SaleRepository {
                             saleItem.setSaleId(saleItems.getInt("sale_id"));
                             saleItem.setProductId(saleItems.getInt("product_id"));
                             saleItem.setProductName(saleItems.getString("product_name"));
+                            saleItem.setCategoryId(saleItems.getInt("category_id"));
+                            saleItem.setCategoryName(saleItems.getString("category_name"));
+                            saleItem.setSaleDate(saleItems.getDate("sale_date").toLocalDate());
                             saleItem.setPrice(saleItems.getInt("price"));
                             saleItem.setQuantity(saleItems.getInt("quantity"));
-
+                            saleItem.setTaxRate(saleItems.getInt("tax_rate"));
                             sale.getSaleItemList().add(saleItem);
                         }
                     }

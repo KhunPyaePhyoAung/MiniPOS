@@ -1,6 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.SVGPath?>
 
-
-<VBox id="pos_report" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="content_view" stylesheets="@styles/default.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.alphasoft.pos.views.controllers.PosReportController" />
+<VBox id="pos_report" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" styleClass="content_view" stylesheets="@styles/default.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.alphasoft.pos.views.controllers.PosReportController">
+   <children>
+      <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="tool-bar">
+         <children>
+            <TextField fx:id="categoryInput" focusTraversable="false" promptText="Category" />
+            <TextField fx:id="productInput" focusTraversable="false" promptText="Product" />
+            <VBox onMouseClicked="#clearInput" prefHeight="200.0" prefWidth="100.0" styleClass="clear-button">
+               <children>
+                  <SVGPath content="M14.348 14.849c-0.469 0.469-1.229 0.469-1.697 0l-2.651-3.030-2.651 3.029c-0.469 0.469-1.229 0.469-1.697 0-0.469-0.469-0.469-1.229 0-1.697l2.758-3.15-2.759-3.152c-0.469-0.469-0.469-1.228 0-1.697s1.228-0.469 1.697 0l2.652 3.031 2.651-3.031c0.469-0.469 1.228-0.469 1.697 0s0.469 1.229 0 1.697l-2.758 3.152 2.758 3.15c0.469 0.469 0.469 1.229 0 1.698z" />
+               </children>
+            </VBox>
+            <DatePicker fx:id="fromDatePicker" editable="false" focusTraversable="false" promptText="From" />
+            <DatePicker fx:id="toDatePicker" editable="false" focusTraversable="false" promptText="To" />
+         </children>
+      </HBox>
+      <VBox prefHeight="200.0" prefWidth="100.0" styleClass="m-wrapper" VBox.vgrow="ALWAYS">
+         <children>
+            <TableView fx:id="reportTable" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
+              <columns>
+                <TableColumn fx:id="categoryColumn" prefWidth="-1.0" styleClass="left-align" text="Category" />
+                <TableColumn fx:id="productColumn" prefWidth="-1.0" styleClass="left-align" text="Product" />
+                  <TableColumn fx:id="dateColumn" maxWidth="4000.0" prefWidth="-1.0" styleClass="center-align" text="Date" />
+                  <TableColumn fx:id="priceColumn" maxWidth="4000.0" prefWidth="-1.0" styleClass="right-align" text="Price" />
+                  <TableColumn fx:id="quantityColumn" maxWidth="2000.0" prefWidth="-1.0" styleClass="right-align" text="Quantity" />
+                  <TableColumn fx:id="taxRateColumn" maxWidth="2000.0" prefWidth="-1.0" styleClass="right-align" text="Tax Rate" />
+                  <TableColumn fx:id="subTotalColumn" prefWidth="-1.0" styleClass="right-align" text="SubTotal" />
+                  <TableColumn fx:id="totalColumn" prefWidth="-1.0" styleClass="right-align" text="Total" />
+              </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+            <GridPane prefHeight="30.0" styleClass="bill-total-wrapper">
+              <columnConstraints>
+                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label text="Total" />
+                  <Label fx:id="totalLabel" text="0 MMK" GridPane.columnIndex="1" />
+               </children>
+            </GridPane>
+         </children>
+      </VBox>
+   </children>
+</VBox>
