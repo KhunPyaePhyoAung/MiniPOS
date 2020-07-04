@@ -17,12 +17,13 @@
          <children>
             <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="tool-bar">
                <children>
-                  <ComboBox prefWidth="150.0" />
+                  <ComboBox focusTraversable="false" prefWidth="150.0" />
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="m-wrapper" VBox.vgrow="ALWAYS">
                <children>
-                  <BarChart maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+                  <PieChart fx:id="bestSellerPieChart" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" title="Quantity" HBox.hgrow="ALWAYS" />
+                  <BarChart fx:id="bestSellerBarChart" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" title="Sales" HBox.hgrow="ALWAYS">
                     <xAxis>
                       <CategoryAxis side="BOTTOM" />
                     </xAxis>
@@ -30,7 +31,6 @@
                       <NumberAxis side="LEFT" />
                     </yAxis>
                   </BarChart>
-                  <PieChart maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
          </children>
@@ -46,7 +46,7 @@
                   </VBox>
                   <VBox prefHeight="200.0" prefWidth="100.0" styleClass="data-box" HBox.hgrow="ALWAYS">
                      <children>
-                        <Label styleClass="xl-text" text="200,000 MMK" />
+                        <Label fx:id="salesForTodayLabel" styleClass="xl-text" text="200,000 MMK" />
                         <Label styleClass="s-text" text="Sales For Today" />
                      </children>
                   </VBox>
@@ -65,7 +65,7 @@
                   </VBox>
                   <VBox prefHeight="200.0" prefWidth="100.0" styleClass="data-box" HBox.hgrow="ALWAYS">
                      <children>
-                        <Label styleClass="xl-text" text="2" />
+                        <Label fx:id="unpaidLabel" styleClass="xl-text" text="2" />
                         <Label styleClass="s-text" text="Unpaid" />
                      </children>
                   </VBox>
@@ -84,7 +84,7 @@
                   </VBox>
                   <VBox prefHeight="200.0" prefWidth="100.0" styleClass="data-box" HBox.hgrow="ALWAYS">
                      <children>
-                        <Label styleClass="xl-text" text="9" />
+                        <Label fx:id="availableProductsLabel" styleClass="xl-text" text="9" />
                         <Label styleClass="s-text" text="Available Products" />
                      </children>
                   </VBox>
@@ -103,7 +103,7 @@
                   </VBox>
                   <VBox prefHeight="200.0" prefWidth="100.0" styleClass="data-box" HBox.hgrow="ALWAYS">
                      <children>
-                        <Label styleClass="xl-text" text="5%" />
+                        <Label fx:id="taxRateLabel" styleClass="xl-text" text="5%" />
                         <Label styleClass="s-text" text="Tax Rate" />
                      </children>
                   </VBox>

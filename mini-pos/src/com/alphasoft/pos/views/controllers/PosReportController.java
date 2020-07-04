@@ -89,7 +89,7 @@ public class PosReportController implements Initializable {
     }
 
     private void loadReports(){
-        List<Sale> saleList = SaleRepository.getRepository().getAllSales().stream().sorted(Comparator.comparing(i -> i.getSaleDetail().getSaleDate())).collect(Collectors.toList());
+        List<Sale> saleList = SaleRepository.getRepository().getAllSales().stream().filter(i->i.getSaleDetail().isPaid()).sorted(Comparator.comparing(i -> i.getSaleDetail().getSaleDate())).collect(Collectors.toList());
 
         List<SaleItem> saleItemList = new ArrayList<>();
         saleList.forEach(i->saleItemList.addAll(i.getSaleItemList()));
@@ -101,6 +101,7 @@ public class PosReportController implements Initializable {
     }
 
     private void filterReportItems(List<SaleItem> saleItemList){
+
 
         if(!StringUtils.isEmpty(categoryInput.getText().trim())){
             saleItemList.retainAll(saleItemList.stream().filter(i->
