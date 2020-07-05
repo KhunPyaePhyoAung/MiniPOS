@@ -17,18 +17,19 @@
          <children>
             <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="tool-bar">
                <children>
-                  <ComboBox focusTraversable="false" prefWidth="150.0" />
+                  <ComboBox fx:id="soldItemSortModeSelector" focusTraversable="false" prefWidth="150.0" />
+                  <ComboBox fx:id="periodSelector" focusTraversable="false" prefWidth="150.0" />
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="m-wrapper" VBox.vgrow="ALWAYS">
                <children>
-                  <PieChart fx:id="bestSellerPieChart" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" title="Quantity" HBox.hgrow="ALWAYS" />
-                  <BarChart fx:id="bestSellerBarChart" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" title="Sales" HBox.hgrow="ALWAYS">
+                  <PieChart fx:id="bestSellerPieChart" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
+                  <BarChart fx:id="bestSellerBarChart" barGap="20.0" categoryGap="20.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" verticalGridLinesVisible="false" HBox.hgrow="ALWAYS">
                     <xAxis>
-                      <CategoryAxis side="BOTTOM" />
+                      <CategoryAxis animated="false" side="BOTTOM" />
                     </xAxis>
                     <yAxis>
-                      <NumberAxis side="LEFT" />
+                      <NumberAxis animated="false" side="LEFT" />
                     </yAxis>
                   </BarChart>
                </children>
@@ -46,7 +47,7 @@
                   </VBox>
                   <VBox prefHeight="200.0" prefWidth="100.0" styleClass="data-box" HBox.hgrow="ALWAYS">
                      <children>
-                        <Label fx:id="salesForTodayLabel" styleClass="xl-text" text="200,000 MMK" />
+                        <Label fx:id="salesForTodayLabel" styleClass="xl-text" text="0 MMK" />
                         <Label styleClass="s-text" text="Sales For Today" />
                      </children>
                   </VBox>
