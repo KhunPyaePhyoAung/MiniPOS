@@ -103,7 +103,7 @@ public class PosHomeController implements Initializable {
 
          bestSellerPieChart.getData().addAll(pieChartDataList);
         XYChart.Series<String,Integer> barChartSeries = new XYChart.Series<>();
-        barChartSeries.setName(soldItemSortModeSelector.getValue().toString());
+        barChartSeries.setName(periodSelector.getValue().toString());
         barChartSeries.getData().addAll(barChartDataList);
         bestSellerBarChart.getData().addAll(barChartSeries);
     }
