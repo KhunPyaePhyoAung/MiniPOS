@@ -80,7 +80,8 @@ public class PosHomeController implements Initializable {
         List<SoldItem> soldItemList = SoldItemRepository.getRepository().getItems(dateInterval.getStartDate(),dateInterval.getEndDate());
 
 
-        SoldItemSorterFactory.getFactory().getSelector(soldItemSortModeSelector.getValue()).sort(soldItemList);
+        SoldItemSorter sorter = SoldItemSorterFactory.getFactory().getSorter(soldItemSortModeSelector.getValue());
+        if(null!=sorter) sorter.sort(soldItemList);
 
         soldItemList.retainAll(soldItemList.stream().limit(CHART_ITEM_LIMIT).collect(Collectors.toList()));
 

@@ -11,7 +11,7 @@ public class SoldItemSorterFactory {
 
     private SoldItemSorterFactory(){}
 
-    public SoldItemSorter getSelector(SoldItemSorter.Mode mode){
+    public SoldItemSorter getSorter(SoldItemSorter.Mode mode){
         switch (mode){
             case AMOUNT:
                 return new SoldAmountSorter();
