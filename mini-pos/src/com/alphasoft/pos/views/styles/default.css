@@ -79,6 +79,7 @@ FlowPane{
 .button{
     -fx-background-radius:3px;
     -fx-min-width:90px;
+    -fx-focus-traversable:false;
 }
 
 .context-menu{
@@ -159,6 +160,13 @@ GridPane .label{
     -fx-border-radius:0 3 3 0;
 }
 
+.default-color0.chart-bar{
+    -fx-bar-fill:green;
+}
+
+.default-color1.chart-bar{
+    -fx-bar-fill:teal;
+}
 
 
 
@@ -894,4 +902,25 @@ GridPane .label{
 
 .overall-view .data-box .label{
     -fx-text-fill:white;
+}
+
+.tax-config-window{
+    -fx-pref-width:400px;
+    -fx-pref-height:400px;
+    -fx-background-color:background;
+}
+
+.tax-config-window .currency-input{
+    -fx-pref-width:90px;
+}
+
+.tax-config-action-button-wrapper{
+    -fx-padding:10px;
+    -fx-spacing:10px;
+    -fx-alignment:center;
+}
+
+.tax-config-action-button-wrapper .button{
+    -fx-pref-width:80px;
+    -fx-pref-height:40px;
 }

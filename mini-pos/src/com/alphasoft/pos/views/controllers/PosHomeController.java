@@ -10,6 +10,8 @@ import com.alphasoft.pos.models.SoldItem;
 import com.alphasoft.pos.models.Summary;
 import com.alphasoft.pos.services.SoldItemRepository;
 import com.alphasoft.pos.services.SummaryService;
+import com.alphasoft.pos.services.TaxRepository;
+import com.alphasoft.pos.views.customs.TaxConfigWindow;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
@@ -17,8 +19,10 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -48,6 +52,17 @@ public class PosHomeController implements Initializable {
 
     @FXML
     private Label taxRateLabel;
+
+    @FXML
+    public void editTaxConfig(){
+        Thread onEditTax = new Thread(()->{
+            int taxRate = TaxRepository.getRepository().getTaxRate(LocalDate.now());
+            taxRateLabel.setText(String.format("%d%%",taxRate));
+        });
+        TaxConfigWindow taxConfigWindow = new TaxConfigWindow(onEditTax);
+        taxConfigWindow.initOwner(getStage());
+        taxConfigWindow.showAndWait();
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -101,11 +116,14 @@ public class PosHomeController implements Initializable {
              }
 
          });
-
-         bestSellerPieChart.getData().addAll(pieChartDataList);
+        bestSellerPieChart.getData().addAll(pieChartDataList);
         XYChart.Series<String,Integer> barChartSeries = new XYChart.Series<>();
         barChartSeries.setName(periodSelector.getValue().toString());
         barChartSeries.getData().addAll(barChartDataList);
         bestSellerBarChart.getData().addAll(barChartSeries);
+    }
+
+    private Stage getStage(){
+        return (Stage)bestSellerBarChart.getScene().getWindow();
     }
 }
