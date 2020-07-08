@@ -13,11 +13,6 @@ import java.util.function.Function;
 
 public class XYChartPopupImageBuilder<X,Y> extends ChartPopupImageBuilder{
 
-    private Position position = ChartPopupImageBuilder.Position.NORTH;
-    private double margin = 10;
-    private double popupWidth = 100;
-    private double popupHeight = 100;
-
     private final XYChart<X,Y> chart;
     private final Function<X,Image> imageGetter;
 
@@ -26,25 +21,6 @@ public class XYChartPopupImageBuilder<X,Y> extends ChartPopupImageBuilder{
         this.imageGetter = imageGetter;
     }
 
-
-    @Override
-    public void setPosition(ChartPopupImageBuilder.Position position){
-        this.position = null==position? Position.NORTH : position;
-    }
-
-
-    @Override
-    public void setMargin(double margin){
-        margin = Math.abs(margin);
-        this.margin = Math.max(margin, MIN_MARGIN);
-    }
-
-
-    @Override
-    public void setPopupSize(double width,double height){
-        this.popupWidth = Math.max(width, MIN_POPUP_WIDTH);
-        this.popupHeight = Math.max(height, MIN_POPUP_HEIGHT);
-    }
 
 
     @Override

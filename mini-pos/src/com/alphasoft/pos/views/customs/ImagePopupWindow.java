@@ -32,7 +32,9 @@ public class ImagePopupWindow extends PosWindowStage {
         controller.setImage(image);
     }
 
-    public void setSize(double width,double height){ controller.setSize(width,height);}
+    public void setSize(double width,double height){
+        controller.setSize(width,height);
+    }
 
     public void setPosition(ChartPopupImageBuilder.Position position){
         this.position = position;
