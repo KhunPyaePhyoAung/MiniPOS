@@ -1,7 +1,7 @@
 package com.alphasoft.pos.commons;
 
 
-public interface ChartPopupImageSetter{
+public interface ChartPopupImageBuilder {
 
     double MIN_MARGIN = 10;
     double MIN_POPUP_WIDTH = 50;

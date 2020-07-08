@@ -1,6 +1,6 @@
 package com.alphasoft.pos.views.customs;
 
-import com.alphasoft.pos.commons.ChartPopupImageSetter;
+import com.alphasoft.pos.commons.ChartPopupImageBuilder;
 import com.alphasoft.pos.models.XYPoint;
 import com.alphasoft.pos.views.controllers.ImagePopupController;
 import javafx.fxml.FXMLLoader;
@@ -13,7 +13,7 @@ import java.io.IOException;
 
 public class ImagePopupWindow extends PosWindowStage {
     private ImagePopupController controller;
-    private ChartPopupImageSetter.Position position;
+    private ChartPopupImageBuilder.Position position;
     private double margin;
 
     public ImagePopupWindow(){
@@ -34,7 +34,7 @@ public class ImagePopupWindow extends PosWindowStage {
 
     public void setSize(double width,double height){ controller.setSize(width,height);}
 
-    public void setPosition(ChartPopupImageSetter.Position position){
+    public void setPosition(ChartPopupImageBuilder.Position position){
         this.position = position;
     }
 
@@ -54,7 +54,7 @@ public class ImagePopupWindow extends PosWindowStage {
         double popupHeight = getHeight();
 
         XYPoint point = new XYPoint();
-        if(null==position) position = ChartPopupImageSetter.Position.NORTH;
+        if(null==position) position = ChartPopupImageBuilder.Position.NORTH;
         switch (position){
             case EAST:
                 point.setX(mouseX+margin);

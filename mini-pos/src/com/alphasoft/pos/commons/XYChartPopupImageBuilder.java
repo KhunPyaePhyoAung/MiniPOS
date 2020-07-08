@@ -9,12 +9,12 @@ import javafx.stage.StageStyle;
 
 import java.util.function.Function;
 
-import static com.alphasoft.pos.commons.ChartPopupImageSetter.*;
+import static com.alphasoft.pos.commons.ChartPopupImageBuilder.*;
 
 
-public class XYChartPopupImageSetter<X,Y> {
+public class XYChartPopupImageBuilder<X,Y> {
 
-    private Position position = ChartPopupImageSetter.Position.NORTH;
+    private Position position = ChartPopupImageBuilder.Position.NORTH;
     private double margin = 10;
     private double popupWidth = 100;
     private double popupHeight = 100;
@@ -22,7 +22,7 @@ public class XYChartPopupImageSetter<X,Y> {
     private XYChart<X,Y> chart;
     private Function<X,Image> imageGetter;
 
-    public void pair(XYChart<X,Y> chart,Function<X,Image> imageGetter){
+    public void build(XYChart<X,Y> chart, Function<X,Image> imageGetter){
 
         this.chart = chart;
         this.imageGetter = imageGetter;
@@ -52,29 +52,26 @@ public class XYChartPopupImageSetter<X,Y> {
     }
 
 
-    public void setPosition(ChartPopupImageSetter.Position position){
+    public void setPosition(ChartPopupImageBuilder.Position position){
         this.position = position;
-        repair();
+        rebuild();
     }
 
     public void setMargin(double margin){
         margin = Math.abs(margin);
         this.margin = Math.max(margin, MIN_MARGIN);
-        repair();
+        rebuild();
     }
 
     public void setPopupSize(double width,double height){
         this.popupWidth = Math.max(width, MIN_POPUP_WIDTH);
         this.popupHeight = Math.max(height, MIN_POPUP_HEIGHT);
-        repair();
+        rebuild();
     }
 
-    private void repair(){
-        pair(chart,imageGetter);
+    private void rebuild(){
+        build(chart,imageGetter);
     }
-
-
-
 
 
 }
