@@ -4,21 +4,18 @@ import com.alphasoft.pos.views.customs.ImagePopupWindow;
 import javafx.scene.Node;
 import javafx.scene.chart.XYChart;
 import javafx.scene.image.Image;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.StageStyle;
 
 import java.util.function.Function;
 
 
-public class XYChartPopupImageSetter implements ChartPopupImageSetter {
+public class XYChartPopupImageSetter extends ChartPopupImageSetter {
 
     private XYChart chart;
     private Function<?,Image> imageGetter;
-    private Position position;
-    private double margin;
 
-
+    @Override
     public <X,Y> void pair(XYChart<X,Y> chart,Function<X,Image> imageGetter){
 
         this.chart = chart;
@@ -31,16 +28,17 @@ public class XYChartPopupImageSetter implements ChartPopupImageSetter {
                 popup.setPosition(position);
                 popup.setMargin(margin);
                 popup.setImage(imageGetter.apply(data.getXValue()));
+                popup.setSize(popupWidth,popupHeight);
                 popup.initOwner(null);
                 popup.initStyle(StageStyle.UNDECORATED);
                 popup.initModality(Modality.NONE);
 
                 node.setOnMouseEntered(e->{
-                    popup.move(getMouseX(e),getMouseY(e));
+                    popup.move(e.getScreenX(),e.getScreenY());
                     popup.show();
                 });
 
-                node.setOnMouseMoved(e-> popup.move(getMouseX(e),getMouseY(e)));
+                node.setOnMouseMoved(e-> popup.move(e.getScreenX(),e.getScreenY()));
 
                 node.setOnMouseExited(e-> popup.hide());
             }
@@ -48,14 +46,23 @@ public class XYChartPopupImageSetter implements ChartPopupImageSetter {
     }
 
 
-
+    @Override
     public void setPosition(Position position){
         this.position = position;
         repair();
     }
 
+    @Override
     public void setMargin(double margin){
-        this.margin = margin;
+        margin = Math.abs(margin);
+        this.margin = margin<MIN_MARGIN? MIN_MARGIN:margin;
+        repair();
+    }
+
+    @Override
+    public void setPopupSize(double width,double height){
+        this.popupWidth = width<MIN_POPUP_WIDTH? MIN_POPUP_WIDTH:width;
+        this.popupHeight = height<MIN_POPUP_HEIGHT ? MIN_POPUP_HEIGHT:height;
         repair();
     }
 
@@ -64,13 +71,6 @@ public class XYChartPopupImageSetter implements ChartPopupImageSetter {
         pair(chart,imageGetter);
     }
 
-    private double getMouseX(MouseEvent e){
-        return e.getScreenX();
-    }
-
-    private double getMouseY(MouseEvent e){
-        return e.getScreenY();
-    }
 
 
 

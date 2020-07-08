@@ -926,8 +926,6 @@ GridPane .label{
 }
 
 .image-popup{
-    -fx-pref-width:100px;
-    -fx-pref-height:100px;
     -fx-background-color:transparent;
     -fx-border-color:background-content;
     -fx-alignment:center;

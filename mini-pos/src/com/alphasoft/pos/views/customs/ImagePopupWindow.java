@@ -32,6 +32,8 @@ public class ImagePopupWindow extends PosWindowStage {
         controller.setImage(image);
     }
 
+    public void setSize(double width,double height){ controller.setSize(width,height);}
+
     public void setPosition(ChartPopupImageSetter.Position position){
         this.position = position;
     }
@@ -52,6 +54,7 @@ public class ImagePopupWindow extends PosWindowStage {
         double popupHeight = getHeight();
 
         XYPoint point = new XYPoint();
+        if(null==position) position = ChartPopupImageSetter.Position.NORTH;
         switch (position){
             case EAST:
                 point.setX(mouseX+margin);
