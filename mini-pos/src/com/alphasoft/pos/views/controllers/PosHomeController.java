@@ -1,16 +1,12 @@
 package com.alphasoft.pos.views.controllers;
 
 
-import com.alphasoft.pos.commons.DateInterval;
-import com.alphasoft.pos.commons.StringUtils;
-import com.alphasoft.pos.commons.TimePeriod;
+import com.alphasoft.pos.commons.*;
 import com.alphasoft.pos.contexts.SoldItemSorter;
 import com.alphasoft.pos.factories.SoldItemSorterFactory;
 import com.alphasoft.pos.models.SoldItem;
 import com.alphasoft.pos.models.Summary;
-import com.alphasoft.pos.services.SoldItemRepository;
-import com.alphasoft.pos.services.SummaryService;
-import com.alphasoft.pos.services.TaxRepository;
+import com.alphasoft.pos.services.*;
 import com.alphasoft.pos.views.customs.TaxConfigWindow;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -85,6 +81,7 @@ public class PosHomeController implements Initializable {
         taxRateLabel.setText(String.format("%d%%",summary.getTaxRate()));
     }
 
+    @SuppressWarnings("unchecked")
     private void loadChartData(){
         int CHART_ITEM_LIMIT = 5;
 
@@ -121,6 +118,14 @@ public class PosHomeController implements Initializable {
         barChartSeries.setName(periodSelector.getValue().toString());
         barChartSeries.getData().addAll(barChartDataList);
         bestSellerBarChart.getData().addAll(barChartSeries);
+
+        ChartPopupImageSetter barChartImageSetter = new XYChartPopupImageSetter();
+
+        barChartImageSetter.pair(bestSellerBarChart, ProductImageHelper.getInstance()::getImage);
+        barChartImageSetter.setPosition(ChartPopupImageSetter.Position.NORTH);
+        barChartImageSetter.setMargin(10);
+
+
     }
 
     private Stage getStage(){

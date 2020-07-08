@@ -34,6 +34,14 @@ public class ProductRepository {
         return list;
     }
 
+    public Product get(int id){
+        return getAllProducts().stream().filter(i->i.getId()==id).findAny().orElse(null);
+    }
+
+    public Product get(String name){
+        return getAllProducts().stream().filter(i->i.getName().equals(name)).findAny().orElse(null);
+    }
+
 
     private Product parseProductFromResultSet(ResultSet resultSet) throws SQLException {
         Product product = new Product();
