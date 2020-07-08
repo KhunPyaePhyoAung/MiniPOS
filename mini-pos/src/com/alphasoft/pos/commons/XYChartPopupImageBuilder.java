@@ -9,24 +9,46 @@ import javafx.stage.StageStyle;
 
 import java.util.function.Function;
 
-import static com.alphasoft.pos.commons.ChartPopupImageBuilder.*;
 
 
-public class XYChartPopupImageBuilder<X,Y> {
+public class XYChartPopupImageBuilder<X,Y> extends ChartPopupImageBuilder{
 
     private Position position = ChartPopupImageBuilder.Position.NORTH;
     private double margin = 10;
     private double popupWidth = 100;
     private double popupHeight = 100;
 
-    private XYChart<X,Y> chart;
-    private Function<X,Image> imageGetter;
+    private final XYChart<X,Y> chart;
+    private final Function<X,Image> imageGetter;
 
-    public void build(XYChart<X,Y> chart, Function<X,Image> imageGetter){
-
+    public XYChartPopupImageBuilder(XYChart<X,Y> chart, Function<X,Image> imageGetter){
         this.chart = chart;
         this.imageGetter = imageGetter;
+    }
 
+
+    @Override
+    public void setPosition(ChartPopupImageBuilder.Position position){
+        this.position = null==position? Position.NORTH : position;
+    }
+
+
+    @Override
+    public void setMargin(double margin){
+        margin = Math.abs(margin);
+        this.margin = Math.max(margin, MIN_MARGIN);
+    }
+
+
+    @Override
+    public void setPopupSize(double width,double height){
+        this.popupWidth = Math.max(width, MIN_POPUP_WIDTH);
+        this.popupHeight = Math.max(height, MIN_POPUP_HEIGHT);
+    }
+
+
+    @Override
+    public void build() {
         for(XYChart.Series<X,Y> series:chart.getData()){
             for(XYChart.Data<X,Y> data:series.getData()){
                 Node node = data.getNode();
@@ -50,28 +72,4 @@ public class XYChartPopupImageBuilder<X,Y> {
             }
         }
     }
-
-
-    public void setPosition(ChartPopupImageBuilder.Position position){
-        this.position = position;
-        rebuild();
-    }
-
-    public void setMargin(double margin){
-        margin = Math.abs(margin);
-        this.margin = Math.max(margin, MIN_MARGIN);
-        rebuild();
-    }
-
-    public void setPopupSize(double width,double height){
-        this.popupWidth = Math.max(width, MIN_POPUP_WIDTH);
-        this.popupHeight = Math.max(height, MIN_POPUP_HEIGHT);
-        rebuild();
-    }
-
-    private void rebuild(){
-        build(chart,imageGetter);
-    }
-
-
 }

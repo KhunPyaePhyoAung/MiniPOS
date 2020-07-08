@@ -1,14 +1,18 @@
 package com.alphasoft.pos.commons;
 
 
-public interface ChartPopupImageBuilder {
+public abstract class ChartPopupImageBuilder {
 
-    double MIN_MARGIN = 10;
-    double MIN_POPUP_WIDTH = 50;
-    double MIN_POPUP_HEIGHT = 50;
+    protected static final double MIN_MARGIN = 10;
+    protected static final double MIN_POPUP_WIDTH = 50;
+    protected static final double MIN_POPUP_HEIGHT = 50;
 
+    protected abstract void setPosition(Position position);
+    protected abstract void setMargin(double margin);
+    protected abstract void setPopupSize(double width,double height);
+    protected abstract void build();
 
-    enum Position{
+    public enum Position{
         EAST,WEST,SOUTH,NORTH,SOUTH_EAST,NORTH_EAST,SOUTH_WEST,NORTH_WEST
     }
 
