@@ -110,7 +110,7 @@ public class PosHomeController implements Initializable {
         barChartSeries.getData().addAll(barChartDataList);
         bestSellerBarChart.getData().addAll(barChartSeries);
 
-        ChartPopupImageSetter barChartImageSetter = new XYChartPopupImageSetter();
+        XYChartPopupImageSetter<String,Integer> barChartImageSetter = new XYChartPopupImageSetter<>();
 
         barChartImageSetter.pair(bestSellerBarChart, ProductImageHelper.getInstance()::getImage);
         barChartImageSetter.setPosition(ChartPopupImageSetter.Position.NORTH);

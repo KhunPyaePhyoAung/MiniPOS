@@ -9,14 +9,20 @@ import javafx.stage.StageStyle;
 
 import java.util.function.Function;
 
+import static com.alphasoft.pos.commons.ChartPopupImageSetter.*;
 
-public class XYChartPopupImageSetter extends ChartPopupImageSetter {
 
-    private XYChart chart;
-    private Function<?,Image> imageGetter;
+public class XYChartPopupImageSetter<X,Y> {
 
-    @Override
-    public <X,Y> void pair(XYChart<X,Y> chart,Function<X,Image> imageGetter){
+    private Position position = ChartPopupImageSetter.Position.NORTH;
+    private double margin = 10;
+    private double popupWidth = 100;
+    private double popupHeight = 100;
+
+    private XYChart<X,Y> chart;
+    private Function<X,Image> imageGetter;
+
+    public void pair(XYChart<X,Y> chart,Function<X,Image> imageGetter){
 
         this.chart = chart;
         this.imageGetter = imageGetter;
@@ -46,27 +52,23 @@ public class XYChartPopupImageSetter extends ChartPopupImageSetter {
     }
 
 
-    @Override
-    public void setPosition(Position position){
+    public void setPosition(ChartPopupImageSetter.Position position){
         this.position = position;
         repair();
     }
 
-    @Override
     public void setMargin(double margin){
         margin = Math.abs(margin);
-        this.margin = margin<MIN_MARGIN? MIN_MARGIN:margin;
+        this.margin = Math.max(margin, MIN_MARGIN);
         repair();
     }
 
-    @Override
     public void setPopupSize(double width,double height){
-        this.popupWidth = width<MIN_POPUP_WIDTH? MIN_POPUP_WIDTH:width;
-        this.popupHeight = height<MIN_POPUP_HEIGHT ? MIN_POPUP_HEIGHT:height;
+        this.popupWidth = Math.max(width, MIN_POPUP_WIDTH);
+        this.popupHeight = Math.max(height, MIN_POPUP_HEIGHT);
         repair();
     }
 
-    @SuppressWarnings("unchecked")
     private void repair(){
         pair(chart,imageGetter);
     }

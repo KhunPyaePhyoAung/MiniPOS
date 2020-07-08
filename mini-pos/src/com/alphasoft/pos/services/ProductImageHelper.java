@@ -17,4 +17,5 @@ public class ProductImageHelper {
         if(null==helper) helper = new ProductImageHelper();
         return helper;
     }
+
 }
