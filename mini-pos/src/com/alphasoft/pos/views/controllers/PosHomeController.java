@@ -3,7 +3,6 @@ package com.alphasoft.pos.views.controllers;
 
 import com.alphasoft.pos.commons.*;
 import com.alphasoft.pos.contexts.SoldItemSorter;
-import com.alphasoft.pos.factories.SoldItemSorterFactory;
 import com.alphasoft.pos.models.SoldItem;
 import com.alphasoft.pos.models.Summary;
 import com.alphasoft.pos.services.*;
@@ -22,7 +21,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
 public class PosHomeController implements Initializable {
     @FXML
@@ -83,24 +81,17 @@ public class PosHomeController implements Initializable {
 
     @SuppressWarnings("unchecked")
     private void loadChartData(){
-        int CHART_ITEM_LIMIT = 5;
 
         bestSellerPieChart.getData().clear();
         bestSellerBarChart.getData().clear();
 
         DateInterval dateInterval = new DateInterval(periodSelector.getValue());
-        List<SoldItem> soldItemList = SoldItemRepository.getRepository().getItems(dateInterval.getStartDate(),dateInterval.getEndDate());
-
-
-        SoldItemSorter sorter = SoldItemSorterFactory.getFactory().getSorter(soldItemSortModeSelector.getValue());
-        if(null!=sorter) sorter.sort(soldItemList);
-
-        soldItemList.retainAll(soldItemList.stream().limit(CHART_ITEM_LIMIT).collect(Collectors.toList()));
+        List<SoldItem> soldItemList = BestSellerService.getService().getItemList(dateInterval.getStartDate(),dateInterval.getEndDate(),soldItemSortModeSelector.getValue());
 
          List<PieChart.Data> pieChartDataList = new ArrayList<>();
          List<XYChart.Data<String,Integer>> barChartDataList = new ArrayList<>();
 
-         soldItemList.stream().limit(CHART_ITEM_LIMIT).forEach(i->{
+         soldItemList.stream().limit(BestSellerService.MAX_ITEM).forEach(i->{
              switch (soldItemSortModeSelector.getValue()){
                  case AMOUNT:
                      pieChartDataList.add(new PieChart.Data(i.getProductName(),i.getSoldAmount()));
