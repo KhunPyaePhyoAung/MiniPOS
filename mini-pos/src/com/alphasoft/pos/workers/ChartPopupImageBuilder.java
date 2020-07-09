@@ -36,8 +36,8 @@ public abstract class ChartPopupImageBuilder {
 
     protected void setMouseListener(Node dataNode,ImagePopupWindow popup){
         dataNode.setOnMouseEntered(e->{
-            popup.move(e.getScreenX(),e.getScreenY());
             popup.show();
+            popup.move(e.getScreenX(),e.getScreenY());
         });
 
         dataNode.setOnMouseMoved(e-> popup.move(e.getScreenX(),e.getScreenY()));
