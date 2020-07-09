@@ -61,6 +61,9 @@ public class PosReportController implements Initializable {
     private TableColumn<SaleItem, Integer> totalColumn;
 
     @FXML
+    private Label subTotalLabel;
+
+    @FXML
     private Label totalLabel;
 
     @FXML
@@ -98,6 +101,7 @@ public class PosReportController implements Initializable {
         filterReportItems(saleItemList);
         reportTable.getItems().clear();
         reportTable.getItems().addAll(saleItemList);
+        calculateSubTotal();
         calculateTotal();
     }
 
@@ -139,10 +143,16 @@ public class PosReportController implements Initializable {
 
     }
 
+    private void calculateSubTotal(){
+        int subTotal = reportTable.getItems().stream().mapToInt(SaleItem::getSubTotal).sum();
+        subTotalLabel.setText(StringUtils.formatToMmk(subTotal));
+    }
+
     private void calculateTotal(){
         int total = reportTable.getItems().stream().mapToInt(SaleItem::getTotal).sum();
         totalLabel.setText(StringUtils.formatToMmk(total));
     }
+
     private void setupReportTable(){
         categoryColumn.setCellValueFactory(new PropertyValueFactory<>("categoryName"));
         productColumn.setCellValueFactory(new PropertyValueFactory<>("productName"));
