@@ -40,9 +40,7 @@ public abstract class ChartPopupImageBuilder {
             popup.show();
         });
 
-        dataNode.setOnMouseMoved(e-> {
-            popup.move(e.getScreenX(),e.getScreenY());
-        });
+        dataNode.setOnMouseMoved(e-> popup.move(e.getScreenX(),e.getScreenY()));
 
         dataNode.setOnMouseExited(e-> popup.hide());
     }

@@ -4,8 +4,6 @@ import com.alphasoft.pos.views.customs.ImagePopupWindow;
 import javafx.scene.Node;
 import javafx.scene.chart.XYChart;
 import javafx.scene.image.Image;
-import javafx.stage.Modality;
-import javafx.stage.StageStyle;
 
 import java.util.function.Function;
 
@@ -33,9 +31,6 @@ public class XYChartPopupImageBuilder<X,Y> extends ChartPopupImageBuilder{
                 popup.setMargin(margin);
                 popup.setImage(imageGetter.apply(data.getXValue()));
                 popup.setSize(popupWidth,popupHeight);
-                popup.initOwner(null);
-                popup.initStyle(StageStyle.UNDECORATED);
-                popup.initModality(Modality.NONE);
                 setMouseListener(node,popup);
             }
         }

@@ -4,8 +4,6 @@ import com.alphasoft.pos.views.customs.ImagePopupWindow;
 import javafx.scene.Node;
 import javafx.scene.chart.PieChart;
 import javafx.scene.image.Image;
-import javafx.stage.Modality;
-import javafx.stage.StageStyle;
 
 import java.util.function.Function;
 
@@ -29,10 +27,6 @@ public class PieChartPopupImageBuilder extends ChartPopupImageBuilder{
             popup.setMargin(margin);
             popup.setImage(imageGetter.apply(data.getName()));
             popup.setSize(popupWidth,popupHeight);
-            popup.initOwner(null);
-            popup.initStyle(StageStyle.UNDECORATED);
-            popup.initModality(Modality.NONE);
-
             setMouseListener(node,popup);
         }
     }

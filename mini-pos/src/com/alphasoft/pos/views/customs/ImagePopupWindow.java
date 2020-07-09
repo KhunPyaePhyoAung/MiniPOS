@@ -8,10 +8,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
-public class ImagePopupWindow extends PosWindowStage {
+public class ImagePopupWindow extends Stage {
     private ImagePopupController controller;
     private ChartPopupImageBuilder.Position position;
     private double margin;
@@ -23,6 +25,9 @@ public class ImagePopupWindow extends PosWindowStage {
             controller = fxmlLoader.getController();
             setScene(new Scene(view));
             initModality(Modality.NONE);
+            initOwner(null);
+            initStyle(StageStyle.UNDECORATED);
+            setResizable(false);
         } catch (IOException e) {
             e.printStackTrace();
         }
