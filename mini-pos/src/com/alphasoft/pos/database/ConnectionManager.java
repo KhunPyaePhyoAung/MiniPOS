@@ -8,7 +8,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
-import static com.alphasoft.pos.commons.MessageRepo.getMessage;
+import static com.alphasoft.pos.utils.MessageHelper.getMessage;
 
 public class ConnectionManager {
     private static String DRIVER;

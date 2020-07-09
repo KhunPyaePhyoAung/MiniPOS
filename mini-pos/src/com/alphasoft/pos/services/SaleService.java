@@ -9,7 +9,7 @@ import com.alphasoft.pos.models.SaleItem;
 import java.sql.*;
 import java.util.List;
 
-import static com.alphasoft.pos.database.SqlHelper.getQuery;
+import static com.alphasoft.pos.utils.MySqlHelper.getQuery;
 
 public class SaleService {
     private static SaleService service;

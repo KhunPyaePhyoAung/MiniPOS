@@ -1,10 +1,10 @@
 package com.alphasoft.pos.views.controllers;
 
 import com.alphasoft.pos.commons.AutoCompleteTextField;
-import com.alphasoft.pos.contexts.ProductCategorySorter;
+import com.alphasoft.pos.workers.ProductCategorySorter;
 import com.alphasoft.pos.factories.ProductCategorySorterFactory;
 import com.alphasoft.pos.models.ProductCategory;
-import com.alphasoft.pos.services.ProductCategoryRepository;
+import com.alphasoft.pos.repos.ProductCategoryRepository;
 import com.alphasoft.pos.views.customs.CategoryCard;
 import com.alphasoft.pos.views.customs.PosWindowStage;
 import javafx.fxml.FXML;

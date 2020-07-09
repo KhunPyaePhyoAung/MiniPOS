@@ -1,9 +1,10 @@
 package com.alphasoft.pos.services;
 
 
-import com.alphasoft.pos.contexts.SoldItemSorter;
+import com.alphasoft.pos.workers.SoldItemSorter;
 import com.alphasoft.pos.factories.SoldItemSorterFactory;
 import com.alphasoft.pos.models.SoldItem;
+import com.alphasoft.pos.repos.SoldItemRepository;
 
 import java.time.LocalDate;
 import java.util.List;

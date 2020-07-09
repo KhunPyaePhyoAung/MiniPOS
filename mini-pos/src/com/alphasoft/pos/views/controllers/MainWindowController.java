@@ -1,7 +1,7 @@
 package com.alphasoft.pos.views.controllers;
 
 import com.alphasoft.pos.commons.ViewLoader;
-import com.alphasoft.pos.contexts.Logger;
+import com.alphasoft.pos.workers.Logger;
 import com.alphasoft.pos.views.customs.ConfirmBox;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -21,7 +21,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static com.alphasoft.pos.commons.MessageRepo.getMessage;
+import static com.alphasoft.pos.utils.MessageHelper.getMessage;
 
 public class MainWindowController implements Initializable , ViewLoader {
 

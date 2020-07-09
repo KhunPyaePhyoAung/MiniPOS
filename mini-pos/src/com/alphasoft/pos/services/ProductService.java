@@ -1,6 +1,6 @@
 package com.alphasoft.pos.services;
 
-import com.alphasoft.pos.commons.FileHelper;
+import com.alphasoft.pos.utils.FileHelper;
 import com.alphasoft.pos.database.ConnectionManager;
 import com.alphasoft.pos.contexts.PosException;
 import com.alphasoft.pos.models.Product;
@@ -12,8 +12,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.alphasoft.pos.commons.MessageRepo.getMessage;
-import static com.alphasoft.pos.database.SqlHelper.getQuery;
+import static com.alphasoft.pos.utils.MessageHelper.getMessage;
+import static com.alphasoft.pos.utils.MySqlHelper.getQuery;
 
 public class ProductService {
     private static ProductService service;

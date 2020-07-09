@@ -1,6 +1,6 @@
 package com.alphasoft.pos.views.controllers;
 
-import com.alphasoft.pos.contexts.Logger;
+import com.alphasoft.pos.workers.Logger;
 import com.alphasoft.pos.contexts.PosConnectionException;
 import com.alphasoft.pos.contexts.PosException;
 import com.alphasoft.pos.models.Account;
@@ -17,7 +17,7 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static com.alphasoft.pos.commons.MessageRepo.getMessage;
+import static com.alphasoft.pos.utils.MessageHelper.getMessage;
 
 public class LoginWindowController implements Initializable {
     @FXML

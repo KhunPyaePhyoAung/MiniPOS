@@ -5,7 +5,7 @@ import com.alphasoft.pos.commons.DecimalFormattedCellFactory;
 import com.alphasoft.pos.commons.TimeFormattedCellFactory;
 import com.alphasoft.pos.models.Sale;
 import com.alphasoft.pos.models.SaleDetail;
-import com.alphasoft.pos.services.SaleRepository;
+import com.alphasoft.pos.repos.SaleRepository;
 import com.alphasoft.pos.services.SaleService;
 import com.alphasoft.pos.views.customs.AlertBox;
 import com.alphasoft.pos.views.customs.ConfirmBox;
@@ -24,7 +24,7 @@ import java.util.ResourceBundle;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
-import static com.alphasoft.pos.commons.MessageRepo.getMessage;
+import static com.alphasoft.pos.utils.MessageHelper.getMessage;
 
 public class RecallSaleWindowController implements Initializable {
 

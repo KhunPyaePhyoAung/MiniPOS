@@ -1,6 +1,6 @@
 package com.alphasoft.pos.views.customs;
 
-import com.alphasoft.pos.commons.ChartPopupImageBuilder;
+import com.alphasoft.pos.workers.ChartPopupImageBuilder;
 import com.alphasoft.pos.models.XYPoint;
 import com.alphasoft.pos.views.controllers.ImagePopupController;
 import javafx.fxml.FXMLLoader;

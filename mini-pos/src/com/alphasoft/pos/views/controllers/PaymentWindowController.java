@@ -3,7 +3,7 @@ package com.alphasoft.pos.views.controllers;
 import com.alphasoft.pos.commons.CashSuggester;
 import com.alphasoft.pos.commons.DecimalFormatter;
 import com.alphasoft.pos.commons.NumberInput;
-import com.alphasoft.pos.commons.StringUtils;
+import com.alphasoft.pos.utils.StringUtils;
 import com.alphasoft.pos.models.Payment;
 import com.alphasoft.pos.models.Sale;
 import com.alphasoft.pos.views.customs.ConfirmBox;
@@ -19,7 +19,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
-import static com.alphasoft.pos.commons.MessageRepo.getMessage;
+import static com.alphasoft.pos.utils.MessageHelper.getMessage;
 
 
 public class PaymentWindowController implements Initializable {

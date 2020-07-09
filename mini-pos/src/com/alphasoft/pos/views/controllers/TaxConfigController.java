@@ -6,7 +6,7 @@ import com.alphasoft.pos.commons.PercentFormattedCellFactory;
 import com.alphasoft.pos.commons.Validations;
 import com.alphasoft.pos.contexts.PosException;
 import com.alphasoft.pos.models.TaxInfo;
-import com.alphasoft.pos.services.TaxRepository;
+import com.alphasoft.pos.repos.TaxRepository;
 import com.alphasoft.pos.services.TaxService;
 import com.alphasoft.pos.views.customs.AlertBox;
 import com.alphasoft.pos.views.customs.ConfirmBox;
@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
-import static com.alphasoft.pos.commons.MessageRepo.getMessage;
+import static com.alphasoft.pos.utils.MessageHelper.getMessage;
 
 public class TaxConfigController implements Initializable {
 

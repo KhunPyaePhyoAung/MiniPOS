@@ -1,8 +1,8 @@
 package com.alphasoft.pos.factories;
 
-import com.alphasoft.pos.contexts.AvailableProductFilter;
-import com.alphasoft.pos.contexts.ProductFilter;
-import com.alphasoft.pos.contexts.UnavailableProductFilter;
+import com.alphasoft.pos.workers.AvailableProductFilter;
+import com.alphasoft.pos.workers.ProductFilter;
+import com.alphasoft.pos.workers.UnavailableProductFilter;
 
 public class ProductFilterFactory {
     private static ProductFilterFactory factory;

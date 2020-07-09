@@ -1,6 +1,7 @@
 package com.alphasoft.pos.commons;
 
 import com.alphasoft.pos.contexts.PosException;
+import com.alphasoft.pos.utils.StringUtils;
 
 
 public class Validations {

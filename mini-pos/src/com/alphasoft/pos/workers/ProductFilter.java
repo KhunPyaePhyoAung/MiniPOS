@@ -1,14 +1,14 @@
-package com.alphasoft.pos.contexts;
+package com.alphasoft.pos.workers;
 
 import com.alphasoft.pos.models.Product;
 
 import java.util.List;
 
-public interface ProductSorter {
-    void sort(List<Product> list);
+public interface ProductFilter {
+    void filter(List<Product> productList);
 
     enum Mode{
-        NAME_ASCENDING("Name Ascending"),NAME_DESCENDING("Name Descending"),PRICE_ASCENDING("Price Ascending"),PRICE_DESCENDING("Price Descending");
+        ALL("All"),AVAILABLE("Available"),UNAVAILABLE("Unavailable");
         private final String value;
         Mode(String value){
             this.value = value;

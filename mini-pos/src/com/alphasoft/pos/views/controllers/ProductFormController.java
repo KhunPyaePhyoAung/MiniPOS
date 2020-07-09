@@ -1,14 +1,14 @@
 package com.alphasoft.pos.views.controllers;
 
-import com.alphasoft.pos.commons.FileHelper;
+import com.alphasoft.pos.utils.FileHelper;
 import com.alphasoft.pos.commons.NumberInput;
 import com.alphasoft.pos.commons.Validations;
 import com.alphasoft.pos.contexts.PosException;
-import com.alphasoft.pos.contexts.ProductCategorySorter;
+import com.alphasoft.pos.workers.ProductCategorySorter;
 import com.alphasoft.pos.factories.ProductCategorySorterFactory;
 import com.alphasoft.pos.models.Product;
 import com.alphasoft.pos.models.ProductCategory;
-import com.alphasoft.pos.services.ProductCategoryRepository;
+import com.alphasoft.pos.repos.ProductCategoryRepository;
 import com.alphasoft.pos.services.ProductService;
 import com.alphasoft.pos.views.customs.AlertBox;
 import com.alphasoft.pos.views.customs.ConfirmBox;
@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-import static com.alphasoft.pos.commons.MessageRepo.getMessage;
+import static com.alphasoft.pos.utils.MessageHelper.getMessage;
 
 public class ProductFormController implements Initializable {
     @FXML

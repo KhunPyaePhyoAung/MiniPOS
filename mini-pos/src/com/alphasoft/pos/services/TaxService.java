@@ -2,6 +2,7 @@ package com.alphasoft.pos.services;
 
 import com.alphasoft.pos.database.ConnectionManager;
 import com.alphasoft.pos.models.TaxInfo;
+import com.alphasoft.pos.repos.TaxRepository;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -9,7 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
-import static com.alphasoft.pos.database.SqlHelper.getQuery;
+import static com.alphasoft.pos.utils.MySqlHelper.getQuery;
 
 public class TaxService {
     private static TaxService service;

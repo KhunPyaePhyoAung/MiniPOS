@@ -1,4 +1,4 @@
-package com.alphasoft.pos.contexts;
+package com.alphasoft.pos.workers;
 
 import com.alphasoft.pos.models.SoldItem;
 

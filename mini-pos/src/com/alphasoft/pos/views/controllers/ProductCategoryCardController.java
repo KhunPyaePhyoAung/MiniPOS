@@ -1,8 +1,8 @@
 package com.alphasoft.pos.views.controllers;
 
-import com.alphasoft.pos.commons.FileHelper;
+import com.alphasoft.pos.utils.FileHelper;
 import com.alphasoft.pos.models.ProductCategory;
-import com.alphasoft.pos.services.ProductRepository;
+import com.alphasoft.pos.repos.ProductRepository;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;

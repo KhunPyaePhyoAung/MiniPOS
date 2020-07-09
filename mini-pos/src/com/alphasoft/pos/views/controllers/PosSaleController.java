@@ -3,14 +3,14 @@ package com.alphasoft.pos.views.controllers;
 import com.alphasoft.pos.commons.AutoCompleteTextField;
 import com.alphasoft.pos.commons.DecimalFormattedCellFactory;
 import com.alphasoft.pos.commons.MmkFormatter;
-import com.alphasoft.pos.contexts.Logger;
-import com.alphasoft.pos.contexts.ProductSorter;
+import com.alphasoft.pos.workers.Logger;
+import com.alphasoft.pos.workers.ProductSorter;
 import com.alphasoft.pos.factories.ProductSorterFactory;
 import com.alphasoft.pos.models.*;
-import com.alphasoft.pos.services.ProductCategoryRepository;
-import com.alphasoft.pos.services.ProductRepository;
+import com.alphasoft.pos.repos.ProductCategoryRepository;
+import com.alphasoft.pos.repos.ProductRepository;
 import com.alphasoft.pos.services.SaleService;
-import com.alphasoft.pos.services.TaxRepository;
+import com.alphasoft.pos.repos.TaxRepository;
 import com.alphasoft.pos.views.customs.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -28,7 +28,7 @@ import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
-import static com.alphasoft.pos.commons.MessageRepo.getMessage;
+import static com.alphasoft.pos.utils.MessageHelper.getMessage;
 
 public class PosSaleController implements Initializable {
     @FXML

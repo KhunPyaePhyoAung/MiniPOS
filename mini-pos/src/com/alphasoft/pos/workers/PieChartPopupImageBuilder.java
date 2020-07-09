@@ -1,4 +1,4 @@
-package com.alphasoft.pos.commons;
+package com.alphasoft.pos.workers;
 
 import com.alphasoft.pos.views.customs.ImagePopupWindow;
 import javafx.scene.Node;

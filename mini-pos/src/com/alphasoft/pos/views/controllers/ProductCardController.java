@@ -1,7 +1,7 @@
 package com.alphasoft.pos.views.controllers;
 
-import com.alphasoft.pos.commons.FileHelper;
-import com.alphasoft.pos.commons.StringUtils;
+import com.alphasoft.pos.utils.FileHelper;
+import com.alphasoft.pos.utils.StringUtils;
 import com.alphasoft.pos.models.Product;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

@@ -1,6 +1,6 @@
 package com.alphasoft.pos.views.controllers;
 
-import com.alphasoft.pos.commons.FileHelper;
+import com.alphasoft.pos.utils.FileHelper;
 import com.alphasoft.pos.commons.Validations;
 import com.alphasoft.pos.contexts.PosException;
 import com.alphasoft.pos.models.ProductCategory;
@@ -24,7 +24,7 @@ import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-import static com.alphasoft.pos.commons.MessageRepo.getMessage;
+import static com.alphasoft.pos.utils.MessageHelper.getMessage;
 
 public class ProductCategoryFormController implements Initializable {
     @FXML

@@ -1,6 +1,6 @@
 package com.alphasoft.pos.factories;
 
-import com.alphasoft.pos.contexts.*;
+import com.alphasoft.pos.workers.*;
 
 public class ProductSorterFactory {
     private static ProductSorterFactory factory;

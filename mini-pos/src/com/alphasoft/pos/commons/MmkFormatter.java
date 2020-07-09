@@ -1,5 +1,6 @@
 package com.alphasoft.pos.commons;
 
+import com.alphasoft.pos.utils.StringUtils;
 import javafx.util.StringConverter;
 
 import java.text.DecimalFormat;

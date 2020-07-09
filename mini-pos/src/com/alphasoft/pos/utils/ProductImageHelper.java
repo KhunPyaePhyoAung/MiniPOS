@@ -1,6 +1,6 @@
-package com.alphasoft.pos.services;
+package com.alphasoft.pos.utils;
 
-import com.alphasoft.pos.commons.FileHelper;
+import com.alphasoft.pos.repos.ProductRepository;
 import javafx.scene.image.Image;
 
 

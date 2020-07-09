@@ -1,4 +1,4 @@
-package com.alphasoft.pos.commons;
+package com.alphasoft.pos.workers;
 
 
 public abstract class ChartPopupImageBuilder {

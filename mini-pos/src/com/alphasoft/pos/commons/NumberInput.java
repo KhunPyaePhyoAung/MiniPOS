@@ -1,6 +1,7 @@
 package com.alphasoft.pos.commons;
 
 
+import com.alphasoft.pos.utils.StringUtils;
 import javafx.application.Platform;
 import javafx.scene.control.TextField;
 

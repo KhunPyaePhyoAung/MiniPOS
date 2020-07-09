@@ -2,11 +2,17 @@ package com.alphasoft.pos.views.controllers;
 
 
 import com.alphasoft.pos.commons.*;
-import com.alphasoft.pos.contexts.SoldItemSorter;
+import com.alphasoft.pos.workers.SoldItemSorter;
 import com.alphasoft.pos.models.SoldItem;
 import com.alphasoft.pos.models.Summary;
+import com.alphasoft.pos.repos.TaxRepository;
 import com.alphasoft.pos.services.*;
+import com.alphasoft.pos.utils.ProductImageHelper;
+import com.alphasoft.pos.utils.StringUtils;
 import com.alphasoft.pos.views.customs.TaxConfigWindow;
+import com.alphasoft.pos.workers.ChartPopupImageBuilder;
+import com.alphasoft.pos.workers.PieChartPopupImageBuilder;
+import com.alphasoft.pos.workers.XYChartPopupImageBuilder;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
@@ -110,7 +116,7 @@ public class PosHomeController implements Initializable {
         barChartSeries.getData().addAll(barChartDataList);
         bestSellerBarChart.getData().addAll(barChartSeries);
 
-        PieChartPopupImageBuilder pieChartPopupImageBuilder = new PieChartPopupImageBuilder(bestSellerPieChart,ProductImageHelper.getInstance()::getImage);
+        PieChartPopupImageBuilder pieChartPopupImageBuilder = new PieChartPopupImageBuilder(bestSellerPieChart, ProductImageHelper.getInstance()::getImage);
         pieChartPopupImageBuilder.setPosition(ChartPopupImageBuilder.Position.NORTH);
         pieChartPopupImageBuilder.setMargin(10);
         pieChartPopupImageBuilder.setPopupSize(100,100);

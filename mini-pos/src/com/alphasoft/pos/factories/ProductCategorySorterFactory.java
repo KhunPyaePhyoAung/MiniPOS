@@ -1,8 +1,8 @@
 package com.alphasoft.pos.factories;
 
-import com.alphasoft.pos.contexts.ProductCategoryNameAscendingSorter;
-import com.alphasoft.pos.contexts.ProductCategoryNameDescendingSorter;
-import com.alphasoft.pos.contexts.ProductCategorySorter;
+import com.alphasoft.pos.workers.ProductCategoryNameAscendingSorter;
+import com.alphasoft.pos.workers.ProductCategoryNameDescendingSorter;
+import com.alphasoft.pos.workers.ProductCategorySorter;
 
 public class ProductCategorySorterFactory {
     private static ProductCategorySorterFactory factory;

@@ -1,4 +1,4 @@
-package com.alphasoft.pos.services;
+package com.alphasoft.pos.repos;
 
 import com.alphasoft.pos.database.ConnectionManager;
 import com.alphasoft.pos.models.SoldItem;
@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.alphasoft.pos.database.SqlHelper.getQuery;
+import static com.alphasoft.pos.utils.MySqlHelper.getQuery;
 
 public class SoldItemRepository {
 

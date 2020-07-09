@@ -10,8 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import static com.alphasoft.pos.commons.MessageRepo.getMessage;
-import static com.alphasoft.pos.database.SqlHelper.getQuery;
+import static com.alphasoft.pos.utils.MessageHelper.getMessage;
+import static com.alphasoft.pos.utils.MySqlHelper.getQuery;
 
 public class AccountService {
 

@@ -1,8 +1,8 @@
 package com.alphasoft.pos.factories;
 
-import com.alphasoft.pos.contexts.SoldAmountSorter;
-import com.alphasoft.pos.contexts.SoldItemSorter;
-import com.alphasoft.pos.contexts.SoldQuantitySorter;
+import com.alphasoft.pos.workers.SoldAmountSorter;
+import com.alphasoft.pos.workers.SoldItemSorter;
+import com.alphasoft.pos.workers.SoldQuantitySorter;
 
 
 public class SoldItemSorterFactory {

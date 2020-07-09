@@ -1,13 +1,14 @@
 package com.alphasoft.pos.views.controllers;
 
 import com.alphasoft.pos.commons.*;
-import com.alphasoft.pos.contexts.Logger;
+import com.alphasoft.pos.workers.Logger;
 import com.alphasoft.pos.models.Payment;
 import com.alphasoft.pos.models.Sale;
 import com.alphasoft.pos.models.SaleDetail;
 import com.alphasoft.pos.models.SaleItem;
-import com.alphasoft.pos.services.SaleRepository;
+import com.alphasoft.pos.repos.SaleRepository;
 import com.alphasoft.pos.services.SaleService;
+import com.alphasoft.pos.utils.StringUtils;
 import com.alphasoft.pos.views.customs.ConfirmBox;
 import com.alphasoft.pos.views.customs.PaymentWindow;
 import javafx.fxml.FXML;
@@ -26,7 +27,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
-import static com.alphasoft.pos.commons.MessageRepo.getMessage;
+import static com.alphasoft.pos.utils.MessageHelper.getMessage;
 
 public class PosSaleHistoryController implements Initializable {
 
