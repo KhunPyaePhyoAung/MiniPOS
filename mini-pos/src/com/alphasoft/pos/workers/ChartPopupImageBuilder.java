@@ -16,22 +16,25 @@ public abstract class ChartPopupImageBuilder {
     private static final double MIN_POPUP_HEIGHT = 50;
     private static final Position DEFAULT_POSITION = Position.NORTH;
 
-    protected abstract void build();
+    public abstract void build();
 
-    public void setPosition(Position position){
+    public ChartPopupImageBuilder setPosition(Position position){
         this.position = null==position? DEFAULT_POSITION : position;
+        return this;
     }
 
 
-    public void setMargin(double margin){
+    public ChartPopupImageBuilder setMargin(double margin){
         margin = Math.abs(margin);
         this.margin = Math.max(margin, MIN_MARGIN);
+        return this;
     }
 
 
-    public void setPopupSize(double width,double height){
+    public ChartPopupImageBuilder setPopupSize(double width,double height){
         this.popupWidth = Math.max(width, MIN_POPUP_WIDTH);
         this.popupHeight = Math.max(height, MIN_POPUP_HEIGHT);
+        return this;
     }
 
     protected void setMouseListener(Node dataNode,ImagePopupWindow popup){
