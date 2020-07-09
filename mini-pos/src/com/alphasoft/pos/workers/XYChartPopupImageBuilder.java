@@ -36,15 +36,7 @@ public class XYChartPopupImageBuilder<X,Y> extends ChartPopupImageBuilder{
                 popup.initOwner(null);
                 popup.initStyle(StageStyle.UNDECORATED);
                 popup.initModality(Modality.NONE);
-
-                node.setOnMouseEntered(e->{
-                    popup.move(e.getScreenX(),e.getScreenY());
-                    popup.show();
-                });
-
-                node.setOnMouseMoved(e-> popup.move(e.getScreenX(),e.getScreenY()));
-
-                node.setOnMouseExited(e-> popup.hide());
+                setMouseListener(node,popup);
             }
         }
     }

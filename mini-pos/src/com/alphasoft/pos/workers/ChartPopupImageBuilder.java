@@ -1,6 +1,9 @@
 package com.alphasoft.pos.workers;
 
 
+import com.alphasoft.pos.views.customs.ImagePopupWindow;
+import javafx.scene.Node;
+
 public abstract class ChartPopupImageBuilder {
 
     protected Position position = Position.NORTH;
@@ -29,6 +32,19 @@ public abstract class ChartPopupImageBuilder {
     public void setPopupSize(double width,double height){
         this.popupWidth = Math.max(width, MIN_POPUP_WIDTH);
         this.popupHeight = Math.max(height, MIN_POPUP_HEIGHT);
+    }
+
+    protected void setMouseListener(Node dataNode,ImagePopupWindow popup){
+        dataNode.setOnMouseEntered(e->{
+            popup.move(e.getScreenX(),e.getScreenY());
+            popup.show();
+        });
+
+        dataNode.setOnMouseMoved(e-> {
+            popup.move(e.getScreenX(),e.getScreenY());
+        });
+
+        dataNode.setOnMouseExited(e-> popup.hide());
     }
 
 
