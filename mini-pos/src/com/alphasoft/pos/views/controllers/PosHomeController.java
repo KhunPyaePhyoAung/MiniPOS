@@ -42,6 +42,9 @@ public class PosHomeController implements Initializable {
     private BarChart<String, Integer> bestSellerBarChart;
 
     @FXML
+    private Label bestSellerTitle;
+
+    @FXML
     private Label salesForTodayLabel;
 
     @FXML
@@ -91,8 +94,11 @@ public class PosHomeController implements Initializable {
         bestSellerPieChart.getData().clear();
         bestSellerBarChart.getData().clear();
 
-        DateInterval dateInterval = new DateInterval(periodSelector.getValue());
-        List<SoldItem> soldItemList = BestSellerService.getService().getItemList(dateInterval.getStartDate(),dateInterval.getEndDate(),soldItemSortModeSelector.getValue());
+        TimePeriod period = periodSelector.getValue();
+        DateInterval dateInterval = new DateInterval(period);
+        SoldItemSorter.Mode sortMode = soldItemSortModeSelector.getValue();
+        bestSellerTitle.setText(String.format("Top %d Best Seller%s (%s) Of %s",BestSellerService.MAX_ITEM,BestSellerService.MAX_ITEM>1?"s":"",sortMode.toString(),period.toString()));
+        List<SoldItem> soldItemList = BestSellerService.getService().getItemList(dateInterval.getStartDate(),dateInterval.getEndDate(),sortMode);
 
          List<PieChart.Data> pieChartDataList = new ArrayList<>();
          List<XYChart.Data<String,Integer>> barChartDataList = new ArrayList<>();
