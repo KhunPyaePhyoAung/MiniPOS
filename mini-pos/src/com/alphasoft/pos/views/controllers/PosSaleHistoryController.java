@@ -106,6 +106,7 @@ public class PosSaleHistoryController implements Initializable {
     @FXML
     private Button saleButton;
 
+    private NumberField saleIdNumberField;
 
 
     @FXML
@@ -150,7 +151,9 @@ public class PosSaleHistoryController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        NumberInput.getNew().attach(saleIdInput);
+        saleIdNumberField = new NumberField(saleIdInput);
+        saleIdNumberField.setMinValue(0);
+
         saleIdInput.textProperty().addListener((l,o,n)->loadSales());
         cashierInput.textProperty().addListener((l,o,n)->loadSales());
         fromDatePicker.setValue(LocalDate.now().withDayOfMonth(1));
@@ -178,7 +181,7 @@ public class PosSaleHistoryController implements Initializable {
     }
 
     private void filterSales(List<SaleDetail> saleDetailList){
-        if(!StringUtils.isEmpty(saleIdInput.getText().trim())){
+        if(!saleIdNumberField.isEmpty()){
             saleDetailList.retainAll(saleDetailList.stream().filter(i->String.valueOf(i.getId()).contains(saleIdInput.getText().trim())).collect(Collectors.toList()));
         }
         if(!StringUtils.isEmpty(cashierInput.getText().trim())){

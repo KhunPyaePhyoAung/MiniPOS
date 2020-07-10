@@ -1,9 +1,6 @@
 package com.alphasoft.pos.views.controllers;
 
-import com.alphasoft.pos.commons.DateFormattedCellFactory;
-import com.alphasoft.pos.commons.NumberInput;
-import com.alphasoft.pos.commons.PercentFormattedCellFactory;
-import com.alphasoft.pos.commons.Validations;
+import com.alphasoft.pos.commons.*;
 import com.alphasoft.pos.contexts.PosException;
 import com.alphasoft.pos.models.TaxInfo;
 import com.alphasoft.pos.repos.TaxRepository;
@@ -95,7 +92,10 @@ public class TaxConfigController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        NumberInput.getNew().attach(taxRateInput,0);
+        NumberField taxRateNumberField = new NumberField(taxRateInput);
+        taxRateNumberField.setMinMaxValues(0,100);
+        taxRateNumberField.setDefaultValue(0);
+
         taxRateInput.textProperty().addListener((l,o,n)->{
             final int MAX_TAX_RATE = 100;
             int value = Math.abs(Integer.parseInt(n));

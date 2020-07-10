@@ -4,6 +4,8 @@ import com.alphasoft.pos.utils.StringUtils;
 import javafx.application.Platform;
 import javafx.scene.control.TextField;
 
+import java.util.Objects;
+
 public class NumberField {
 
     private final TextField numberField;
@@ -27,6 +29,11 @@ public class NumberField {
         }
     }
 
+    public void setMinMaxValues(Integer minValue,Integer maxValue){
+        setMinValue(minValue);
+        setMaxValue(maxValue);
+    }
+
     public void setMinValue(Integer minValue){
         this.minValue = null==minValue? Integer.MIN_VALUE:minValue;
         if(null==getValue() || null==minValue) return;
@@ -45,6 +52,7 @@ public class NumberField {
 
     public void setValue(Integer value){
         numberField.setText(null==value? null:String.valueOf(value));
+        numberField.positionCaret(numberField.getText().length());
     }
 
     public Integer getValue(){
@@ -58,18 +66,38 @@ public class NumberField {
             try{
                 if(!StringUtils.isEmpty(n)){
                     int value = Integer.parseInt(n);
-                    if(value<minValue) throw new Exception("Less than minimum value");
-                    if(value>maxValue) throw new Exception("Greater than maximum value");
-                    Platform.runLater(()->{
-                        setValue(value);
-                        numberField.positionCaret(numberField.getText().length());
-                    });
+                    if(value<minValue) throw new Exception("Value is less than minimum value");
+                    if(value>maxValue) throw new Exception("Value is greater than maximum value");
+                    Platform.runLater(()-> setValue(value));
                 }else {
                     numberField.setText(null==defaultValue? null:String.valueOf(defaultValue));
                 }
             }catch (Exception e){
                 numberField.setText(o);
             }
+
         });
     }
+
+    public boolean isEmpty(){
+        return null==getValue();
+    }
+
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(numberField, defaultValue, minValue, maxValue);
+    }
+
+    public boolean isEqualsTo(Integer value){
+        if((null==getValue() & null!=value) | null!=getValue() & null==value){
+            return false;
+        }else if(null==getValue() & null==value) {
+            return true;
+        }else{
+            return Objects.equals(getValue(), value);
+        }
+    }
+
+
 }
