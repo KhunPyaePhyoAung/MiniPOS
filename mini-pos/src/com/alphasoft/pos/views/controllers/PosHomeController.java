@@ -27,6 +27,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class PosHomeController implements Initializable {
     @FXML
@@ -55,6 +56,8 @@ public class PosHomeController implements Initializable {
 
     @FXML
     private Label taxRateLabel;
+
+    private int MAX_ITEM = 5;
 
     @FXML
     public void editTaxConfig(){
@@ -97,13 +100,13 @@ public class PosHomeController implements Initializable {
         TimePeriod period = periodSelector.getValue();
         DateInterval dateInterval = new DateInterval(period);
         SoldItemSorter.Mode sortMode = soldItemSortModeSelector.getValue();
-        bestSellerTitle.setText(String.format("Top %d Best Seller%s (%s) Of %s",BestSellerService.MAX_ITEM,BestSellerService.MAX_ITEM>1?"s":"",sortMode.toString(),period.toString()));
-        List<SoldItem> soldItemList = BestSellerService.getService().getItemList(dateInterval.getStartDate(),dateInterval.getEndDate(),sortMode);
+        bestSellerTitle.setText(String.format("Top %d Best Seller%s (%s) Of %s",MAX_ITEM,MAX_ITEM>1?"s":"",sortMode.toString(),period.toString()));
+        List<SoldItem> soldItemList = BestSellerService.getService().getItemList(dateInterval.getStartDate(),dateInterval.getEndDate(),sortMode).stream().limit(MAX_ITEM).collect(Collectors.toList());
 
          List<PieChart.Data> pieChartDataList = new ArrayList<>();
          List<XYChart.Data<String,Integer>> barChartDataList = new ArrayList<>();
 
-         soldItemList.stream().limit(BestSellerService.MAX_ITEM).forEach(i->{
+         soldItemList.forEach(i->{
              switch (soldItemSortModeSelector.getValue()){
                  case AMOUNT:
                      pieChartDataList.add(new PieChart.Data(i.getProductName(),i.getSoldAmount()));

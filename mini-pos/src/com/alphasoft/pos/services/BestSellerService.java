@@ -8,17 +8,15 @@ import com.alphasoft.pos.repos.SoldItemRepository;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class BestSellerService {
     private static BestSellerService service;
-    public static final int MAX_ITEM = 5;
 
     private BestSellerService(){}
 
     public List<SoldItem> getItemList(LocalDate startDate,LocalDate endDate,SoldItemSorter.Mode sortMode){
         List<SoldItem> soldItemList =  SoldItemRepository.getRepository().getItems(startDate,endDate);
-        return SoldItemSorterFactory.getFactory().getSorter(sortMode).sort(soldItemList).stream().limit(MAX_ITEM).collect(Collectors.toList());
+        return SoldItemSorterFactory.getFactory().getSorter(sortMode).sort(soldItemList);
 
     }
 
