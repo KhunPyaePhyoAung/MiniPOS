@@ -1,4 +1,4 @@
-# MiniPOS (Mini Point of Sale System for a store of shop)
+# MiniPOS (Mini Point of Sale System for a store or shop)
 Technologies
 	-Java SE
 	-JavaFX
