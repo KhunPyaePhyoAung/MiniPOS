@@ -1,7 +1,7 @@
 package com.alphasoft.pos.views.controllers;
 
+import com.alphasoft.pos.commons.NumberField;
 import com.alphasoft.pos.utils.FileHelper;
-import com.alphasoft.pos.commons.NumberInput;
 import com.alphasoft.pos.commons.Validations;
 import com.alphasoft.pos.contexts.PosException;
 import com.alphasoft.pos.workers.ProductCategorySorter;
@@ -57,12 +57,13 @@ public class ProductFormController implements Initializable {
     private Button addButton,updateButton,deleteButton;
 
     private File imageFile;
+    private NumberField priceNumberField;
 
     public void setProduct(Product product){
         this.product = product;
         imageView.setImage(new Image(Objects.requireNonNull(FileHelper.blobToInputStream(product.getImageBlob()))));
         nameInput.setText(product.getName());
-        priceInput.setText(String.valueOf(product.getPrice()));
+        priceNumberField.setValue(product.getPrice());
         availability.setSelected(product.isAvailable());
         categorySelector.getSelectionModel().select(ProductCategoryRepository.getRepository().getCategory(product.getCategoryId()));
 
@@ -92,7 +93,9 @@ public class ProductFormController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        NumberInput.getNew().attach(priceInput);
+        priceNumberField = new NumberField(priceInput);
+        priceNumberField.setMinValue(0);
+
         List<ProductCategory> productCategoryList = ProductCategoryRepository.getRepository().getAllProductCategories();
         ProductCategorySorterFactory.getFactory().getSorter(ProductCategorySorter.Mode.NAME_ASCENDING).sort(productCategoryList);
         categorySelector.getItems().addAll(productCategoryList);
@@ -139,7 +142,7 @@ public class ProductFormController implements Initializable {
     private void onUpdate(){
         try{
             Validations.notEmptyString(nameInput.getText().trim(),getMessage("product.enter.name"));
-            Validations.notEmptyString(priceInput.getText().trim(),getMessage("product.enter.price"));
+            Validations.notNull(priceNumberField.getValue(),getMessage("product.enter.price"));
             Validations.notNull(categorySelector.getSelectionModel().getSelectedItem(),getMessage("select.category"));
             if(null==imageView.getImage()) Validations.notNull(imageFile,getMessage("select.image"));
             updateProduct();
@@ -186,7 +189,7 @@ public class ProductFormController implements Initializable {
     private void addProduct(){
         Product newProduct = new Product();
         newProduct.setName(nameInput.getText().trim());
-        newProduct.setPrice(Integer.parseInt(priceInput.getText().trim()));
+        newProduct.setPrice(priceNumberField.getValue());
         newProduct.setAvailable(availability.isSelected());
         newProduct.setCategoryId(categorySelector.getSelectionModel().getSelectedItem().getId());
         newProduct.setCategoryName(categorySelector.getSelectionModel().getSelectedItem().getName());
@@ -199,7 +202,7 @@ public class ProductFormController implements Initializable {
         editedProduct.setId(product.getId());
         editedProduct.setName(nameInput.getText().trim());
         editedProduct.setCategoryId(getSelectedCategory().getId());
-        editedProduct.setPrice(Integer.parseInt(priceInput.getText().trim()));
+        editedProduct.setPrice(priceNumberField.getValue());
         editedProduct.setAvailable(availability.isSelected());
         if(null!=imageFile) editedProduct.setImageFile(imageFile);
         ProductService.getService().checkAndUpdate(editedProduct);
@@ -210,7 +213,7 @@ public class ProductFormController implements Initializable {
     }
 
     private void toggleUpdateButton(){
-        updateButton.setDisable(imageFile==null && nameInput.getText().trim().contentEquals(product.getName()) && priceInput.getText().trim().contentEquals(String.valueOf(product.getPrice())) && availability.isSelected()==product.isAvailable() && getSelectedCategory().getId()==product.getCategoryId());
+        updateButton.setDisable(imageFile==null && nameInput.getText().trim().contentEquals(product.getName()) && priceNumberField.valueEquals(product.getPrice()) && availability.isSelected()==product.isAvailable() && getSelectedCategory().getId()==product.getCategoryId());
     }
 
     private void showAlert(String title,String message){

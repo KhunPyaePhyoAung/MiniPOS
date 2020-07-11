@@ -2,7 +2,7 @@ package com.alphasoft.pos.views.controllers;
 
 import com.alphasoft.pos.commons.CashSuggester;
 import com.alphasoft.pos.commons.DecimalFormatter;
-import com.alphasoft.pos.commons.NumberInput;
+import com.alphasoft.pos.commons.NumberField;
 import com.alphasoft.pos.utils.StringUtils;
 import com.alphasoft.pos.models.Payment;
 import com.alphasoft.pos.models.Sale;
@@ -51,6 +51,9 @@ public class PaymentWindowController implements Initializable {
     private Sale sale;
     private Consumer<Sale> onSave;
     private Payment payment;
+    private NumberField discountCashNumberField;
+    private NumberField discountPercentNumberField;
+    private NumberField tenderedNumberField;
 
 
     public void setSale(Sale sale){
@@ -66,47 +69,49 @@ public class PaymentWindowController implements Initializable {
 
         payment = new Payment();
 
-        NumberInput.getNew().attach(discountCashInput,0);
-        NumberInput.getNew().attach(discountPercentInput,0);
-        NumberInput.getNew().attach(tenderedInput,0);
+        discountCashNumberField = new NumberField(discountCashInput);
+        discountCashNumberField.setDefaultValue(0);
+        discountCashNumberField.setMinValue(0);
+
+        discountPercentNumberField = new NumberField(discountPercentInput);
+        discountPercentNumberField.setDefaultValue(0);
+        discountPercentNumberField.setMinMaxValues(0,100);
+
+        tenderedNumberField = new NumberField(tenderedInput);
+        tenderedNumberField.setDefaultValue(0);
+        tenderedNumberField.setMinValue(0);
 
         discountCashInput.textProperty().addListener((l,o,n)-> {
             if(isValidDiscountAmount()){
                 Platform.runLater(()->{
-                    discountCashInput.setText(stringAbsOf(n));
+                    discountCashNumberField.setValue(Integer.parseInt(n));
+                    payment.discountCashProperty().set(discountCashNumberField.getValue());
                     setPositionCaret(discountCashInput);
-                    payment.discountCashProperty().set(Integer.parseInt(discountCashInput.getText()));
                 });
             }else {
-                Platform.runLater(()->{
-                    discountCashInput.setText(stringAbsOf(o));
-                    setPositionCaret(discountCashInput);
-                });
+                Platform.runLater(()-> discountCashNumberField.setValue(Integer.parseInt(o)));
             }
-
         });
+
         discountPercentInput.textProperty().addListener((l,o,n)-> {
             if(isValidDiscountAmount()){
                 Platform.runLater(()->{
-                    discountPercentInput.setText(stringAbsOf(n));
+                    discountPercentNumberField.setValue(Integer.parseInt(n));
+                    payment.discountPercentProperty().set(discountPercentNumberField.getValue());
                     setPositionCaret(discountPercentInput);
-                    payment.discountPercentProperty().set(Integer.parseInt(discountPercentInput.getText()));
                 });
-
             }else {
-                Platform.runLater(()->{
-                    discountPercentInput.setText(stringAbsOf(o));
-                    setPositionCaret(discountPercentInput);
-                });
+                Platform.runLater(()-> discountPercentNumberField.setValue(Integer.parseInt(o)));
             }
-
         });
-        tenderedInput.textProperty().addListener((l,o,n)-> Platform.runLater(()->{
-            tenderedInput.setText(String.valueOf(Math.abs(Integer.parseInt(n))));
+
+        tenderedInput.textProperty().addListener((l,o,n)->{
+            payment.tenderedProperty().set(tenderedNumberField.getValue());
             setPositionCaret(tenderedInput);
-            payment.tenderedProperty().set(Integer.parseInt(tenderedInput.getText()));
-        }));
+        });
+
         dueInput.textProperty().addListener((l,o,n)->refreshCashSuggestion());
+
         changeInput.textProperty().addListener((l,o,n)->{
             int value = payment.changeProperty().get();
             String style;
@@ -122,9 +127,9 @@ public class PaymentWindowController implements Initializable {
             setPayment();
 
             totalAmountLabel.setText(StringUtils.formatToMmk(payment.totalProperty().get()));
-            discountCashInput.setText(String.valueOf(payment.discountCashProperty().get()));
-            discountPercentInput.setText(String.valueOf(payment.discountPercentProperty().get()));
-            tenderedInput.setText(String.valueOf(payment.tenderedProperty().get()));
+            discountCashNumberField.setValue(payment.discountCashProperty().get());
+            discountPercentNumberField.setValue(payment.discountPercentProperty().get());
+            tenderedNumberField.setValue(payment.tenderedProperty().get());
 
             totalDiscountInput.textProperty().bindBidirectional(payment.totalDiscountProperty(),new DecimalFormatter());
             dueInput.textProperty().bindBidirectional(payment.dueProperty(),new DecimalFormatter());
@@ -142,7 +147,7 @@ public class PaymentWindowController implements Initializable {
     @FXML
     public void save() {
 
-        if(payment.dueProperty().get()>0 && payment.tenderedProperty().get()==0){
+        if(!isPaid()){
             ConfirmBox confirmBox = new ConfirmBox(MainWindowController.mainStage);
             confirmBox.setTitle(getMessage("confirmation"));
             confirmBox.setContentText(getMessage("tenderedAmount.haven't.entered").concat("\n").concat(getMessage("alert.proceeding")));
@@ -179,14 +184,6 @@ public class PaymentWindowController implements Initializable {
         return totalDiscount<=payment.totalProperty().get() && percentDiscountAmount>=0 && cashDiscountAmount>=0;
     }
 
-    private String stringAbsOf(String numString){
-        try {
-            return String.valueOf(Math.abs(Integer.parseInt(numString)));
-        }catch (Exception e){
-            return null;
-        }
-
-    }
 
     private void setPositionCaret(TextField textField){
         textField.positionCaret(textField.getText().length());
@@ -195,7 +192,7 @@ public class PaymentWindowController implements Initializable {
     private void refreshCashSuggestion(){
         cashSuggestionFlowPane.getChildren().clear();
 
-        Consumer<Integer> executor = i-> tenderedInput.setText(String.valueOf(i));
+        Consumer<Integer> executor = i-> tenderedNumberField.setValue(i);
 
         Button exactButton = new Button("Exact");
         exactButton.getStyleClass().add("blue-button");
@@ -213,6 +210,10 @@ public class PaymentWindowController implements Initializable {
             count++;
             if(count>=MAX_COUNT) break;
         }
+    }
+
+    private boolean isPaid(){
+        return payment.dueProperty().get()>0 && payment.tenderedProperty().get()>=0;
     }
 
 }
