@@ -4,7 +4,6 @@ import com.alphasoft.pos.utils.StringUtils;
 import javafx.application.Platform;
 import javafx.scene.control.TextField;
 
-import java.util.Objects;
 
 public class NumberField {
 
@@ -84,18 +83,13 @@ public class NumberField {
     }
 
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(numberField, defaultValue, minValue, maxValue);
-    }
-
-    public boolean isEqualsTo(Integer value){
-        if((null==getValue() & null!=value) | null!=getValue() & null==value){
-            return false;
-        }else if(null==getValue() & null==value) {
+    public boolean valueEquals(Integer value){
+        if(null==getValue() && null==value){
             return true;
+        }else if(null==getValue() || null==value){
+            return false;
         }else{
-            return Objects.equals(getValue(), value);
+            return getValue().equals(value);
         }
     }
 

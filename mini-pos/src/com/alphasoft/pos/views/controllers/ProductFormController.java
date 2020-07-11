@@ -213,7 +213,7 @@ public class ProductFormController implements Initializable {
     }
 
     private void toggleUpdateButton(){
-        updateButton.setDisable(imageFile==null && nameInput.getText().trim().contentEquals(product.getName()) && priceNumberField.isEqualsTo(product.getPrice()) && availability.isSelected()==product.isAvailable() && getSelectedCategory().getId()==product.getCategoryId());
+        updateButton.setDisable(imageFile==null && nameInput.getText().trim().contentEquals(product.getName()) && priceNumberField.valueEquals(product.getPrice()) && availability.isSelected()==product.isAvailable() && getSelectedCategory().getId()==product.getCategoryId());
     }
 
     private void showAlert(String title,String message){
