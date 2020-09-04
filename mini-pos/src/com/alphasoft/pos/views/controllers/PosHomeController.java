@@ -125,17 +125,17 @@ public class PosHomeController implements Initializable {
         barChartSeries.getData().addAll(barChartDataList);
         bestSellerBarChart.getData().addAll(barChartSeries);
 
-        PieChartPopupImageBuilder pieChartPopupImageBuilder = new PieChartPopupImageBuilder(bestSellerPieChart, ProductImageHelper.getInstance()::getImage);
-        pieChartPopupImageBuilder.setPosition(ChartPopupImageBuilder.Position.NORTH)
-        .setMargin(10)
-        .setPopupSize(100,100)
-        .build();
-
-        XYChartPopupImageBuilder<String,Integer> barChartImageSetter = new XYChartPopupImageBuilder<>(bestSellerBarChart, ProductImageHelper.getInstance()::getImage);
-        barChartImageSetter.setPosition(ChartPopupImageBuilder.Position.NORTH)
-        .setMargin(10)
-        .setPopupSize(100,100)
-        .build();
+//        PieChartPopupImageBuilder pieChartPopupImageBuilder = new PieChartPopupImageBuilder(bestSellerPieChart, ProductImageHelper.getInstance()::getImage);
+//        pieChartPopupImageBuilder.setPosition(ChartPopupImageBuilder.Position.NORTH)
+//        .setMargin(10)
+//        .setPopupSize(100,100)
+//        .build();
+//
+//        XYChartPopupImageBuilder<String,Integer> barChartImageSetter = new XYChartPopupImageBuilder<>(bestSellerBarChart, ProductImageHelper.getInstance()::getImage);
+//        barChartImageSetter.setPosition(ChartPopupImageBuilder.Position.NORTH)
+//        .setMargin(10)
+//        .setPopupSize(100,100)
+//        .build();
 
 
     }
