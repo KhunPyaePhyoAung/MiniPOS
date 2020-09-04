@@ -14,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -148,7 +149,7 @@ public class PaymentWindowController implements Initializable {
     public void save() {
 
         if(!isPaid()){
-            ConfirmBox confirmBox = new ConfirmBox(MainWindowController.mainStage);
+            ConfirmBox confirmBox = new ConfirmBox(getStage());
             confirmBox.setTitle(getMessage("confirmation"));
             confirmBox.setContentText(getMessage("tenderedAmount.haven't.entered").concat("\n").concat(getMessage("alert.proceeding")));
             confirmBox.setOnConfirmed(e-> onSave());
@@ -216,5 +217,10 @@ public class PaymentWindowController implements Initializable {
         System.out.println(payment.dueProperty().get()+"\t"+payment.tenderedProperty().get());
         return payment.dueProperty().get()>0 && payment.tenderedProperty().get()>0;
     }
+
+    private Stage getStage(){
+        return (Stage)tenderedInput.getScene().getWindow();
+    }
+
 
 }
