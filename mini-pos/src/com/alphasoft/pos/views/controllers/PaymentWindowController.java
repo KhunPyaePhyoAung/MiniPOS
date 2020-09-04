@@ -214,7 +214,6 @@ public class PaymentWindowController implements Initializable {
     }
 
     private boolean isPaid(){
-        System.out.println(payment.dueProperty().get()+"\t"+payment.tenderedProperty().get());
         return payment.dueProperty().get()>0 && payment.tenderedProperty().get()>0;
     }
 
